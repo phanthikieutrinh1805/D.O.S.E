@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Education Disability</title>
+    <link rel="stylesheet" href="css/education-disability.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
+    <header class="site-header" aria-label="Đầu trang">
+      <div class="container nav-wrap">
+        <a class="brand" href="../index.html">D.O.S.E</a>
+        <nav aria-label="Điều hướng chính">
+          <ul class="nav-list">
+            <li><a href="access.html">Tiếp cận</a></li>
+            <li><a aria-current="page" href="education.html">Giáo dục</a></li>
+            <li><a href="opportunity.html">Cơ hội</a></li>
+            <li><a href="humanity.html">Nhân văn</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="section" tabindex="-1">
+      <div class="container">
+        <section class="hero-shell" aria-labelledby="journey-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Không gian A</p>
+            <h1 id="journey-title">Chúng tôi sẽ cá nhân hóa không gian thông tin cho bạn</h1>
+            <p>
+              Hãy chọn dạng khuyết tật gần nhất với nhu cầu của bạn. Sau bước này, hệ thống sẽ
+              chuyển bạn tới một không gian phù hợp hơn về bố cục, nội dung và hỗ trợ ưu tiên.
+            </p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="orb orb-a"></div>
+            <div class="orb orb-b"></div>
+            <div class="screen-card">
+              <div class="screen-line wide"></div>
+              <div class="screen-line"></div>
+              <div class="screen-line short"></div>
+              <div class="screen-chip"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="question-shell" aria-labelledby="question-title">
+          <div class="question-head">
+            <p class="step">Bước 1</p>
+            <h2 id="question-title">Bạn là loại khuyết tật gì?</h2>
+            <p>Chọn một phương án để đi tiếp vào giao diện được thiết kế riêng cho nhu cầu của bạn.</p>
+          </div>
+
+          <form id="disabilityForm" class="chooser-form">
+            <fieldset class="chooser-grid">
+              <legend class="sr-only">Chọn loại khuyết tật</legend>
+
+              <label class="choice-card">
+                <input type="radio" name="disabilityType" value="vision" />
+                <span class="choice-icon" aria-hidden="true">A</span>
+                <span class="choice-title">Khiếm thị / thị giác</span>
+                <span class="choice-desc">Ưu tiên đọc màn hình, cấu trúc rõ, tương phản và mô tả ảnh.</span>
+              </label>
+
+              <label class="choice-card">
+                <input type="radio" name="disabilityType" value="hearing" />
+                <span class="choice-icon" aria-hidden="true">CC</span>
+                <span class="choice-title">Khiếm thính / thính giác</span>
+                <span class="choice-desc">Ưu tiên phụ đề, bản chép lời và thông tin trực quan dễ theo dõi.</span>
+              </label>
+
+              <label class="choice-card">
+                <input type="radio" name="disabilityType" value="mobility" />
+                <span class="choice-icon" aria-hidden="true">+</span>
+                <span class="choice-title">Khó khăn vận động</span>
+                <span class="choice-desc">Ưu tiên thao tác ít bước, vùng bấm lớn và điều hướng bàn phím.</span>
+              </label>
+
+              <label class="choice-card">
+                <input type="radio" name="disabilityType" value="cognitive" />
+                <span class="choice-icon" aria-hidden="true">IQ</span>
+                <span class="choice-title">Khó khăn nhận thức / học tập</span>
+                <span class="choice-desc">Ưu tiên câu ngắn, chia bước nhỏ và nhịp tiếp nhận nhẹ nhàng hơn.</span>
+              </label>
+
+              <label class="choice-card">
+                <input type="radio" name="disabilityType" value="mental" />
+                <span class="choice-icon" aria-hidden="true">EQ</span>
+                <span class="choice-title">Khó khăn sức khỏe tâm thần</span>
+                <span class="choice-desc">Ưu tiên nội dung giảm áp lực, linh hoạt và tạo cảm giác an toàn.</span>
+              </label>
+            </fieldset>
+
+            <div class="form-actions">
+              <button class="primary-btn" type="submit">Xem giải pháp phù hợp</button>
+              <p id="formFeedback" class="feedback" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
+
+        <section class="question-shell" aria-labelledby="support-title">
+          <div class="question-head">
+            <p class="step">Trước khi bắt đầu</p>
+            <h2 id="support-title">Không gian này sẽ hỗ trợ bạn như thế nào?</h2>
+            <p>
+              Sau khi chọn profile, hệ thống không chỉ đổi giao diện mà còn thay đổi cách gợi ý bài
+              nội dung, thứ tự ưu tiên thông tin và loại hỗ trợ đi kèm để gần hơn với nhu cầu thực tế của bạn.
+            </p>
+          </div>
+
+          <div class="preview-grid">
+            <article class="preview-card">
+              <h3>Hiểu rõ rào cản</h3>
+              <p>
+                Bạn sẽ được giúp gọi tên đúng khó khăn của mình trong học tập số: nhìn khó, nghe
+                khó, thao tác khó, quá tải thông tin hoặc khó duy trì cảm giác an toàn khi học.
+              </p>
+            </article>
+            <article class="preview-card">
+              <h3>Nhận gợi ý thông tin phù hợp</h3>
+              <p>
+                Thay vì một tuyến nội dung chung, mỗi profile sẽ có các phần thông tin mở đầu, mẹo
+                sử dụng nhanh và giải pháp hỗ trợ riêng phù hợp hơn với nhu cầu tiếp cận của bạn.
+              </p>
+            </article>
+            <article class="preview-card">
+              <h3>Luyện cách yêu cầu hỗ trợ</h3>
+              <p>
+                Bạn cũng sẽ được gợi ý cách mô tả nhu cầu, cách xin điều chỉnh nội dung và cách trao
+                đổi với giáo viên hoặc bạn học mà không phải giải thích quá sức.
+              </p>
+            </article>
+          </div>
+
+          <div class="preview-grid">
+            <article class="preview-card">
+              <h3>Khiếm thị / thị giác</h3>
+              <p>Ưu tiên cấu trúc nội dung, mô tả ảnh, điều hướng tuần tự và hỗ trợ trình đọc màn hình.</p>
+            </article>
+            <article class="preview-card">
+              <h3>Khiếm thính / thính giác</h3>
+              <p>Ưu tiên phụ đề, bản chép lời, nội dung trực quan và tín hiệu không phụ thuộc âm thanh.</p>
+            </article>
+            <article class="preview-card">
+              <h3>Khó khăn vận động</h3>
+              <p>Ưu tiên vùng bấm lớn, luồng thao tác ngắn và các cách học giảm mệt mỏi thể chất.</p>
+            </article>
+            <article class="preview-card">
+              <h3>Khó khăn nhận thức / học tập</h3>
+              <p>Ưu tiên câu ngắn, từng bước nhỏ, danh sách kiểm tra và nhịp tiếp nhận dễ theo dõi hơn.</p>
+            </article>
+            <article class="preview-card">
+              <h3>Khó khăn sức khỏe tâm thần</h3>
+              <p>Ưu tiên cảm giác an toàn, nhịp học dịu hơn, quyền tạm dừng và nội dung ít áp lực.</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="resultPanel" class="result-shell" hidden aria-labelledby="resultTitle">
+          <div class="result-banner">
+            <p class="step">Bước 2</p>
+            <h2 id="resultTitle">Không gian học tập dành riêng cho bạn</h2>
+            <p id="resultIntro"></p>
+          </div>
+
+          <div class="path-layout">
+            <article class="content-card">
+              <h3>Điều chỉnh giao diện ưu tiên</h3>
+              <ul id="supportList" class="insight-list"></ul>
+            </article>
+
+            <article class="content-card">
+              <h3>3 nội dung nên xem trước</h3>
+              <div id="lessonCards" class="lesson-stack"></div>
+            </article>
+
+            <article class="content-card">
+              <h3>Mẹo học tập nhanh</h3>
+              <p id="helperText"></p>
+            </article>
+          </div>
+        </section>
+
+        <p id="kbdStatus" class="feedback" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container"><p>D.O.S.E - Không gian giáo dục dành cho người khuyết tật.</p></div>
+    </footer>
+    <script src="js/education-disability.js"></script>
+  </body>
+</html>

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Giao diện xác thực</title>
+    <meta
+      name="description"
+      content="D.O.S.E auth UI demo gồm login, register và forgot password với flow frontend trước khi nối backend thật."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
+  <body class="auth-page">
+    <a class="skip-link" href="#auth-main">Bỏ qua điều hướng và tới nội dung chính</a>
+
+    <div id="authLiveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <main id="auth-main" class="auth-shell" tabindex="-1">
+      <section class="auth-aside" aria-labelledby="auth-overview-title">
+        <a class="brand brand-sidebar" href="../index.html" aria-label="Về trang chủ D.O.S.E">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">Một liều của sự nhân văn</span>
+          </span>
+        </a>
+
+        <div class="auth-overview">
+          <p class="eyebrow">Bước 4 - Giao diện xác thực</p>
+          <h1 id="auth-overview-title">Luồng xác thực đầu tiên cho D.O.S.E.</h1>
+          <p class="section-intro">
+            Đây là bản UI-first cho đăng nhập, đăng ký và quên mật khẩu. Chưa có backend thật, nhưng flow,
+            validate và trạng thái phản hồi đã sẵn sàng để nối API sau.
+          </p>
+        </div>
+
+        <div class="auth-feature-list">
+          <article class="mini-card">
+            <h2>Đăng nhập</h2>
+            <p>Đăng nhập bằng email và mật khẩu với validate cơ bản và thông báo thành công dạng demo.</p>
+          </article>
+          <article class="mini-card">
+            <h2>Đăng ký</h2>
+            <p>Tạo tài khoản với tên, email, mật khẩu và xác nhận mật khẩu, sau đó điều hướng về login.</p>
+          </article>
+          <article class="mini-card">
+            <h2>Quên mật khẩu</h2>
+            <p>Nhập email để nhận hướng dẫn khôi phục. Flow trả phản hồi mô phỏng để test UX trước.</p>
+          </article>
+        </div>
+
+        <nav class="auth-links" aria-label="Liên kết nhanh">
+          <a class="text-link" href="../index.html">Quay lại landing page</a>
+          <a class="text-link" href="education.html">View Education Module</a>
+          <a class="text-link" href="onboarding.html">Xem onboarding demo</a>
+          <a class="text-link" href="dashboard.html">Xem bảng điều khiển demo</a>
+        </nav>
+      </section>
+
+      <section class="auth-card" aria-labelledby="auth-card-title">
+        <div class="auth-card-head">
+          <p class="panel-label">Xác thực</p>
+          <h2 id="auth-card-title">Chọn luồng bạn muốn dùng</h2>
+          <p class="helper-text">
+            Tất cả biểu mẫu ở đây là demo frontend. Dữ liệu không được gửi lên máy chủ.
+          </p>
+        </div>
+
+        <div class="auth-tabs" role="tablist" aria-label="Các luồng xác thực">
+          <button
+            id="tab-login"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="login-panel"
+            data-auth-view="login"
+          >
+            Đăng nhập
+          </button>
+          <button
+            id="tab-register"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="register-panel"
+            data-auth-view="register"
+            tabindex="-1"
+          >
+            Đăng ký
+          </button>
+          <button
+            id="tab-forgot"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="forgot-panel"
+            data-auth-view="forgot"
+            tabindex="-1"
+          >
+            Quên mật khẩu
+          </button>
+        </div>
+
+        <div id="authStatus" class="result auth-status" aria-live="polite"></div>
+        <div id="authNextStep" class="auth-next-step" hidden>
+          <a id="onboardingLink" class="btn btn-secondary btn-md" href="onboarding.html">Tiếp tục tới onboarding</a>
+          <a id="dashboardLink" class="btn btn-outline btn-md" href="dashboard.html">Bỏ qua và vào dashboard</a>
+        </div>
+
+        <section
+          id="login-panel"
+          class="auth-panel"
+          role="tabpanel"
+          aria-labelledby="tab-login"
+          data-auth-panel="login"
+        >
+          <form id="loginForm" class="auth-form" novalidate>
+            <div class="field">
+              <label for="loginEmail">Email</label>
+              <input id="loginEmail" name="email" type="email" autocomplete="email" inputmode="email" />
+              <p id="loginEmail-error" class="error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <div class="field-head">
+                <label for="loginPassword">Mật khẩu</label>
+                <button type="button" class="text-link auth-link-button" data-auth-view="forgot">
+                  Quên mật khẩu?
+                </button>
+              </div>
+              <input id="loginPassword" name="password" type="password" autocomplete="current-password" />
+              <p id="loginPassword-error" class="error" aria-live="polite"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Đăng nhập demo</button>
+          </form>
+        </section>
+
+        <section
+          id="register-panel"
+          class="auth-panel"
+          role="tabpanel"
+          aria-labelledby="tab-register"
+          data-auth-panel="register"
+          hidden
+        >
+          <form id="registerForm" class="auth-form" novalidate>
+            <div class="field">
+              <label for="registerName">Họ và tên</label>
+              <input id="registerName" name="name" type="text" autocomplete="name" />
+              <p id="registerName-error" class="error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="registerEmail">Email</label>
+              <input id="registerEmail" name="email" type="email" autocomplete="email" inputmode="email" />
+              <p id="registerEmail-error" class="error" aria-live="polite"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="registerPassword">Mật khẩu</label>
+                <input id="registerPassword" name="password" type="password" autocomplete="new-password" />
+                <p id="registerPassword-error" class="error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="registerConfirmPassword">Xác nhận mật khẩu</label>
+                <input
+                  id="registerConfirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  autocomplete="new-password"
+                />
+                <p id="registerConfirmPassword-error" class="error" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-lg">Tạo tài khoản demo</button>
+          </form>
+        </section>
+
+        <section
+          id="forgot-panel"
+          class="auth-panel"
+          role="tabpanel"
+          aria-labelledby="tab-forgot"
+          data-auth-panel="forgot"
+          hidden
+        >
+          <form id="forgotForm" class="auth-form" novalidate>
+            <div class="field">
+              <label for="forgotEmail">Email tài khoản</label>
+              <input id="forgotEmail" name="email" type="email" autocomplete="email" inputmode="email" />
+              <p id="forgotEmail-error" class="error" aria-live="polite"></p>
+            </div>
+
+            <p class="helper-text">
+              Sau này bước này có thể gọi backend để gửi link đặt lại mật khẩu. Hiện tại đây là phản hồi mô phỏng.
+            </p>
+
+            <button type="submit" class="btn btn-primary btn-lg">Gửi hướng dẫn khôi phục</button>
+          </form>
+        </section>
+
+        <div class="auth-footer-actions">
+          <button type="button" class="btn btn-secondary btn-md" data-auth-view="login">Đi tới Đăng nhập</button>
+          <button type="button" class="btn btn-secondary btn-md" data-auth-view="register">Đi tới Đăng ký</button>
+          <button type="button" class="btn btn-secondary btn-md" data-auth-view="forgot">Đi tới Quên mật khẩu</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/auth.js"></script>
+  </body>
+</html>

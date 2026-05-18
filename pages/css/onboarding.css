@@ -1,0 +1,216 @@
+.onboarding-page {
+  min-height: 100vh;
+}
+
+.onboarding-shell {
+  display: grid;
+  grid-template-columns: minmax(18rem, 0.9fr) minmax(22rem, 1.1fr);
+  min-height: 100vh;
+}
+
+.onboarding-aside,
+.onboarding-content {
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.onboarding-aside {
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  border-right: 1px solid var(--color-border);
+  background:
+    radial-gradient(circle at top left, rgba(206, 228, 214, 0.78) 0%, transparent 32%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(239, 246, 242, 0.9) 100%);
+}
+
+.onboarding-note-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.onboarding-content {
+  display: grid;
+  align-content: start;
+  gap: 1.25rem;
+}
+
+.onboarding-tabs {
+  max-width: 36rem;
+}
+
+.vision-question {
+  display: grid;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top right, rgba(206, 228, 214, 0.4) 0%, transparent 28%),
+    var(--color-surface-strong);
+}
+
+.vision-question-copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.vision-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.vision-choice-card {
+  display: grid;
+  gap: 0.4rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  text-align: left;
+  cursor: pointer;
+}
+
+.vision-choice-card[aria-pressed="true"] {
+  border-color: var(--color-border-strong);
+  background: var(--color-primary-soft);
+}
+
+.vision-choice-card span {
+  color: var(--color-text-muted);
+}
+
+.step-card {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.onboarding-form {
+  max-width: 46rem;
+}
+
+.option-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.option-card {
+  display: flex;
+  align-items: start;
+  gap: 0.85rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-strong);
+  cursor: pointer;
+}
+
+.option-card input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.2rem;
+}
+
+.option-card strong,
+.option-card small {
+  display: block;
+}
+
+.option-card small {
+  margin-top: 0.3rem;
+  color: var(--color-text-muted);
+}
+
+.option-card:has(input:checked) {
+  border-color: var(--color-border-strong);
+  background: var(--color-primary-soft);
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.preview-card {
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-strong);
+}
+
+.preview-list {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.preview-list li {
+  margin-bottom: 0.4rem;
+}
+
+.step-demo {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.preview-surface {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at top left, rgba(206, 228, 214, 0.48) 0%, transparent 30%),
+    var(--color-surface);
+  transition: all 180ms ease;
+}
+
+.preview-surface.is-large-text {
+  font-size: 1.125rem;
+}
+
+.preview-surface.is-high-contrast {
+  background: #ffffff;
+  color: #000000;
+  border-color: #000000;
+}
+
+.preview-surface.is-simple-mode {
+  box-shadow: none;
+  background: var(--color-surface-strong);
+}
+
+.preview-surface.is-reduced-motion *,
+.preview-surface.is-reduced-motion *::before,
+.preview-surface.is-reduced-motion *::after {
+  transition: none !important;
+}
+
+@media (max-width: 64rem) {
+  .onboarding-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .onboarding-aside {
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+}
+
+@media (max-width: 48rem) {
+  .vision-choice-grid,
+  .option-grid,
+  .preview-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 42rem) {
+  .step-card {
+    padding: 1rem;
+  }
+}

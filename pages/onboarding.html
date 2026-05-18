@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Onboarding trợ năng</title>
+    <meta
+      name="description"
+      content="Onboarding trợ năng của D.O.S.E giúp người dùng mới chọn nhu cầu hỗ trợ, xem trước giao diện và lưu thiết lập trước khi vào ứng dụng."
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="css/onboarding.css" />
+  </head>
+  <body class="onboarding-page">
+    <a class="skip-link" href="#onboarding-main">Bỏ qua điều hướng và tới nội dung chính</a>
+
+    <div id="onboardingLiveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <main id="onboarding-main" class="onboarding-shell" tabindex="-1">
+      <section class="onboarding-aside" aria-labelledby="onboarding-title">
+        <a class="brand brand-sidebar" href="../index.html" aria-label="Về trang chủ D.O.S.E">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">Một liều của sự nhân văn</span>
+          </span>
+        </a>
+
+        <div>
+          <p class="eyebrow">Bước 5 - Thiết lập ban đầu</p>
+          <h1 id="onboarding-title">Hãy để D.O.S.E phù hợp với bạn hơn ngay từ đầu.</h1>
+          <p class="section-intro">
+            Thay vì hỏi bạn “bị gì”, D.O.S.E hỏi bạn muốn được hỗ trợ theo cách nào. Những lựa chọn này
+            sẽ giúp ứng dụng áp dụng giao diện và gợi ý phù hợp ngay từ lần đầu sử dụng.
+          </p>
+        </div>
+
+        <div class="onboarding-note-list">
+          <article class="mini-card">
+            <h2>Nhẹ nhàng và tôn trọng</h2>
+            <p>Chúng tôi hỏi theo nhu cầu hỗ trợ chứ không gắn nhãn người dùng.</p>
+          </article>
+          <article class="mini-card">
+            <h2>Có thể bỏ qua</h2>
+            <p>Bạn có thể bỏ qua onboarding và đổi lại mọi thứ trong cài đặt sau.</p>
+          </article>
+          <article class="mini-card">
+            <h2>Áp dụng ngay</h2>
+            <p>Các thiết lập được xem trước trực tiếp và lưu trên thiết bị này.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="onboarding-content">
+        <div class="auth-tabs onboarding-tabs" role="tablist" aria-label="Các bước onboarding">
+          <button id="step-welcome-tab" class="auth-tab" type="button" role="tab" aria-selected="true" aria-controls="step-welcome" tabindex="0">
+            Chào mừng
+          </button>
+          <button id="step-support-tab" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="step-support" tabindex="-1">
+            Nhu cầu hỗ trợ
+          </button>
+          <button id="step-preview-tab" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="step-preview" tabindex="-1">
+            Xem trước
+          </button>
+        </div>
+
+        <div id="onboardingStatus" class="result auth-status" aria-live="polite"></div>
+
+        <section id="step-welcome" class="onboarding-step" role="tabpanel" aria-labelledby="step-welcome-tab">
+          <div class="step-card">
+            <p class="panel-label">Chào mừng</p>
+            <h2>Bạn muốn D.O.S.E hỗ trợ điều gì trước tiên?</h2>
+            <p>
+              Bước này chỉ mất khoảng một phút. Chúng tôi sẽ dùng lựa chọn của bạn để ưu tiên cách hiển thị,
+              cách học và các lối tắt hỗ trợ phù hợp hơn.
+            </p>
+            <div class="vision-question" role="group" aria-labelledby="vision-question-title">
+              <div class="vision-question-copy">
+                <h3 id="vision-question-title">Bạn có khiếm thị hoặc cần giao diện ưu tiên cho thị giác không?</h3>
+                <p class="helper-text">
+                  Nếu có, D.O.S.E sẽ ưu tiên bật tương phản cao ngay từ đầu và ghi nhớ lựa chọn này trước khi bạn sang bước tiếp theo.
+                </p>
+              </div>
+              <div class="vision-choice-grid">
+                <button type="button" class="vision-choice-card" data-access-profile="vision" aria-pressed="false">
+                  <strong>Có, tôi cần hỗ trợ thị giác</strong>
+                  <span>Bật sẵn tương phản cao và ưu tiên nhu cầu nhìn rõ hơn.</span>
+                </button>
+                <button type="button" class="vision-choice-card" data-access-profile="default" aria-pressed="false">
+                  <strong>Không, dùng giao diện tiêu chuẩn</strong>
+                  <span>Giữ giao diện mặc định và tiếp tục chọn thêm nhu cầu khác nếu cần.</span>
+                </button>
+              </div>
+            </div>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary btn-lg" data-next-step="support">Bắt đầu thiết lập</button>
+              <a class="btn btn-secondary btn-lg" href="dashboard.html">Bỏ qua và vào ứng dụng</a>
+            </div>
+          </div>
+        </section>
+
+        <section id="step-support" class="onboarding-step" role="tabpanel" aria-labelledby="step-support-tab" hidden>
+          <form id="onboardingForm" class="step-card onboarding-form" novalidate>
+            <div>
+              <p class="panel-label">Nhu cầu hỗ trợ</p>
+              <h2>Bạn muốn trải nghiệm dễ dùng hơn theo cách nào?</h2>
+              <p class="helper-text">Bạn có thể chọn nhiều mục.</p>
+            </div>
+
+            <div class="option-grid" role="group" aria-labelledby="support-needs-title">
+              <p id="support-needs-title" class="sr-only">Các nhu cầu hỗ trợ</p>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="large-text" />
+                <span>
+                  <strong>Chữ lớn hơn</strong>
+                  <small>Dễ đọc hơn khi nội dung dài hoặc chữ nhỏ gây mỏi mắt.</small>
+                </span>
+              </label>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="high-contrast" />
+                <span>
+                  <strong>Tương phản cao</strong>
+                  <small>Tăng độ rõ của nền, chữ, viền và trạng thái focus.</small>
+                </span>
+              </label>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="reduced-motion" />
+                <span>
+                  <strong>Ít chuyển động</strong>
+                  <small>Giảm hiệu ứng gây rối hoặc khó chịu khi theo dõi.</small>
+                </span>
+              </label>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="simple-mode" />
+                <span>
+                  <strong>Giao diện đơn giản</strong>
+                  <small>Ưu tiên nội dung chính, giảm nhiễu thị giác và tải nhận thức.</small>
+                </span>
+              </label>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="read-aloud" />
+                <span>
+                  <strong>Đọc nội dung thành tiếng</strong>
+                  <small>Ưu tiên gợi ý dùng tính năng nghe nội dung trong bài học.</small>
+                </span>
+              </label>
+
+              <label class="option-card">
+                <input type="checkbox" name="supportNeed" value="easy-language" />
+                <span>
+                  <strong>Giải thích dễ hiểu hơn</strong>
+                  <small>Ưu tiên AI Mentor tóm tắt và chia nhỏ nội dung khó.</small>
+                </span>
+              </label>
+            </div>
+
+            <div class="field">
+              <label for="mainDifficulty">Điều gì thường làm bạn khó chịu nhất khi dùng app?</label>
+              <select id="mainDifficulty" name="mainDifficulty">
+                <option value="">Chọn một ưu tiên</option>
+                <option value="small-text">Khó đọc chữ nhỏ</option>
+                <option value="visual-noise">Quá nhiều thông tin trên màn hình</option>
+                <option value="motion">Chuyển động gây khó tập trung</option>
+                <option value="complex-language">Ngôn ngữ khó hiểu</option>
+                <option value="keyboard">Muốn dùng bàn phím nhiều hơn chuột</option>
+              </select>
+            </div>
+
+            <div class="hero-actions">
+              <button type="button" class="btn btn-secondary btn-lg" data-prev-step="welcome">Quay lại</button>
+              <button type="submit" class="btn btn-primary btn-lg">Xem trước thiết lập</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="step-preview" class="onboarding-step" role="tabpanel" aria-labelledby="step-preview-tab" hidden>
+          <div class="step-card">
+            <div>
+              <p class="panel-label">Xem trước</p>
+              <h2>Đây là cách D.O.S.E sẽ ưu tiên hỗ trợ bạn.</h2>
+              <p class="helper-text">Bạn vẫn có thể quay lại chỉnh trước khi vào ứng dụng.</p>
+            </div>
+
+            <div class="preview-grid">
+              <article class="preview-card">
+                <h3>Thiết lập giao diện</h3>
+                <ul id="previewUiList" class="preview-list">
+                  <li>Chưa chọn ưu tiên giao diện nào.</li>
+                </ul>
+              </article>
+
+              <article class="preview-card">
+                <h3>Thiết lập học tập</h3>
+                <ul id="previewLearningList" class="preview-list">
+                  <li>Chưa chọn ưu tiên học tập nào.</li>
+                </ul>
+              </article>
+            </div>
+
+            <div class="step-demo" aria-labelledby="preview-demo-title">
+              <h3 id="preview-demo-title">Khung xem trước</h3>
+              <div id="previewSurface" class="preview-surface">
+                <h4>Bài học mẫu</h4>
+                <p>
+                  D.O.S.E sẽ điều chỉnh cỡ chữ, độ tương phản, mức đơn giản của giao diện
+                  và các gợi ý từ AI Mentor dựa trên lựa chọn của bạn.
+                </p>
+                <button type="button" class="btn btn-primary btn-md">Nút thao tác mẫu</button>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <button type="button" class="btn btn-secondary btn-lg" data-prev-step="support">Chỉnh lại lựa chọn</button>
+              <button type="button" id="finishOnboardingButton" class="btn btn-primary btn-lg">Lưu và vào bảng điều khiển</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="js/onboarding.js"></script>
+  </body>
+</html>

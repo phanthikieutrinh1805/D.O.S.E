@@ -1,0 +1,270 @@
+.dashboard-main {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dashboard-hero {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.dashboard-hero-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top left, rgba(196, 255, 223, 0.48) 0%, transparent 34%),
+    radial-gradient(circle at bottom right, rgba(213, 235, 255, 0.42) 0%, transparent 36%),
+    var(--color-surface);
+}
+
+.dashboard-metrics {
+  margin-top: 0;
+}
+
+.profile-art-card {
+  display: grid;
+  gap: 1rem;
+  align-content: space-between;
+  min-height: 100%;
+  padding: 1.25rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(239, 248, 242, 0.98) 100%);
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-art-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 15rem;
+  padding: 1.5rem;
+  border-radius: calc(var(--radius-xl) - 0.25rem);
+  background:
+    radial-gradient(circle at 28% 28%, rgba(255, 255, 255, 0.8) 0%, transparent 22%),
+    linear-gradient(135deg, var(--profile-accent-soft, #dff5e7) 0%, var(--profile-accent-strong, #7da28d) 100%);
+}
+
+.profile-art-illustration {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 18rem);
+  min-height: 13rem;
+  display: grid;
+  place-items: center;
+}
+
+.profile-art-illustration svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 1rem 1.8rem rgba(28, 46, 35, 0.14));
+}
+
+.profile-art-photo {
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 1.5rem;
+  border: 4px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 1rem 1.8rem rgba(28, 46, 35, 0.16);
+}
+
+.profile-art-visual::before,
+.profile-art-visual::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.profile-art-visual::before {
+  width: 5rem;
+  height: 5rem;
+  top: 1rem;
+  right: 1.25rem;
+}
+
+.profile-art-visual::after {
+  width: 7rem;
+  height: 7rem;
+  bottom: 1.25rem;
+  left: 1rem;
+}
+
+.profile-art-glyph {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 6.25rem;
+  height: 6.25rem;
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--profile-accent-text, var(--color-primary));
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  box-shadow: 0 1.1rem 2.2rem rgba(28, 46, 35, 0.12);
+}
+
+.profile-art-copy {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.profile-traits {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.profile-guidance {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.profile-traits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.trait-card {
+  padding: 1.15rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(242, 248, 244, 0.96) 100%);
+}
+
+.profile-points {
+  display: grid;
+  gap: 0.8rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.profile-points li {
+  color: var(--color-text);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.25rem;
+}
+
+.dashboard-card {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.dashboard-card-wide {
+  grid-column: 1 / -1;
+}
+
+.dashboard-card-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.continue-card {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.progress-block {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 0.9rem;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-soft);
+  border: 1px solid var(--color-border);
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-primary) 0%, #7ea48d 100%);
+}
+
+.progress-list,
+.feed-list {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.progress-list li,
+.feed-item {
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-strong);
+}
+
+.progress-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mentor-shortcut {
+  background:
+    radial-gradient(circle at top right, rgba(206, 228, 214, 0.55) 0%, transparent 32%),
+    var(--color-surface);
+}
+
+.mentor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.recommended-card {
+  min-height: 100%;
+}
+
+@media (max-width: 72rem) {
+  .dashboard-hero-panel,
+  .profile-traits-grid,
+  .recommended-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 62rem) {
+  .dashboard-grid,
+  .continue-card {
+    grid-template-columns: 1fr;
+  }
+}

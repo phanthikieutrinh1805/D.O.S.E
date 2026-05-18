@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Humanity</title>
+    <link rel="stylesheet" href="css/humanity.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
+    <header class="site-header" aria-label="Đầu trang">
+      <div class="container nav-wrap">
+        <a class="brand" href="../index.html">D.O.S.E</a>
+        <nav aria-label="Điều hướng chính">
+          <ul class="nav-list">
+            <li><a href="access.html">Access</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="opportunity.html">Opportunity</a></li>
+            <li><a aria-current="page" href="humanity.html">Humanity</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="section" tabindex="-1">
+      <div class="container">
+        <h1>HUMANITY - Kết nối cộng đồng</h1>
+        <p class="section-intro">Không gian để chia sẻ câu chuyện, tìm người đồng hành và đăng ký mentor cộng đồng.</p>
+
+        <div class="card-grid" role="list">
+          <article class="card" role="listitem"><h2>Chia sẻ câu chuyện</h2><p>Lan tỏa trải nghiệm thật để tạo cảm hứng và niềm tin.</p></article>
+          <article class="card" role="listitem"><h2>Mentor cộng đồng</h2><p>Kết nối chuyên gia, tình nguyện viên và người cần hỗ trợ.</p></article>
+          <article class="card" role="listitem"><h2>Gia đình đồng hành</h2><p>Gợi ý tài liệu giúp gia đình hỗ trợ đúng và bền vững.</p></article>
+          <article class="card" role="listitem"><h2>Doanh nghiệp hòa nhập</h2><p>Định hướng thực hành hòa nhập trong môi trường làm việc.</p></article>
+        </div>
+
+        <section class="section alt" aria-labelledby="contact-title">
+          <h2 id="contact-title">Đăng ký nhận thông tin cộng đồng</h2>
+          <form id="contactForm" class="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Họ và tên</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <p class="error" id="name-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <p class="error" id="email-error" aria-live="polite"></p>
+            </div>
+            <button type="submit" class="btn btn-solid">Gửi</button>
+            <p id="contactSuccess" class="result" aria-live="polite"></p>
+          </form>
+        </section>
+        <p id="kbdStatus" class="result" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="container"><p>D.O.S.E - Humanity.</p></div></footer>
+    <script src="js/humanity.js"></script>
+  </body>
+</html>

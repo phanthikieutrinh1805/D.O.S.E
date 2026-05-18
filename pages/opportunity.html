@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Opportunity</title>
+    <link rel="stylesheet" href="css/opportunity.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
+    <header class="site-header" aria-label="Đầu trang">
+      <div class="container nav-wrap">
+        <a class="brand" href="../index.html">D.O.S.E</a>
+        <nav aria-label="Điều hướng chính">
+          <ul class="nav-list">
+            <li><a href="access.html">Access</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a aria-current="page" href="opportunity.html">Opportunity</a></li>
+            <li><a href="humanity.html">Humanity</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="section" tabindex="-1">
+      <div class="container">
+        <h1>OPPORTUNITY - Cơ hội việc làm hòa nhập</h1>
+        <p class="section-intro">Lọc cơ hội việc làm theo hình thức làm việc và nhu cầu hỗ trợ.</p>
+
+        <form id="jobFilterForm" class="filter-panel" novalidate aria-describedby="filter-help">
+          <p id="filter-help">Tất cả trường đều cần thiết để gợi ý việc làm chính xác.</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="workType">Hình thức làm việc</label>
+              <select id="workType" name="workType" required>
+                <option value="">Chọn hình thức</option>
+                <option value="từ xa">Từ xa</option>
+                <option value="bán thời gian">Bán thời gian</option>
+                <option value="kết hợp">Kết hợp</option>
+              </select>
+              <p class="error" id="workType-error" aria-live="polite"></p>
+            </div>
+
+            <div class="field">
+              <label for="supportNeed">Hỗ trợ ưu tiên</label>
+              <select id="supportNeed" name="supportNeed" required>
+                <option value="">Chọn hỗ trợ</option>
+                <option value="trình đọc màn hình">Tương thích trình đọc màn hình</option>
+                <option value="không gian yên tĩnh">Không gian yên tĩnh</option>
+                <option value="thời gian linh hoạt">Thời gian linh hoạt</option>
+              </select>
+              <p class="error" id="supportNeed-error" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-solid">Tìm việc phù hợp</button>
+          <p id="filterResult" class="result" aria-live="polite"></p>
+        </form>
+        <p id="kbdStatus" class="result" aria-live="polite"></p>
+      </div>
+    </main>
+
+    <footer class="site-footer"><div class="container"><p>D.O.S.E - Opportunity.</p></div></footer>
+    <script src="js/opportunity.js"></script>
+  </body>
+</html>
