@@ -12,6 +12,8 @@
 
 - **Kiều Trinh**
 - GitHub: [@phanthikieutrinh1805](https://github.com/phanthikieutrinh1805)
+- **Nam Giao**
+- GitHub: [@GiaoDungCursor](https://github.com/GiaoDungCursor)
 
 ## Dự án gồm những gì
 
