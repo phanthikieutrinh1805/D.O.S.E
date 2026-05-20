@@ -707,3 +707,108 @@ window.addEventListener("resize", () => {
     if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
   }
 });
+
+// Chat Box Logic
+const floatingChatButton = $("floatingChatButton");
+const chatBoxContainer = $("chatBoxContainer");
+const closeChatButton = $("closeChatButton");
+const chatInput = $("chatInput");
+const sendChatButton = $("sendChatButton");
+const chatMessages = $("chatMessages");
+
+let chatHistory = [];
+
+if (floatingChatButton && chatBoxContainer) {
+  floatingChatButton.addEventListener("click", () => {
+    chatBoxContainer.hidden = false;
+    floatingChatButton.setAttribute("aria-expanded", "true");
+    chatBoxContainer.setAttribute("aria-hidden", "false");
+    chatInput.focus();
+  });
+
+  closeChatButton.addEventListener("click", () => {
+    chatBoxContainer.hidden = true;
+    floatingChatButton.setAttribute("aria-expanded", "false");
+    chatBoxContainer.setAttribute("aria-hidden", "true");
+    floatingChatButton.focus();
+  });
+}
+
+function addMessageToUI(content, role) {
+  const messageDiv = document.createElement("div");
+  messageDiv.className = `chat-message ${role}`;
+  
+  if (role.includes("user") || typeof marked === "undefined") {
+    messageDiv.textContent = content;
+  } else {
+    // Parse Markdown to HTML for assistant messages
+    messageDiv.innerHTML = marked.parse(content);
+  }
+  
+  chatMessages.appendChild(messageDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return messageDiv;
+}
+
+async function sendChatMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+
+  chatInput.value = "";
+  chatInput.disabled = true;
+  sendChatButton.disabled = true;
+
+  addMessageToUI(text, "user");
+  chatHistory.push({ role: "user", content: text });
+
+  const loadingMsg = addMessageToUI("AI Mentor đang suy nghĩ...", "assistant loading");
+  loadingMsg.classList.add("loading");
+
+  try {
+    const response = await fetch("http://localhost:5000/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messages: chatHistory }),
+    });
+
+    const data = await response.json();
+    chatMessages.removeChild(loadingMsg);
+
+    if (data.success && data.message) {
+      const assistantMessage = data.message;
+      addMessageToUI(assistantMessage.content, "assistant");
+      
+      // Save assistant message to history, including reasoning_details if present
+      chatHistory.push({
+        role: "assistant",
+        content: assistantMessage.content,
+        reasoning_details: assistantMessage.reasoning_details
+      });
+    } else {
+      addMessageToUI("Xin lỗi, đã có lỗi kết nối hoặc API key chưa được cấu hình đúng.", "assistant");
+      chatHistory.pop(); // remove user message from history if failed
+    }
+  } catch (error) {
+    chatMessages.removeChild(loadingMsg);
+    addMessageToUI("Lỗi mạng: Không thể kết nối tới server. Vui lòng kiểm tra server Flask đã chạy chưa.", "assistant");
+    chatHistory.pop();
+  }
+
+  chatInput.disabled = false;
+  sendChatButton.disabled = false;
+  chatInput.focus();
+}
+
+if (sendChatButton) {
+  sendChatButton.addEventListener("click", sendChatMessage);
+}
+
+if (chatInput) {
+  chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendChatMessage();
+    }
+  });
+}
+

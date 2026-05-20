@@ -9,6 +9,7 @@
       content="D.O.S.E là nền tảng social-tech accessibility-first kết nối giáo dục, đồng cảm, cộng đồng và cơ hội hòa nhập."
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="chat.css" />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Bỏ qua điều hướng và tới nội dung chính</a>
@@ -127,6 +128,24 @@
     >
       <span aria-hidden="true">Hỗ trợ</span>
     </button>
+
+    <button id="floatingChatButton" class="floating-chat-button" type="button" aria-label="Mở AI Mentor" aria-controls="chatBoxContainer" aria-expanded="false">
+      <span aria-hidden="true">💬 Chat</span>
+    </button>
+
+    <div id="chatBoxContainer" class="chat-box-container" aria-hidden="true" hidden>
+      <div class="chat-header">
+        <h3 id="chatTitle">D.O.S.E AI Mentor</h3>
+        <button id="closeChatButton" class="btn btn-ghost btn-sm" type="button" aria-label="Đóng Chat">Đóng</button>
+      </div>
+      <div id="chatMessages" class="chat-messages" aria-live="polite">
+        <div class="chat-message assistant">Xin chào! Tôi là AI Mentor. Tôi có thể giúp gì cho bạn hôm nay?</div>
+      </div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="Nhập câu hỏi của bạn..." aria-label="Nội dung chat" />
+        <button id="sendChatButton" class="btn btn-primary btn-sm" type="button">Gửi</button>
+      </div>
+    </div>
 
     <aside
       id="accessibilityPanel"
@@ -566,6 +585,7 @@
       </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="app.js"></script>
   </body>
 </html>
