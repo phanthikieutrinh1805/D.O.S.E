@@ -1,112 +1,16 @@
-:root {
-  --bg: #fff6ef;
-  --surface: #ffffff;
-  --text: #2b1c11;
-  --muted: #8c4b1f;
-  --border: #f2d2b8;
-  --focus: #ef6c00;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  color: var(--text);
-  background: linear-gradient(180deg, #fffaf5 0%, var(--bg) 100%);
-  line-height: 1.6;
-}
-
-.container {
-  width: min(76rem, 92%);
-  margin: 0 auto;
-}
-
-.section {
-  padding: 1.5rem 0 2rem;
-}
-
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  background: #000;
-  color: #fff;
-  padding: 0.7rem 1rem;
-}
-
-.skip-link:focus {
-  left: 0.5rem;
-  top: 0.5rem;
-}
-
-.site-header {
-  border-bottom: 1px solid var(--border);
-  background: #fff;
-}
-
-.nav-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.8rem 0;
-  flex-wrap: wrap;
-}
-
-.brand {
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #8c4b1f;
-  text-decoration: none;
-}
-
-.nav-list {
-  list-style: none;
-  display: flex;
-  gap: 0.8rem;
-  margin: 0;
-  padding: 0;
-  flex-wrap: wrap;
-}
-
-.nav-list a {
-  text-decoration: none;
-  color: var(--text);
-  padding: 0.35rem 0.55rem;
-  border-radius: 0.5rem;
-}
-
-.nav-list a[aria-current="page"] {
-  background: #ffead8;
-  font-weight: 700;
-}
+@import url("./ecosystem.css");
 
 .community-hero,
 .community-card {
   border: 1px solid var(--border);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
 }
 
-.community-hero {
-  padding: 1.2rem;
-}
-
-.eyebrow {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 700;
-  color: var(--muted);
-  margin: 0 0 0.35rem;
-}
-
-h1 {
-  font-size: clamp(2rem, 3vw, 2.8rem);
-  line-height: 1.1;
-  margin: 0 0 0.75rem;
+.community-hero,
+.community-card {
+  padding: 1.25rem;
 }
 
 .community-grid {
@@ -120,10 +24,6 @@ h1 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.community-card {
-  padding: 1rem;
-}
-
 .community-card ul {
   margin: 0.8rem 0 0;
   padding-left: 1.15rem;
@@ -131,23 +31,10 @@ h1 {
 
 .feedback {
   min-height: 1.25rem;
-  color: #8c4b1f;
   margin-top: 0.75rem;
 }
 
-.site-footer {
-  border-top: 1px solid var(--border);
-  padding: 1rem 0;
-  background: #fff4ea;
-  margin-top: 1rem;
-}
-
-:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 2px;
-}
-
-@media (max-width: 62rem) {
+@media (max-width: 72rem) {
   .community-grid {
     grid-template-columns: 1fr;
   }

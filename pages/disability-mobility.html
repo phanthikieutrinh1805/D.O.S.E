@@ -1,10 +1,72 @@
 <!doctype html>
 <html lang="vi">
-  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>D.O.S.E - Khó khăn vận động</title><link rel="stylesheet" href="css/disability-profile.css" /></head>
-  <body data-profile="mobility">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>D.O.S.E - Khó khăn vận động</title>
+    <link rel="stylesheet" href="css/disability-profile.css" />
+  </head>
+  <body class="page-shell" data-profile="mobility">
     <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
-    <header class="site-header" aria-label="Đầu trang"><div class="container nav-wrap"><a class="brand" href="../index.html">D.O.S.E</a><nav aria-label="Điều hướng chính"><ul class="nav-list"><li><a href="access.html">Tiếp cận</a></li><li><a aria-current="page" href="education.html">Giáo dục</a></li><li><a href="opportunity.html">Cơ hội</a></li><li><a href="humanity.html">Nhân văn</a></li></ul></nav></div></header>
-    <main id="main-content" class="section" tabindex="-1"><div class="container"><section class="hero"><div class="hero-copy"><p id="pageEyebrow" class="eyebrow"></p><h1 id="pageTitle"></h1><p id="pageIntro"></p></div><div class="hero-photo-wrap"><img id="profileImage" class="hero-photo" src="" alt="" /><div class="hero-highlights"><article class="mini-highlight"><p id="highlightOneTitle" class="panel-label"></p><p id="highlightOneText"></p></article><article class="mini-highlight"><p id="highlightTwoTitle" class="panel-label"></p><p id="highlightTwoText"></p></article><article class="mini-highlight"><p id="highlightThreeTitle" class="panel-label"></p><p id="highlightThreeText"></p></article></div></div></section><section class="grid-3"><article class="panel"><h2>Đặc điểm thường gặp</h2><ul id="characteristicsList" class="bullet-list"></ul></article><article class="panel"><h2>Giải pháp nên ưu tiên</h2><ul id="solutionsList" class="bullet-list"></ul></article><article class="panel"><h2>Cách xin hỗ trợ</h2><ul id="requestsList" class="bullet-list"></ul></article></section><section class="grid-2"><article class="card"><p class="story-tag">Tình huống thường gặp</p><ul id="scenariosList" class="bullet-list"></ul></article><article class="card"><p class="story-tag">Công cụ và định dạng nên dùng</p><ul id="toolsList" class="bullet-list"></ul></article></section><section class="panel"><h2>Danh sách thực hành ngay</h2><ul id="checklistList" class="bullet-list"></ul><p class="feedback">Bạn có thể quay lại trang chọn nhóm nhu cầu để xem thêm các phiên bản khác bất cứ lúc nào.</p></section></div></main>
-    <footer class="site-footer"><div class="container"><p>D.O.S.E - Không gian thông tin dành cho người khuyết tật.</p></div></footer><script src="js/disability-profile.js"></script>
+    <header class="site-header" aria-label="Đầu trang">
+      <div class="container nav-wrap">
+        <a class="brand" href="home.html" aria-label="D.O.S.E trang chủ">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">Profile Learning Space</span>
+          </span>
+        </a>
+        <nav aria-label="Điều hướng chính">
+          <ul class="nav-list">
+            <li><a href="access.html">Tiếp cận</a></li>
+            <li><a aria-current="page" href="education.html">Giáo dục</a></li>
+            <li><a href="opportunity.html">Cơ hội</a></li>
+            <li><a href="humanity.html">Nhân văn</a></li>
+          </ul>
+        </nav>
+        <div class="toolbar" role="group" aria-label="Công cụ trợ năng nhanh">
+          <button id="contrastToggle" class="btn btn-outline" type="button" aria-pressed="false">Tương phản cao</button>
+          <button id="fontToggle" class="btn btn-outline" type="button" aria-pressed="false">Chữ lớn</button>
+          <button id="motionToggle" class="btn btn-outline" type="button" aria-pressed="false">Giảm chuyển động</button>
+        </div>
+      </div>
+    </header>
+    <main id="main-content" class="section" tabindex="-1">
+      <div class="container">
+        <section class="hero">
+          <div class="hero-copy">
+            <p id="pageEyebrow" class="eyebrow"></p>
+            <h1 id="pageTitle"></h1>
+            <p id="pageIntro" class="section-intro"></p>
+          </div>
+          <div class="hero-photo-wrap">
+            <img id="profileImage" class="hero-photo" src="" alt="" />
+            <div class="hero-highlights">
+              <article class="mini-highlight"><p id="highlightOneTitle" class="eyebrow"></p><p id="highlightOneText"></p></article>
+              <article class="mini-highlight"><p id="highlightTwoTitle" class="eyebrow"></p><p id="highlightTwoText"></p></article>
+              <article class="mini-highlight"><p id="highlightThreeTitle" class="eyebrow"></p><p id="highlightThreeText"></p></article>
+            </div>
+          </div>
+        </section>
+        <section class="grid-3">
+          <article class="panel"><h2>Đặc điểm thường gặp</h2><ul id="characteristicsList" class="bullet-list"></ul></article>
+          <article class="panel"><h2>Giải pháp nên ưu tiên</h2><ul id="solutionsList" class="bullet-list"></ul></article>
+          <article class="panel"><h2>Cách xin hỗ trợ</h2><ul id="requestsList" class="bullet-list"></ul></article>
+        </section>
+        <section class="grid-2">
+          <article class="card"><p class="eyebrow">Tình huống thường gặp</p><ul id="scenariosList" class="bullet-list"></ul></article>
+          <article class="card"><p class="eyebrow">Công cụ và định dạng nên dùng</p><ul id="toolsList" class="bullet-list"></ul></article>
+        </section>
+        <section class="panel">
+          <h2>Danh sách thực hành ngay</h2>
+          <ul id="checklistList" class="bullet-list"></ul>
+          <p id="kbdStatus" class="feedback" aria-live="polite">Bạn có thể quay lại trang chọn nhóm nhu cầu để xem thêm các phiên bản khác bất cứ lúc nào.</p>
+        </section>
+      </div>
+    </main>
+    <footer class="site-footer"><div class="container"><p>D.O.S.E - Không gian thông tin dành cho người khuyết tật.</p></div></footer>
+    <script src="js/sidebar.js"></script>
+    <script src="js/disability-profile.js"></script>
   </body>
 </html>

@@ -4,13 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>D.O.S.E - Opportunity</title>
+    <meta
+      name="description"
+      content="Cổng cơ hội hòa nhập của D.O.S.E giúp lọc công việc theo hỗ trợ tiếp cận, hình thức làm việc và độ phù hợp với người dùng."
+    />
     <link rel="stylesheet" href="css/opportunity.css" />
   </head>
-  <body>
+  <body class="page-shell">
     <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
+
     <header class="site-header" aria-label="Đầu trang">
       <div class="container nav-wrap">
-        <a class="brand" href="../index.html">D.O.S.E</a>
+        <a class="brand" href="home.html" aria-label="D.O.S.E trang chủ">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">Opportunity Portal</span>
+          </span>
+        </a>
+
         <nav aria-label="Điều hướng chính">
           <ul class="nav-list">
             <li><a href="access.html">Access</a></li>
@@ -19,48 +31,130 @@
             <li><a href="humanity.html">Humanity</a></li>
           </ul>
         </nav>
+
+        <div class="toolbar" role="group" aria-label="Công cụ trợ năng nhanh">
+          <button id="contrastToggle" class="btn btn-outline" type="button" aria-pressed="false">Tương phản cao</button>
+          <button id="fontToggle" class="btn btn-outline" type="button" aria-pressed="false">Chữ lớn</button>
+          <button id="motionToggle" class="btn btn-outline" type="button" aria-pressed="false">Giảm chuyển động</button>
+        </div>
       </div>
     </header>
 
     <main id="main-content" class="section" tabindex="-1">
-      <div class="container">
-        <h1>OPPORTUNITY - Cơ hội việc làm hòa nhập</h1>
-        <p class="section-intro">Lọc cơ hội việc làm theo hình thức làm việc và nhu cầu hỗ trợ.</p>
-
-        <form id="jobFilterForm" class="filter-panel" novalidate aria-describedby="filter-help">
-          <p id="filter-help">Tất cả trường đều cần thiết để gợi ý việc làm chính xác.</p>
-          <div class="field-row">
-            <div class="field">
-              <label for="workType">Hình thức làm việc</label>
-              <select id="workType" name="workType" required>
-                <option value="">Chọn hình thức</option>
-                <option value="từ xa">Từ xa</option>
-                <option value="bán thời gian">Bán thời gian</option>
-                <option value="kết hợp">Kết hợp</option>
-              </select>
-              <p class="error" id="workType-error" aria-live="polite"></p>
-            </div>
-
-            <div class="field">
-              <label for="supportNeed">Hỗ trợ ưu tiên</label>
-              <select id="supportNeed" name="supportNeed" required>
-                <option value="">Chọn hỗ trợ</option>
-                <option value="trình đọc màn hình">Tương thích trình đọc màn hình</option>
-                <option value="không gian yên tĩnh">Không gian yên tĩnh</option>
-                <option value="thời gian linh hoạt">Thời gian linh hoạt</option>
-              </select>
-              <p class="error" id="supportNeed-error" aria-live="polite"></p>
+      <div class="container section-stack">
+        <section class="opportunity-grid" aria-labelledby="opportunity-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Cơ hội không rào cản</p>
+            <h1 id="opportunity-title">Opportunity của D.O.S.E không chỉ là job board. Nó là nơi tìm môi trường làm việc biết hòa nhập.</h1>
+            <p class="lede">
+              Trọng tâm không phải “có việc hay không”, mà là mức độ phù hợp, hỗ trợ đi kèm,
+              tín hiệu hòa nhập của doanh nghiệp và cảm giác an toàn khi ứng tuyển.
+            </p>
+            <div class="hero-badges">
+              <span class="chip">Remote-friendly</span>
+              <span class="chip">Inclusive employer</span>
+              <span class="chip">Accommodation-aware</span>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-solid">Tìm việc phù hợp</button>
-          <p id="filterResult" class="result" aria-live="polite"></p>
-        </form>
-        <p id="kbdStatus" class="result" aria-live="polite"></p>
+          <aside class="hero-panel" aria-labelledby="fit-title">
+            <p class="eyebrow">Best Fit Snapshot</p>
+            <h2 id="fit-title">Cổng việc làm nên nói rõ vì sao công việc này hợp với bạn.</h2>
+            <div class="metrics-grid">
+              <article class="metric-card">
+                89%
+                <strong>Độ phù hợp giả lập</strong>
+              </article>
+              <article class="metric-card">
+                03
+                <strong>Hỗ trợ nổi bật</strong>
+              </article>
+              <article class="metric-card">
+                AA
+                <strong>Tín hiệu tiếp cận</strong>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section class="split-panel" aria-labelledby="filter-title">
+          <form id="jobFilterForm" class="form-card" novalidate aria-describedby="filter-help">
+            <div class="section-head">
+              <p class="eyebrow">Job Match Filter</p>
+              <h2 id="filter-title">Tìm công việc theo cách làm việc và hỗ trợ bạn cần.</h2>
+            </div>
+            <p id="filter-help" class="form-help">
+              Điền đủ để D.O.S.E gợi ý những cơ hội có mức độ hòa nhập cao hơn.
+            </p>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="workType">Hình thức làm việc</label>
+                <select id="workType" name="workType" required>
+                  <option value="">Chọn hình thức</option>
+                  <option value="từ xa">Từ xa</option>
+                  <option value="bán thời gian">Bán thời gian</option>
+                  <option value="kết hợp">Kết hợp</option>
+                </select>
+                <p class="error" id="workType-error" aria-live="polite"></p>
+              </div>
+
+              <div class="field">
+                <label for="supportNeed">Hỗ trợ ưu tiên</label>
+                <select id="supportNeed" name="supportNeed" required>
+                  <option value="">Chọn hỗ trợ</option>
+                  <option value="trình đọc màn hình">Tương thích trình đọc màn hình</option>
+                  <option value="không gian yên tĩnh">Không gian yên tĩnh</option>
+                  <option value="thời gian linh hoạt">Thời gian linh hoạt</option>
+                </select>
+                <p class="error" id="supportNeed-error" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Tìm cơ hội phù hợp</button>
+            <p id="filterResult" class="result" aria-live="polite"></p>
+          </form>
+
+          <article class="support-panel">
+            <p class="eyebrow">Inclusive Signals</p>
+            <h3>Điều cần hiện ngay trên mỗi job card.</h3>
+            <ul class="feature-list">
+              <li>Accommodation rõ ràng: phụ đề, công cụ hỗ trợ, lịch linh hoạt, làm việc hybrid.</li>
+              <li>Điểm hòa nhập của doanh nghiệp: mức chủ động với accessibility và onboarding.</li>
+              <li>Lý do phù hợp với profile người dùng thay vì chỉ liệt kê mô tả việc làm.</li>
+            </ul>
+          </article>
+        </section>
+
+        <section class="community-grid" aria-labelledby="stories-title">
+          <article class="story-card">
+            <p class="eyebrow">Success Story</p>
+            <h2 id="stories-title">Từ “tìm việc” sang “tìm nơi mình được tôn trọng”.</h2>
+            <p class="section-intro">
+              Một cổng cơ hội hòa nhập tốt nên có cả câu chuyện nghề nghiệp thật, để người dùng nhìn thấy tương lai khả thi chứ không chỉ một danh sách tuyển dụng.
+            </p>
+          </article>
+
+          <article class="quote-card">
+            <p class="eyebrow">Career Signal</p>
+            <p class="section-intro">
+              “Điều làm mình ở lại không chỉ là mức lương. Đó là việc công ty hiểu mình cần gì để làm việc tốt.”
+            </p>
+          </article>
+        </section>
+
+        <p id="kbdStatus" class="result kbd-status" aria-live="polite"></p>
       </div>
     </main>
 
-    <footer class="site-footer"><div class="container"><p>D.O.S.E - Opportunity.</p></div></footer>
+    <footer class="site-footer">
+      <div class="container">
+        <p><strong>D.O.S.E Opportunity</strong> ưu tiên sự phù hợp và hòa nhập trước khi nói tới tốc độ tuyển dụng.</p>
+        <p class="footer-note">Bước tiếp theo phù hợp là nối dữ liệu job thật hoặc Supabase/Firebase để biến màn này thành MVP sống.</p>
+      </div>
+    </footer>
+
+    <script src="js/sidebar.js"></script>
     <script src="js/opportunity.js"></script>
   </body>
 </html>

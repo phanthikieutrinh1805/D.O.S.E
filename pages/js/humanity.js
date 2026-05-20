@@ -2,9 +2,7 @@ const $ = (id) => document.getElementById(id);
 
 function announce(message) {
   const status = $("kbdStatus");
-  if (status) {
-    status.textContent = message;
-  }
+  if (status) status.textContent = message;
 }
 
 function toggleMode(buttonId, className, label) {
@@ -14,24 +12,11 @@ function toggleMode(buttonId, className, label) {
   button.addEventListener("click", () => {
     const next = button.getAttribute("aria-pressed") !== "true";
     button.setAttribute("aria-pressed", String(next));
+    document.documentElement.classList.toggle(className, next);
     document.body.classList.toggle(className, next);
     announce(`${label}: ${next ? "đã bật" : "đã tắt"}.`);
   });
 }
-
-toggleMode("contrastToggle", "high-contrast", "Chế độ tương phản cao");
-toggleMode("fontToggle", "large-text", "Chế độ chữ lớn");
-toggleMode("motionToggle", "reduce-motion", "Chế độ giảm chuyển động");
-
-document.querySelectorAll(".lesson-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    const id = button.dataset.lesson;
-    const feedback = document.getElementById(`lesson-feedback-${id}`);
-    if (feedback) {
-      feedback.textContent = `Bạn đã hoàn thành bài học ${id}. Tuyệt vời!`;
-    }
-  });
-});
 
 function setError(input, message) {
   const error = document.getElementById(`${input.id}-error`);
@@ -50,26 +35,9 @@ function setError(input, message) {
   return true;
 }
 
-const jobFilterForm = $("jobFilterForm");
-if (jobFilterForm) {
-  jobFilterForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const workType = $("workType");
-    const supportNeed = $("supportNeed");
-    const result = $("filterResult");
-
-    const okWork = setError(workType, workType.value ? "" : "Vui lòng chọn hình thức làm việc.");
-    const okSupport = setError(supportNeed, supportNeed.value ? "" : "Vui lòng chọn hỗ trợ ưu tiên.");
-
-    if (!(okWork && okSupport)) {
-      result.textContent = "Biểu mẫu có lỗi. Vui lòng kiểm tra các trường đã đánh dấu.";
-      return;
-    }
-
-    result.textContent = `Đã tìm thấy 3 cơ hội ${workType.value} với ưu tiên ${supportNeed.value}.`;
-  });
-}
+toggleMode("contrastToggle", "high-contrast", "Chế độ tương phản cao");
+toggleMode("fontToggle", "large-text", "Chế độ chữ lớn");
+toggleMode("motionToggle", "reduce-motion", "Chế độ giảm chuyển động");
 
 const contactForm = $("contactForm");
 if (contactForm) {
@@ -89,7 +57,7 @@ if (contactForm) {
       return;
     }
 
-    success.textContent = "Đăng ký thành công. Cảm ơn bạn đã đồng hành cùng D.O.S.E!";
+    success.textContent = "Đăng ký thành công. Cảm ơn bạn đã tham gia cộng đồng D.O.S.E.";
     contactForm.reset();
   });
 }
@@ -103,7 +71,7 @@ document.addEventListener("keydown", (event) => {
 
   const key = event.key.toLowerCase();
   const routeMap = {
-    "1": "../index.html",
+    "1": "home.html",
     "2": "access.html",
     "3": "education.html",
     "4": "opportunity.html",
@@ -113,7 +81,7 @@ document.addEventListener("keydown", (event) => {
   if (routeMap[key]) {
     event.preventDefault();
     const keyLabel = event.metaKey ? "⌘" : "Alt/⌥";
-    announce(`Đang chuyển trang bằng phím tắt  + .`);
+    announce(`Đang chuyển trang bằng phím tắt ${keyLabel} + ${key}.`);
     window.location.href = routeMap[key];
     return;
   }

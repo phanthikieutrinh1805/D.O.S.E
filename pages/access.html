@@ -4,13 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>D.O.S.E - Access</title>
+    <meta
+      name="description"
+      content="Trung tâm trợ năng của D.O.S.E với chiến lược WCAG 2.2, lớp nền trải nghiệm và checklist triển khai thực tế."
+    />
     <link rel="stylesheet" href="css/access.css" />
   </head>
-  <body>
+  <body class="page-shell">
     <a class="skip-link" href="#main-content">Bỏ qua điều hướng, đến nội dung chính</a>
+
     <header class="site-header" aria-label="Đầu trang">
       <div class="container nav-wrap">
-        <a class="brand" href="../index.html">D.O.S.E</a>
+        <a class="brand" href="home.html" aria-label="D.O.S.E trang chủ">
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">Access Mission Control</span>
+          </span>
+        </a>
+
         <nav aria-label="Điều hướng chính">
           <ul class="nav-list">
             <li><a aria-current="page" href="access.html">Access</a></li>
@@ -19,127 +31,156 @@
             <li><a href="humanity.html">Humanity</a></li>
           </ul>
         </nav>
+
+        <div class="toolbar" role="group" aria-label="Công cụ trợ năng nhanh">
+          <button id="contrastToggle" class="btn btn-outline" type="button" aria-pressed="false">Tương phản cao</button>
+          <button id="fontToggle" class="btn btn-outline" type="button" aria-pressed="false">Chữ lớn</button>
+          <button id="motionToggle" class="btn btn-outline" type="button" aria-pressed="false">Giảm chuyển động</button>
+        </div>
       </div>
     </header>
 
     <main id="main-content" class="section" tabindex="-1">
-      <div class="container">
-        <h1>ACCESS - Digital Accessibility</h1>
-        <p class="section-intro">
-          Trang này tập trung vào những nền tảng quan trọng nhất của trải nghiệm trợ năng:
-          khả năng đọc, thao tác, hiểu được nội dung và tương thích với công nghệ hỗ trợ.
-        </p>
-        <div class="card-grid" role="list">
-          <article class="card" role="listitem">
-            <h2>Nhìn thấy</h2>
-            <p>Tương phản màu đủ mạnh, khoảng trắng thoáng, cỡ chữ có thể tăng và cấu trúc thị giác nhất quán hơn.</p>
-          </article>
-          <article class="card" role="listitem">
-            <h2>Điều hướng</h2>
-            <p>Toàn bộ chức năng chính dùng được bằng bàn phím, có chỉ báo focus rõ và đường đi thao tác dễ đoán.</p>
-          </article>
-          <article class="card" role="listitem">
-            <h2>Hiểu được</h2>
-            <p>Ngôn ngữ đơn giản, nhãn biểu mẫu cụ thể, lỗi hiển thị cạnh trường nhập liệu và phản hồi không gây mơ hồ.</p>
-          </article>
-          <article class="card" role="listitem">
-            <h2>Hỗ trợ công nghệ</h2>
-            <p>Sử dụng landmark, vùng thông báo động và cấu trúc semantic để tương thích tốt hơn với trình đọc màn hình.</p>
-          </article>
-        </div>
+      <div class="container section-stack">
+        <section class="hero-grid" aria-labelledby="access-title">
+          <div class="hero-copy">
+            <p class="eyebrow">WCAG 2.2 Foundation</p>
+            <h1 id="access-title">Trợ năng của D.O.S.E phải là năng lực nền, không phải tính năng phụ.</h1>
+            <p class="lede">
+              Access là nơi D.O.S.E biến triết lý “A Dose of Humanity” thành những chuẩn mực rất cụ thể:
+              đọc được, thao tác được, hiểu được và tương thích với công nghệ hỗ trợ.
+            </p>
+            <div class="hero-badges" aria-label="Ưu tiên trợ năng">
+              <span class="chip">Keyboard-first</span>
+              <span class="chip">Screen reader-aware</span>
+              <span class="chip">Reduced cognitive load</span>
+            </div>
+            <div class="actions">
+              <a class="btn btn-primary" href="#foundation">Xem 4 lớp nền</a>
+              <a class="btn btn-secondary" href="#checklist">Mở checklist triển khai</a>
+            </div>
+          </div>
 
-        <section class="section-block" aria-labelledby="access-foundation-title">
+          <aside class="hero-panel" aria-labelledby="access-panel-title">
+            <p class="eyebrow">Tình trạng sẵn sàng</p>
+            <h2 id="access-panel-title">Những capability tối thiểu mà MVP cần có ngay từ ngày đầu.</h2>
+            <div class="metrics-grid">
+              <article class="metric-card">
+                01
+                <strong>Cỡ chữ linh hoạt</strong>
+              </article>
+              <article class="metric-card">
+                02
+                <strong>Focus state rõ</strong>
+              </article>
+              <article class="metric-card">
+                03
+                <strong>Thông báo dễ hiểu</strong>
+              </article>
+            </div>
+          </aside>
+        </section>
+
+        <section id="foundation" class="section-stack" aria-labelledby="foundation-title">
           <div class="section-head">
-            <h2 id="access-foundation-title">4 lớp nền tảng của trải nghiệm trợ năng</h2>
-            <p>
-              Một website tốt không chỉ “đẹp hơn”, mà còn phải chủ động giảm rào cản cho nhiều kiểu người dùng khác nhau.
+            <p class="eyebrow">Accessibility Layers</p>
+            <h2 id="foundation-title">Bốn lớp nền tảng để người dùng không bị bỏ lại phía sau.</h2>
+            <p class="section-intro">
+              Mỗi lớp giải quyết một kiểu rào cản khác nhau. Khi ghép lại, chúng tạo ra trải nghiệm số
+              dịu hơn, rõ hơn và ít làm người dùng kiệt sức hơn.
             </p>
           </div>
 
-          <div class="detail-grid">
-            <article class="detail-card">
-              <h3>Khả năng đọc</h3>
-              <ul>
-                <li>Cỡ chữ đủ lớn và có thể tăng thêm khi cần.</li>
-                <li>Màu chữ và nền có độ tương phản rõ ràng.</li>
-                <li>Nội dung chia thành đoạn ngắn, tiêu đề rõ, ít gây quá tải.</li>
+          <div class="triptych-grid" role="list">
+            <article class="path-card" role="listitem">
+              <span class="status-chip">Khả năng đọc</span>
+              <h3>Thị giác và độ rõ</h3>
+              <p>Ưu tiên tương phản, khoảng trắng, phân cấp chữ và khả năng tăng cỡ font mà không làm vỡ bố cục.</p>
+              <ul class="detail-list">
+                <li>Dùng màu không quá gắt nhưng vẫn đạt độ tương phản rõ.</li>
+                <li>Chia đoạn ngắn để giảm mệt mỏi khi đọc.</li>
+                <li>Không nhồi thông tin quan trọng vào ảnh.</li>
               </ul>
             </article>
-            <article class="detail-card">
-              <h3>Khả năng thao tác</h3>
-              <ul>
-                <li>Mọi nút và liên kết đều truy cập được bằng bàn phím.</li>
-                <li>Vùng bấm đủ lớn trên cả desktop và mobile.</li>
-                <li>Thứ tự focus hợp lý, không nhảy bất ngờ.</li>
+
+            <article class="path-card" role="listitem">
+              <span class="status-chip">Khả năng thao tác</span>
+              <h3>Điều hướng dễ đoán</h3>
+              <p>Mọi đường đi chính cần dùng được bằng bàn phím, chạm dễ trên mobile và có focus ring đủ nổi bật.</p>
+              <ul class="detail-list">
+                <li>Hit area tối thiểu 48x48px.</li>
+                <li>Thứ tự tab hợp lý theo mắt nhìn.</li>
+                <li>Không khóa người dùng trong modal hoặc menu.</li>
               </ul>
             </article>
-            <article class="detail-card">
-              <h3>Khả năng hiểu nội dung</h3>
-              <ul>
-                <li>Biểu mẫu có nhãn rõ ràng và lỗi viết dễ hiểu.</li>
-                <li>Nội dung tránh jargon nếu không cần thiết.</li>
-                <li>Thông điệp thành công hoặc lỗi luôn có phản hồi cụ thể.</li>
-              </ul>
-            </article>
-            <article class="detail-card">
-              <h3>Tương thích công nghệ hỗ trợ</h3>
-              <ul>
-                <li>Dùng HTML semantic trước khi thêm ARIA.</li>
-                <li>Có vùng thông báo động cho trạng thái quan trọng.</li>
-                <li>Giữ cấu trúc heading, navigation và landmark nhất quán.</li>
+
+            <article class="path-card" role="listitem">
+              <span class="status-chip">Khả năng hiểu</span>
+              <h3>Ngôn ngữ ít áp lực</h3>
+              <p>Nội dung phải giảm jargon, phản hồi lỗi phải nói rõ điều cần làm tiếp theo và tránh tạo cảm giác bị “thi rớt”.</p>
+              <ul class="detail-list">
+                <li>Label luôn hiện sẵn, không chỉ dùng placeholder.</li>
+                <li>Thông báo lỗi nằm gần trường nhập.</li>
+                <li>Giải thích rõ nguyên nhân và hành động tiếp theo.</li>
               </ul>
             </article>
           </div>
         </section>
 
-        <section class="section-block alt-panel" aria-labelledby="access-tools-title">
-          <div class="section-head">
-            <h2 id="access-tools-title">Những công cụ nên có trong MVP của D.O.S.E</h2>
-            <p>
-              Với một social-tech platform, trợ năng nên là capability nền chứ không phải một tùy chọn gắn thêm ở cuối.
-            </p>
-          </div>
-
-          <div class="tool-grid" role="list">
-            <article class="tool-card" role="listitem">
-              <h3>Tăng giảm cỡ chữ</h3>
-              <p>Cho phép người dùng thay đổi kích thước chữ nhanh mà không làm vỡ bố cục.</p>
-            </article>
-            <article class="tool-card" role="listitem">
-              <h3>Tương phản cao</h3>
-              <p>Giúp người dùng nhận diện ranh giới, văn bản và trạng thái focus rõ ràng hơn.</p>
-            </article>
-            <article class="tool-card" role="listitem">
-              <h3>Giảm chuyển động</h3>
-              <p>Hạn chế animation không cần thiết để giảm chóng mặt, mất tập trung hoặc quá tải cảm giác.</p>
-            </article>
-            <article class="tool-card" role="listitem">
-              <h3>Chế độ đơn giản</h3>
-              <p>Giảm nhiễu thị giác, ưu tiên nội dung cốt lõi và tăng khả năng tập trung vào tác vụ chính.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section-block" aria-labelledby="access-checklist-title">
-          <div class="section-head">
-            <h2 id="access-checklist-title">Checklist nhanh khi xây trang mới</h2>
-          </div>
-
-          <div class="checklist-card">
-            <ul class="checklist">
-              <li>Có `skip link` và vùng `main` rõ ràng.</li>
-              <li>Tất cả nút, liên kết, tab đều dùng được bằng bàn phím.</li>
-              <li>Focus state đủ nổi bật trên nền sáng lẫn nền tối.</li>
-              <li>Form có label, helper text và error message liên kết đúng.</li>
-              <li>Nội dung không phụ thuộc hoàn toàn vào màu sắc để truyền nghĩa.</li>
-              <li>Các cập nhật động có thể được trình đọc màn hình thông báo.</li>
+        <section class="duo-grid" aria-labelledby="tooling-title">
+          <article class="surface-card">
+            <div class="section-head">
+              <p class="eyebrow">Core Tooling</p>
+              <h2 id="tooling-title">Bộ công cụ nên có trong mọi màn của D.O.S.E.</h2>
+            </div>
+            <ul class="feature-list">
+              <li>Tăng giảm cỡ chữ và lưu lựa chọn trên thiết bị.</li>
+              <li>Tương phản cao cho người dùng cần độ ranh giới mạnh hơn.</li>
+              <li>Giảm chuyển động để tránh chóng mặt hoặc quá tải cảm giác.</li>
+              <li>Thông báo live region cho hành động thành công, lỗi và thay đổi trạng thái.</li>
             </ul>
-          </div>
+          </article>
+
+          <article class="support-panel">
+            <p class="eyebrow">Nguyên tắc triển khai</p>
+            <h3>Dùng semantic HTML trước, ARIA sau.</h3>
+            <p class="section-intro">
+              Nếu cấu trúc heading, navigation, form label và landmark làm tốt ngay từ đầu,
+              hệ thống sẽ ổn định hơn nhiều so với vá ARIA ở cuối dự án.
+            </p>
+            <div class="chip-row">
+              <span class="status-chip status-chip--mint">Semantic first</span>
+              <span class="status-chip status-chip--sand">Predictable layout</span>
+            </div>
+          </article>
         </section>
+
+        <section id="checklist" class="cta-band" aria-labelledby="checklist-title">
+          <div class="section-head">
+            <p class="eyebrow">Launch Checklist</p>
+            <h2 id="checklist-title">Checklist nhanh trước khi publish một trang mới.</h2>
+          </div>
+          <ul class="checklist">
+            <li>Có `skip link`, vùng `main` rõ ràng và tiêu đề trang đủ cụ thể.</li>
+            <li>Tất cả nút, link và form field đều truy cập được bằng bàn phím.</li>
+            <li>Thông tin quan trọng không chỉ truyền qua màu sắc hoặc hình ảnh.</li>
+            <li>Focus state vẫn nhìn rõ ở cả nền sáng lẫn chế độ tương phản cao.</li>
+            <li>Các cập nhật động đều có vùng thông báo cho trình đọc màn hình.</li>
+          </ul>
+        </section>
+
+        <p id="kbdStatus" class="result kbd-status" aria-live="polite"></p>
       </div>
     </main>
 
-    <footer class="site-footer"><div class="container"><p>D.O.S.E - Access.</p></div></footer>
+    <footer class="site-footer">
+      <div class="container">
+        <p><strong>D.O.S.E Access</strong> đang đặt nền cho mọi trải nghiệm còn lại.</p>
+        <p class="footer-note">Phím tắt: `Alt/Option + 1..5` để chuyển module, `Alt/Option + M` để vào nội dung chính.</p>
+      </div>
+    </footer>
+
+    <script src="js/sidebar.js"></script>
     <script src="js/access.js"></script>
   </body>
 </html>

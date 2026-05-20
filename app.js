@@ -114,6 +114,8 @@ function clampFontScale(value) {
 function applyFontScale() {
   const value = clampFontScale(settings.fontScale);
   settings.fontScale = value;
+  document.documentElement.style.setProperty("--font-scale", `${value}%`);
+  document.documentElement.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
   body.style.setProperty("--font-scale-custom", `${value}%`);
   body.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
   savePreference("dose-font-scale", value);
@@ -811,4 +813,3 @@ if (chatInput) {
     }
   });
 }
-
