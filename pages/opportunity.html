@@ -77,43 +77,20 @@
           </aside>
         </section>
 
-        <section class="split-panel" aria-labelledby="filter-title">
-          <form id="jobFilterForm" class="form-card" novalidate aria-describedby="filter-help">
+        <section id="splitPanelSection" class="split-panel" aria-labelledby="filter-title">
+          <div class="form-card">
             <div class="section-head">
-              <p class="eyebrow">Job Match Filter</p>
+              <p class="eyebrow">Job Match Assessment</p>
               <h2 id="filter-title">Tìm công việc theo cách làm việc và hỗ trợ bạn cần.</h2>
             </div>
-            <p id="filter-help" class="form-help">
-              Điền đủ để D.O.S.E gợi ý những cơ hội có mức độ hòa nhập cao hơn.
+            <p id="filter-help" class="form-help" style="font-size: 1.15rem; margin: 1.25rem 0; line-height: 1.6; color: var(--text-muted);">
+              Chúng tôi sẽ hỗ trợ bạn tìm kiếm việc làm thông qua những câu hỏi sau đây (20 câu hỏi).
             </p>
 
-            <div class="field-row">
-              <div class="field">
-                <label for="workType">Hình thức làm việc</label>
-                <select id="workType" name="workType" required>
-                  <option value="">Chọn hình thức</option>
-                  <option value="từ xa">Từ xa</option>
-                  <option value="bán thời gian">Bán thời gian</option>
-                  <option value="kết hợp">Kết hợp</option>
-                </select>
-                <p class="error" id="workType-error" aria-live="polite"></p>
-              </div>
-
-              <div class="field">
-                <label for="supportNeed">Hỗ trợ ưu tiên</label>
-                <select id="supportNeed" name="supportNeed" required>
-                  <option value="">Chọn hỗ trợ</option>
-                  <option value="trình đọc màn hình">Tương thích trình đọc màn hình</option>
-                  <option value="không gian yên tĩnh">Không gian yên tĩnh</option>
-                  <option value="thời gian linh hoạt">Thời gian linh hoạt</option>
-                </select>
-                <p class="error" id="supportNeed-error" aria-live="polite"></p>
-              </div>
+            <div class="filter-actions" style="margin-top: 1rem;">
+              <button type="button" id="startQuizBtn" class="btn btn-primary btn-large" style="width: auto;">Bắt đầu trắc nghiệm ngay</button>
             </div>
-
-            <button type="submit" class="btn btn-primary">Tìm cơ hội phù hợp</button>
-            <p id="filterResult" class="result" aria-live="polite"></p>
-          </form>
+          </div>
 
           <article class="support-panel">
             <p class="eyebrow">Inclusive Signals</p>
@@ -124,6 +101,167 @@
               <li>Lý do phù hợp với profile người dùng thay vì chỉ liệt kê mô tả việc làm.</li>
             </ul>
           </article>
+        </section>
+        
+        <!-- Wizard Trắc nghiệm Hướng nghiệp -->
+        <section id="assessmentSection" class="assessment-container hidden" aria-labelledby="assessment-title" aria-live="polite">
+          <div class="assessment-card glass-panel">
+            <div class="assessment-header">
+              <div class="progress-container">
+                <div class="progress-bar-wrap">
+                  <div id="quizProgressBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                </div>
+                <span id="quizProgressText" class="progress-text">Câu hỏi 1/20</span>
+              </div>
+              <button type="button" id="closeQuizBtn" class="btn-close" aria-label="Đóng trắc nghiệm">×</button>
+            </div>
+
+            <div class="assessment-body">
+              <div id="quizIntro">
+                <p class="eyebrow">D.O.S.E Assessment</p>
+                <h2 id="assessment-title" class="assessment-h2">Trắc nghiệm Khám phá Bản thân & Định hướng Nghề nghiệp</h2>
+                <p class="lede">Chào mừng bạn đến với bộ trắc nghiệm đặc biệt của D.O.S.E. Trải qua 20 câu hỏi ngắn, chúng tôi sẽ giúp bạn phác họa bức tranh nghề nghiệp lý tưởng cùng các nhu cầu điều chỉnh môi trường (accommodations) tối ưu cho riêng bạn.</p>
+                <ul class="quiz-perks">
+                  <li>✨ Phân tích điểm mạnh, sở thích & kỹ năng tự nhiên</li>
+                  <li>🏢 Gợi ý môi trường làm việc & hình thức tối ưu (Từ xa/Hybrid)</li>
+                  <li>♿ Xác định các công cụ hỗ trợ tiếp cận (Screen reader, lối đi phẳng, giảm tiếng ồn)</li>
+                  <li>💼 Đề xuất 4 vị trí công việc mẫu có mức độ hòa nhập cao</li>
+                </ul>
+                <button type="button" id="beginQuizBtn" class="btn btn-primary btn-large">Bắt đầu ngay (Khoảng 5 phút)</button>
+              </div>
+
+              <!-- Màn hình sơ chọn nhóm khuyết tật / hỗ trợ tiếp cận -->
+              <div id="preQuizArea" class="pre-quiz-area hidden">
+                <p class="eyebrow">D.O.S.E Pre-Assessment Setup</p>
+                <h2 id="pre-quiz-title" class="assessment-h2" style="font-size: 1.75rem; margin-bottom: 0.75rem;">Chọn nhóm hỗ trợ tiếp cận phù hợp với bạn</h2>
+                <p class="lede" style="margin-bottom: 1.5rem; font-size: 1rem; color: var(--text-muted); line-height: 1.6;">Để D.O.S.E tối ưu hóa trải nghiệm làm bài trắc nghiệm và gợi ý các hỗ trợ điều chỉnh môi trường (accommodations) chính xác nhất, vui lòng cho biết nhóm nhu cầu hỗ trợ / khuyết tật của bạn:</p>
+                
+                <div id="disabilityOptions" class="options-grid" role="radiogroup" aria-labelledby="pre-quiz-title" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="vision" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="vision" id="dis-vision" style="margin-top: 0.25rem;">
+                    <label for="dis-vision" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">👁️ Khiếm thị (Visual)</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Cần phóng to chữ, tương phản cao hoặc hỗ trợ đọc màn hình (Screen Reader).</span>
+                    </label>
+                  </div>
+
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="hearing" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="hearing" id="dis-hearing" style="margin-top: 0.25rem;">
+                    <label for="dis-hearing" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">👂 Khiếm thính (Hearing)</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Cần phụ đề video, ngôn ngữ ký hiệu hoặc giao tiếp chủ yếu qua văn bản.</span>
+                    </label>
+                  </div>
+
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="mobility" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="mobility" id="dis-mobility" style="margin-top: 0.25rem;">
+                    <label for="dis-mobility" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">♿ Khó khăn vận động (Mobility)</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Cần văn phòng không rào cản vật lý, bàn nâng hạ, hoặc lịch làm việc từ xa.</span>
+                    </label>
+                  </div>
+
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="cognitive" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="cognitive" id="dis-cognitive" style="margin-top: 0.25rem;">
+                    <label for="dis-cognitive" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">🧠 Khó khăn nhận thức (Cognitive)</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Cần giao diện tối giản trực quan, nhiệm vụ checklist, hoặc nhịp độ hướng dẫn vừa phải.</span>
+                    </label>
+                  </div>
+
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="mental" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="mental" id="dis-mental" style="margin-top: 0.25rem;">
+                    <label for="dis-mental" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">🌿 Khó khăn tâm lý / Tinh thần</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Cần không gian yên tĩnh, lịch trị liệu linh động và hệ thống hỗ trợ tinh thần.</span>
+                    </label>
+                  </div>
+
+                  <div class="option-card" role="radio" aria-checked="false" tabindex="0" data-disability="none" style="padding: 1.25rem; display: flex; align-items: flex-start; gap: 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+                    <input type="radio" name="disability-type" value="none" id="dis-none" style="margin-top: 0.25rem;">
+                    <label for="dis-none" style="cursor: pointer; display: block; text-align: left;">
+                      <strong style="display: block; font-size: 1.05rem; color: var(--heading);">🛡️ Khác / Không yêu cầu hỗ trợ đặc biệt</strong>
+                      <span class="option-desc" style="display: block; font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; line-height: 1.4;">Tôi muốn tham gia khảo sát nghề nghiệp hòa nhập chung.</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="quiz-controls" style="margin-top: 2rem; display: flex; justify-content: flex-end;">
+                  <button type="button" id="submitDisabilityBtn" class="btn btn-primary btn-large" style="width: auto;" disabled>Xác nhận & Bắt đầu trắc nghiệm (20 câu)</button>
+                </div>
+              </div>
+
+              <div id="quizQuestionArea" class="question-area hidden">
+                <h3 id="quizQuestionText" class="question-text" tabindex="-1">Câu hỏi ở đây</h3>
+                <div id="quizOptions" class="options-grid" role="radiogroup" aria-labelledby="quizQuestionText">
+                  <!-- Các tuỳ chọn câu hỏi sẽ được render bằng JS ở đây -->
+                </div>
+                <div class="quiz-controls">
+                  <button type="button" id="prevQuestionBtn" class="btn btn-outline" disabled>Câu trước</button>
+                  <span id="quizQuestionCounter" class="helper">Câu 1 của 20</span>
+                </div>
+              </div>
+
+              <div id="quizResultsArea" class="results-area hidden">
+                <p class="eyebrow">D.O.S.E Career Matchmaker</p>
+                <h2 class="results-title">Kết quả định hướng nghề nghiệp của bạn</h2>
+                
+                <div class="results-grid">
+                  <div class="result-profile-card">
+                    <span class="badge badge-success">Phù hợp nhất</span>
+                    <h3 id="matchedProfileTitle">Tên ngành phù hợp</h3>
+                    <p id="matchedProfileDesc" class="profile-desc">Mô tả ngành phù hợp</p>
+                    
+                    <div id="userDisabilityBadgeContainer" style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                      <span class="match-label">Nhóm nhu cầu:</span>
+                      <span id="userDisabilityBadge" class="badge" style="background: rgba(157, 148, 255, 0.2); color: var(--primary); font-weight: 700; border: 1px solid var(--secondary); padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.85rem;">Đang cập nhật...</span>
+                    </div>
+
+                    <div class="match-score-wrap" style="margin-top: 1rem;">
+                      <span class="match-label">Độ tương thích hồ sơ:</span>
+                      <strong id="matchedProfileScore" class="match-score">95%</strong>
+                    </div>
+                  </div>
+
+                  <div class="result-chart-card">
+                    <h4>Biểu đồ phân bổ năng lực</h4>
+                    <div class="chart-bars" id="resultChartBars">
+                      <!-- Sẽ render bằng JS -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accommodations-card">
+                  <h4>💡 Hỗ trợ & Điều chỉnh môi trường khuyến nghị cho bạn:</h4>
+                  <ul id="recommendedAccommodations" class="feature-list">
+                    <!-- Sẽ render bằng JS -->
+                  </ul>
+                </div>
+
+                <div id="disabilityModuleCard" class="accommodations-card" style="background: linear-gradient(135deg, rgba(167, 243, 208, 0.1) 0%, rgba(157, 148, 255, 0.1) 100%); border: 1px dashed var(--secondary); padding: 1.5rem; border-radius: var(--radius-md); margin-top: 1.5rem;">
+                  <h4 style="color: var(--primary); font-weight: 700;">🎓 School of Understanding - Học thấu hiểu:</h4>
+                  <p style="margin: 0.5rem 0 1rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                    D.O.S.E gợi ý bạn tìm hiểu sâu hơn về trải nghiệm thực tế và cách giảm rào cản của nhóm mình tại bài học chuyên biệt này:
+                  </p>
+                  <a id="disabilityModuleLink" href="#" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 700;">
+                    <span>Đang tải bài học thấu hiểu...</span>
+                  </a>
+                </div>
+
+                <div class="matched-jobs-section">
+                  <h4>💼 Cơ hội việc làm hòa nhập gợi ý cho bạn:</h4>
+                  <div class="jobs-list-grid" id="matchedJobsList">
+                    <!-- Sẽ render bằng JS -->
+                  </div>
+                </div>
+
+                <div class="results-footer">
+                  <button type="button" id="restartQuizBtn" class="btn btn-outline">Làm lại trắc nghiệm</button>
+                  <button type="button" id="exitQuizBtn" class="btn btn-primary">Hoàn tất & Quay lại</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="community-grid" aria-labelledby="stories-title">
