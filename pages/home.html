@@ -22,6 +22,64 @@
 
     <div id="liveRegion" class="sr-only" aria-live="polite" aria-atomic="true"></div>
 
+    <section
+      id="accessOnboarding"
+      class="entry-modal access-onboarding"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="accessOnboardingTitle"
+      aria-describedby="accessOnboardingDescription"
+      hidden
+    >
+      <div class="entry-modal__backdrop" data-onboarding-close></div>
+      <div class="entry-modal__card access-onboarding__card">
+        <p class="eyebrow">Cá nhân hóa trải nghiệm</p>
+        <h2 id="accessOnboardingTitle">Bạn thuộc nhóm nhu cầu hỗ trợ nào?</h2>
+        <p id="accessOnboardingDescription" class="helper-text">
+          Chọn nhóm phù hợp nhất để D.O.S.E gợi ý giao diện dễ dùng hơn ngay từ đầu. Bạn luôn có thể đổi lại sau trong bảng trợ năng.
+        </p>
+
+        <div
+          id="accessOnboardingOptions"
+          class="access-onboarding__options"
+          role="radiogroup"
+          aria-label="Các nhóm nhu cầu hỗ trợ"
+        >
+          <button type="button" class="access-onboarding__option" data-access-profile="vision" aria-pressed="false">
+            <strong>Khiếm thị hoặc thị lực kém</strong>
+            <span>Cần chữ rõ hơn, tương phản cao hoặc hỗ trợ đọc màn hình.</span>
+          </button>
+          <button type="button" class="access-onboarding__option" data-access-profile="hearing" aria-pressed="false">
+            <strong>Khiếm thính hoặc khó nghe</strong>
+            <span>Ưu tiên nội dung trực quan, hướng dẫn bằng chữ và tín hiệu rõ ràng.</span>
+          </button>
+          <button type="button" class="access-onboarding__option" data-access-profile="motor" aria-pressed="false">
+            <strong>Khó vận động hoặc thao tác</strong>
+            <span>Cần thao tác nhẹ nhàng hơn, ít chuyển động và ít bước hơn.</span>
+          </button>
+          <button type="button" class="access-onboarding__option" data-access-profile="cognitive" aria-pressed="false">
+            <strong>Khó đọc, khó tập trung hoặc khó tiếp nhận thông tin</strong>
+            <span>Ưu tiên nội dung đơn giản, cỡ chữ dễ đọc và giảm nhiễu thị giác.</span>
+          </button>
+          <button type="button" class="access-onboarding__option" data-access-profile="mental" aria-pressed="false">
+            <strong>Khó khăn tâm lý hoặc tinh thần</strong>
+            <span>Cần trải nghiệm dịu hơn, ít áp lực thị giác và nhịp độ nhẹ nhàng.</span>
+          </button>
+          <button type="button" class="access-onboarding__option" data-access-profile="default" aria-pressed="false">
+            <strong>Khác hoặc chưa muốn chia sẻ</strong>
+            <span>Tôi muốn vào trang trước và tự chỉnh trợ năng sau.</span>
+          </button>
+        </div>
+
+        <div class="entry-modal__actions access-onboarding__actions">
+          <button id="skipOnboardingButton" type="button" class="btn btn-ghost btn-lg">Bỏ qua lúc này</button>
+          <button id="confirmOnboardingButton" type="button" class="btn btn-primary btn-lg" disabled>
+            Tiếp tục vào trang
+          </button>
+        </div>
+      </div>
+    </section>
+
     <div class="app-shell">
       <div id="mobileNavBackdrop" class="mobile-nav-backdrop" hidden></div>
 

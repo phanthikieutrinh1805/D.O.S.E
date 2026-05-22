@@ -185,6 +185,10 @@ body.reduce-motion *::after {
   scroll-behavior: auto !important;
 }
 
+body.has-modal-open {
+  overflow: hidden;
+}
+
 img,
 svg {
   display: block;
@@ -279,6 +283,80 @@ button {
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1.25rem;
+}
+
+.access-onboarding__card {
+  width: min(48rem, 100%);
+  padding: 2rem;
+}
+
+.access-onboarding__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.access-onboarding__option {
+  display: grid;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(240, 237, 255, 0.6) 100%);
+  text-align: left;
+  box-shadow: var(--shadow-xs);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background 180ms ease;
+}
+
+.access-onboarding__option strong {
+  color: var(--color-heading);
+  font-size: var(--text-base);
+}
+
+.access-onboarding__option span {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.access-onboarding__option:hover {
+  transform: translateY(-0.1rem);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.access-onboarding__option[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  background: linear-gradient(180deg, rgba(224, 231, 255, 0.95) 0%, rgba(167, 243, 208, 0.24) 100%);
+  box-shadow: 0 0 0 0.18rem rgba(46, 49, 146, 0.12);
+}
+
+.access-onboarding__actions {
+  justify-content: flex-end;
+}
+
+body.dark .access-onboarding__option {
+  background: linear-gradient(180deg, rgba(28, 42, 35, 0.96) 0%, rgba(35, 50, 41, 0.84) 100%);
+}
+
+body.dark .access-onboarding__option[aria-pressed="true"] {
+  background: linear-gradient(180deg, rgba(38, 64, 51, 0.96) 0%, rgba(31, 48, 40, 0.96) 100%);
+}
+
+body.high-contrast .access-onboarding__option {
+  border-width: 2px;
+  background: #ffffff;
+}
+
+body.high-contrast .access-onboarding__option[aria-pressed="true"] {
+  border-width: 3px;
+  box-shadow: none;
 }
 
 [data-keytip] {
@@ -1626,10 +1704,23 @@ body.simple-mode .reveal {
 
   .pillars-grid,
   .showcase-grid,
+  .access-onboarding__options,
   .landing-hero__signals,
   .framework-grid,
   .accessibility-showcase {
     grid-template-columns: 1fr;
+  }
+
+  .access-onboarding__card {
+    padding: var(--space-6);
+  }
+
+  .access-onboarding__actions {
+    justify-content: stretch;
+  }
+
+  .access-onboarding__actions .btn {
+    width: 100%;
   }
 
   .framework-card__media,

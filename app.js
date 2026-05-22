@@ -70,14 +70,23 @@ const mobileNavBackdrop = $("mobileNavBackdrop");
 const shortcutHint = $("shortcutHint");
 const keyboardHelperHint = $("keyboardHelperHint");
 const keytipHint = $("keytipHint");
+const accessOnboarding = $("accessOnboarding");
+const accessOnboardingOptions = accessOnboarding
+  ? Array.from(accessOnboarding.querySelectorAll("[data-access-profile]"))
+  : [];
+const confirmOnboardingButton = $("confirmOnboardingButton");
+const skipOnboardingButton = $("skipOnboardingButton");
 
 const ACCESS_PROFILE_STORAGE_KEY = "dose-access-profile";
+const ACCESS_ONBOARDING_SEEN_STORAGE_KEY = "dose-access-onboarding-seen";
 
 let lastPanelTrigger = null;
 let currentUtterance = null;
 let lastMenuTrigger = null;
 let keytipModeActive = false;
 let altKeyDown = false;
+let selectedAccessProfile = "";
+let lastOnboardingTrigger = null;
 
 const keytipTargets = Array.from(document.querySelectorAll("[data-keytip]"));
 
@@ -311,16 +320,171 @@ function loadAccessProfile() {
   return loadPreference(ACCESS_PROFILE_STORAGE_KEY, "");
 }
 
+function saveAccessOnboardingSeen(value) {
+  try {
+    sessionStorage.setItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY, JSON.stringify(value));
+  } catch (_error) {
+    // Ignore storage failures so the UI still works.
+  }
+}
+
+function loadAccessOnboardingSeen() {
+  try {
+    const value = sessionStorage.getItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY);
+    return value === null ? false : JSON.parse(value);
+  } catch (_error) {
+    return false;
+  }
+}
+
+function setFontScalePreference(value) {
+  settings.fontScale = clampFontScale(value);
+  applyFontScale();
+}
+
+function resetAccessProfileSettings() {
+  setFontScalePreference(DEFAULT_SETTINGS.fontScale);
+  setSettingState("high-contrast", false);
+  applyToggle("high-contrast", false);
+  setSettingState("reduce-motion", false);
+  applyToggle("reduce-motion", false);
+  setSettingState("simple-mode", false);
+  applyToggle("simple-mode", false);
+}
+
 function applyAccessProfile(profile, shouldAnnounce = false) {
+  resetAccessProfileSettings();
+
   if (profile === "vision") {
     setHighContrastMode(true, shouldAnnounce);
+    setFontScalePreference(112.5);
+    saveAccessProfile(profile);
+    return;
+  }
+
+  if (profile === "motor") {
+    setSettingState("reduce-motion", true);
+    applyToggle("reduce-motion", shouldAnnounce);
+    saveAccessProfile(profile);
+    return;
+  }
+
+  if (profile === "cognitive") {
+    setSettingState("simple-mode", true);
+    applyToggle("simple-mode", shouldAnnounce);
+    setFontScalePreference(112.5);
+    saveAccessProfile(profile);
+    return;
+  }
+
+  if (profile === "mental") {
+    setSettingState("reduce-motion", true);
+    applyToggle("reduce-motion", false);
+    setSettingState("simple-mode", true);
+    applyToggle("simple-mode", shouldAnnounce);
+    saveAccessProfile(profile);
+    return;
+  }
+
+  if (profile === "hearing") {
     saveAccessProfile(profile);
     return;
   }
 
   if (profile === "default") {
-    setHighContrastMode(false, shouldAnnounce);
     saveAccessProfile(profile);
+  }
+}
+
+function setSelectedAccessProfile(profile) {
+  selectedAccessProfile = profile;
+
+  accessOnboardingOptions.forEach((option) => {
+    const isSelected = option.dataset.accessProfile === profile;
+    option.setAttribute("aria-pressed", String(isSelected));
+  });
+
+  if (confirmOnboardingButton) {
+    confirmOnboardingButton.disabled = !profile;
+  }
+}
+
+function closeAccessOnboarding() {
+  if (!accessOnboarding) return;
+  accessOnboarding.hidden = true;
+  body.classList.remove("has-modal-open");
+
+  if (lastOnboardingTrigger && typeof lastOnboardingTrigger.focus === "function") {
+    lastOnboardingTrigger.focus();
+  }
+}
+
+function openAccessOnboarding() {
+  if (!accessOnboarding) return;
+
+  lastOnboardingTrigger = document.activeElement;
+  accessOnboarding.hidden = false;
+  body.classList.add("has-modal-open");
+
+  const savedProfile = loadAccessProfile();
+  setSelectedAccessProfile(savedProfile || "");
+
+  const selectedOption = accessOnboardingOptions.find(
+    (option) => option.dataset.accessProfile === selectedAccessProfile
+  );
+  const firstTarget = selectedOption || accessOnboardingOptions[0] || confirmOnboardingButton;
+
+  if (firstTarget) {
+    window.setTimeout(() => firstTarget.focus(), 30);
+  }
+}
+
+function completeAccessOnboarding(profile, shouldAnnounce = true) {
+  if (profile) {
+    applyAccessProfile(profile, false);
+    saveAccessProfile(profile);
+  } else {
+    saveAccessProfile("default");
+  }
+
+  saveAccessOnboardingSeen(true);
+  closeAccessOnboarding();
+
+  if (shouldAnnounce) {
+    announce("Đã lưu lựa chọn hỗ trợ truy cập ban đầu. Bạn có thể đổi lại bất cứ lúc nào.");
+  }
+}
+
+function initializeAccessOnboarding() {
+  if (!accessOnboarding) return;
+
+  accessOnboardingOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      setSelectedAccessProfile(option.dataset.accessProfile || "");
+    });
+  });
+
+  if (confirmOnboardingButton) {
+    confirmOnboardingButton.addEventListener("click", () => {
+      if (!selectedAccessProfile) return;
+      completeAccessOnboarding(selectedAccessProfile);
+    });
+  }
+
+  if (skipOnboardingButton) {
+    skipOnboardingButton.addEventListener("click", () => {
+      completeAccessOnboarding("default");
+    });
+  }
+
+  accessOnboarding.querySelectorAll("[data-onboarding-close]").forEach((element) => {
+    element.addEventListener("click", () => {
+      completeAccessOnboarding("default", false);
+    });
+  });
+
+  if (!loadAccessOnboardingSeen()) {
+    openAccessOnboarding();
   }
 }
 
@@ -474,9 +638,18 @@ applyAllSettings();
 updateShortcutHints();
 
 const savedAccessProfile = loadAccessProfile();
-if (savedAccessProfile === "vision" || savedAccessProfile === "default") {
+if (
+  savedAccessProfile === "vision" ||
+  savedAccessProfile === "hearing" ||
+  savedAccessProfile === "motor" ||
+  savedAccessProfile === "cognitive" ||
+  savedAccessProfile === "mental" ||
+  savedAccessProfile === "default"
+) {
   applyAccessProfile(savedAccessProfile, false);
 }
+
+initializeAccessOnboarding();
 
 if (menuToggle && sideNav) {
   menuToggle.addEventListener("click", () => toggleMobileNav(menuToggle));
@@ -614,6 +787,34 @@ if (contactForm) {
 }
 
 document.addEventListener("keydown", (event) => {
+  if (accessOnboarding && !accessOnboarding.hidden) {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      completeAccessOnboarding("default", false);
+      return;
+    }
+
+    if (event.key === "Tab") {
+      const focusables = getFocusableElements(accessOnboarding);
+      if (focusables.length > 0) {
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+          return;
+        }
+
+        if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+          return;
+        }
+      }
+    }
+  }
+
   if (event.key === "Alt" && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
     altKeyDown = true;
     const activeTag = document.activeElement?.tagName?.toLowerCase();
