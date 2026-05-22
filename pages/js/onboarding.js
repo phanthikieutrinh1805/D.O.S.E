@@ -111,6 +111,28 @@ function syncSupportForm() {
   });
 }
 
+function ensureVisionDisplayNeeds() {
+  if (state.accessProfile !== "vision") return;
+  ["large-text", "high-contrast"].forEach((need) => {
+    if (!state.supportNeeds.includes(need)) {
+      state.supportNeeds.push(need);
+    }
+  });
+}
+
+function applyCurrentPageDisplaySettings() {
+  const useVisionDisplay = state.accessProfile === "vision";
+  const useLargeText = useVisionDisplay || state.supportNeeds.includes("large-text");
+  const useHighContrast = useVisionDisplay || state.supportNeeds.includes("high-contrast");
+  const fontScale = useVisionDisplay ? 150 : useLargeText ? 112.5 : 100;
+
+  document.documentElement.style.setProperty("--font-scale", `${fontScale}%`);
+  document.documentElement.classList.toggle("large-text", useLargeText);
+  document.body.style.setProperty("--font-scale-custom", `${fontScale}%`);
+  document.body.classList.toggle("large-text", useLargeText);
+  document.body.classList.toggle("high-contrast", useHighContrast);
+}
+
 function applyAccessProfileChoice(profile) {
   state.accessProfile = profile;
 
@@ -119,24 +141,27 @@ function applyAccessProfileChoice(profile) {
   });
 
   if (profile === "vision") {
-    if (!state.supportNeeds.includes("high-contrast")) {
-      state.supportNeeds.push("high-contrast");
-    }
-    setStatus("Đã chọn hỗ trợ thị giác. Tương phản cao sẽ được ưu tiên ở bước tiếp theo.");
-    announce("Đã chọn hỗ trợ thị giác.");
+    ensureVisionDisplayNeeds();
+    setStatus("Đã chọn thị lực kém. Trang hiện dùng chữ 150% và tương phản cao.");
+    announce("Đã chọn thị lực kém. Đã bật chữ 150 phần trăm và tương phản cao.");
   } else {
-    state.supportNeeds = state.supportNeeds.filter((need) => need !== "high-contrast");
+    state.supportNeeds = state.supportNeeds.filter(
+      (need) => need !== "high-contrast" && need !== "large-text"
+    );
     setStatus("Đã chọn giao diện tiêu chuẩn. Bạn vẫn có thể bật tương phản cao ở bước tiếp theo.");
     announce("Đã chọn giao diện tiêu chuẩn.");
   }
 
   syncSupportForm();
+  updatePreview();
+  applyCurrentPageDisplaySettings();
 }
 
 function persistSettings() {
+  const useVisionDisplay = state.accessProfile === "vision";
   const settings = {
-    fontScale: state.supportNeeds.includes("large-text") ? 112.5 : 100,
-    highContrast: state.supportNeeds.includes("high-contrast"),
+    fontScale: useVisionDisplay ? 150 : state.supportNeeds.includes("large-text") ? 112.5 : 100,
+    highContrast: useVisionDisplay || state.supportNeeds.includes("high-contrast"),
     reducedMotion: state.supportNeeds.includes("reduced-motion"),
     simpleMode: state.supportNeeds.includes("simple-mode"),
     learningPreferences: {
@@ -182,8 +207,10 @@ if (form) {
 
     state.supportNeeds = checked;
     state.mainDifficulty = mainDifficulty;
+    ensureVisionDisplayNeeds();
 
     updatePreview();
+    applyCurrentPageDisplaySettings();
     setStatus("Đã cập nhật bản xem trước theo lựa chọn của bạn.");
     showStep("preview");
   });

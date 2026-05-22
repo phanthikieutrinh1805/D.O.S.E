@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 const liveRegion = $("liveRegion");
 const body = document.body;
 
-const FONT_SCALE_STEPS = [100, 112.5, 125];
+const FONT_SCALE_STEPS = [100, 112.5, 125, 150];
 const DEFAULT_SETTINGS = {
   fontScale: 100,
   highContrast: false,
@@ -357,7 +357,7 @@ function previewAccessProfile(profile, shouldAnnounce = false) {
 
   if (profile === "vision") {
     setHighContrastMode(true, shouldAnnounce);
-    setFontScalePreference(125);
+    setFontScalePreference(150);
     return;
   }
 
@@ -458,7 +458,11 @@ function initializeAccessOnboarding() {
 
   accessOnboardingOptions.forEach((option) => {
     option.addEventListener("click", () => {
-      setSelectedAccessProfile(option.dataset.accessProfile || "");
+      const profile = option.dataset.accessProfile || "";
+      setSelectedAccessProfile(profile);
+      if (profile) {
+        applyAccessProfile(profile, true);
+      }
     });
   });
 

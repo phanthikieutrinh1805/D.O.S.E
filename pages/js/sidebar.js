@@ -2,6 +2,32 @@
   const body = document.body;
   if (!body) return;
 
+  function loadPreference(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : JSON.parse(value);
+    } catch (_error) {
+      return fallback;
+    }
+  }
+
+  function applyStoredDisplayPreferences() {
+    const fontScale = loadPreference("dose-font-scale", 100);
+    const highContrast = loadPreference("dose-high-contrast", false);
+    const reducedMotion = loadPreference("dose-reduce-motion", false);
+    const simpleMode = loadPreference("dose-simple-mode", false);
+
+    document.documentElement.style.setProperty("--font-scale-custom", `${fontScale}%`);
+    body.style.setProperty("--font-scale-custom", `${fontScale}%`);
+    document.documentElement.classList.toggle("large-text", fontScale > 100);
+    body.classList.toggle("large-text", fontScale > 100);
+    body.classList.toggle("high-contrast", Boolean(highContrast));
+    body.classList.toggle("reduce-motion", Boolean(reducedMotion));
+    body.classList.toggle("simple-mode", Boolean(simpleMode));
+  }
+
+  applyStoredDisplayPreferences();
+
   const currentPath = window.location.pathname.split("/").pop() || "home.html";
   const currentPage = currentPath === "" ? "home.html" : currentPath;
   const currentHash = window.location.hash || "";

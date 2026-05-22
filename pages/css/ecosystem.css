@@ -84,7 +84,7 @@ body.high-contrast {
 
 html.large-text,
 body.large-text {
-  --font-scale: 112.5%;
+  --font-scale: var(--font-scale-custom, 112.5%);
 }
 
 body.reduce-motion *,
