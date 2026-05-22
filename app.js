@@ -352,20 +352,18 @@ function resetAccessProfileSettings() {
   applyToggle("simple-mode", false);
 }
 
-function applyAccessProfile(profile, shouldAnnounce = false) {
+function previewAccessProfile(profile, shouldAnnounce = false) {
   resetAccessProfileSettings();
 
   if (profile === "vision") {
     setHighContrastMode(true, shouldAnnounce);
-    setFontScalePreference(112.5);
-    saveAccessProfile(profile);
+    setFontScalePreference(125);
     return;
   }
 
   if (profile === "motor") {
     setSettingState("reduce-motion", true);
     applyToggle("reduce-motion", shouldAnnounce);
-    saveAccessProfile(profile);
     return;
   }
 
@@ -373,7 +371,6 @@ function applyAccessProfile(profile, shouldAnnounce = false) {
     setSettingState("simple-mode", true);
     applyToggle("simple-mode", shouldAnnounce);
     setFontScalePreference(112.5);
-    saveAccessProfile(profile);
     return;
   }
 
@@ -382,18 +379,19 @@ function applyAccessProfile(profile, shouldAnnounce = false) {
     applyToggle("reduce-motion", false);
     setSettingState("simple-mode", true);
     applyToggle("simple-mode", shouldAnnounce);
-    saveAccessProfile(profile);
     return;
   }
 
   if (profile === "hearing") {
-    saveAccessProfile(profile);
     return;
   }
 
-  if (profile === "default") {
-    saveAccessProfile(profile);
-  }
+  if (profile === "default") return;
+}
+
+function applyAccessProfile(profile, shouldAnnounce = false) {
+  previewAccessProfile(profile, shouldAnnounce);
+  saveAccessProfile(profile);
 }
 
 function setSelectedAccessProfile(profile) {

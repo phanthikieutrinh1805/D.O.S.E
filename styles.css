@@ -250,6 +250,8 @@ button {
   display: grid;
   place-items: center;
   padding: 1.25rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .entry-modal[hidden] {
@@ -288,6 +290,30 @@ button {
 .access-onboarding__card {
   width: min(48rem, 100%);
   padding: 2rem;
+  border: 0.24rem solid #000000;
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 1.8rem 4.5rem rgba(0, 0, 0, 0.34);
+  max-height: calc(100vh - 2.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.access-onboarding__card .eyebrow {
+  font-size: 1.08rem;
+  color: #111111;
+}
+
+.access-onboarding__card h2 {
+  font-size: clamp(2.7rem, 4.8vw, 4.4rem);
+  line-height: 1.1;
+  color: #000000;
+}
+
+.access-onboarding__card .helper-text {
+  font-size: 1.28rem;
+  line-height: 1.8;
+  color: #111111;
 }
 
 .access-onboarding__options {
@@ -301,12 +327,13 @@ button {
   display: grid;
   gap: 0.35rem;
   width: 100%;
-  padding: 1rem 1.1rem;
-  border: 1px solid var(--color-border);
+  min-height: 11rem;
+  padding: 1.45rem 1.35rem;
+  border: 0.18rem solid #111111;
   border-radius: var(--radius-lg);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(240, 237, 255, 0.6) 100%);
+  background: #ffffff;
   text-align: left;
-  box-shadow: var(--shadow-xs);
+  box-shadow: 0 0.65rem 1.4rem rgba(15, 23, 42, 0.08);
   transition:
     transform 180ms ease,
     border-color 180ms ease,
@@ -315,30 +342,75 @@ button {
 }
 
 .access-onboarding__option strong {
-  color: var(--color-heading);
-  font-size: var(--text-base);
+  color: #000000;
+  font-size: 1.45rem;
+  line-height: 1.4;
+  font-weight: 800;
 }
 
 .access-onboarding__option span {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  line-height: 1.5;
+  color: #111111;
+  font-size: 1.18rem;
+  line-height: 1.75;
+  font-weight: 600;
 }
 
 .access-onboarding__option:hover {
   transform: translateY(-0.1rem);
-  border-color: var(--color-primary);
-  box-shadow: var(--shadow-sm);
+  border-color: #00298a;
+  box-shadow: 0 0.95rem 2.1rem rgba(0, 56, 184, 0.14);
+}
+
+.access-onboarding__option:focus,
+.access-onboarding__option:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.24rem rgba(0, 56, 184, 0.18);
 }
 
 .access-onboarding__option[aria-pressed="true"] {
-  border-color: var(--color-primary);
-  background: linear-gradient(180deg, rgba(224, 231, 255, 0.95) 0%, rgba(167, 243, 208, 0.24) 100%);
-  box-shadow: 0 0 0 0.18rem rgba(46, 49, 146, 0.12);
+  border-color: #0038b8;
+  border-width: 0.22rem;
+  background: #edf3ff;
+  box-shadow: 0 0 0 0.24rem rgba(0, 56, 184, 0.18);
+}
+
+.access-onboarding__option--vision {
+  border-width: 0.24rem;
+  border-color: #0038b8;
+  background: #eef4ff;
+  box-shadow: 0 1rem 2.2rem rgba(0, 56, 184, 0.14);
+}
+
+.access-onboarding__option--vision strong {
+  font-size: 1.6rem;
+  line-height: 1.35;
+  color: #001b5e;
+}
+
+.access-onboarding__option--vision span {
+  font-size: 1.2rem;
+  line-height: 1.75;
+  color: #111111;
+}
+
+.access-onboarding__option--vision:hover,
+.access-onboarding__option--vision[aria-pressed="true"],
+.access-onboarding__option--vision:focus,
+.access-onboarding__option--vision:focus-visible {
+  border-color: #00298a;
+  background: #e8f0ff;
+  box-shadow: 0 0 0 0.26rem rgba(0, 56, 184, 0.2);
 }
 
 .access-onboarding__actions {
   justify-content: flex-end;
+}
+
+.access-onboarding__actions .btn {
+  min-height: 4rem;
+  padding-inline: 1.5rem;
+  font-size: 1.18rem;
+  font-weight: 800;
 }
 
 body.dark .access-onboarding__option {

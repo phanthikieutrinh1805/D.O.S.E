@@ -42,6 +42,8 @@ toggleMode("motionToggle", "reduce-motion", "Chế độ giảm chuyển động
 // Khởi tạo trắc nghiệm hướng nghiệp
 initQuizEvents();
 
+const ACCESS_PROFILE_STORAGE_KEY = "dose-access-profile";
+
 
 // ==========================================
 // --- BỘ TRẮC NGHIỆM HƯỚNG NGHIỆP 20 CÂU HỎI ---
@@ -328,6 +330,34 @@ let currentQuestionIndex = 0;
 let userAnswers = [];
 let selectedDisabilityType = null;
 
+function loadSavedAccessProfile() {
+  try {
+    const value = localStorage.getItem(ACCESS_PROFILE_STORAGE_KEY);
+    return value === null ? "" : JSON.parse(value);
+  } catch (_error) {
+    return "";
+  }
+}
+
+function mapAccessProfileToDisability(profile) {
+  switch (profile) {
+    case "vision":
+      return "vision";
+    case "hearing":
+      return "hearing";
+    case "motor":
+      return "mobility";
+    case "cognitive":
+      return "cognitive";
+    case "mental":
+      return "mental";
+    case "default":
+      return "none";
+    default:
+      return null;
+  }
+}
+
 const disabilityAccommodations = {
   vision: [
     "Tương thích hoàn hảo với Trình đọc màn hình (Screen Reader)",
@@ -372,6 +402,33 @@ function initQuizEvents() {
   const disabilityOptions = document.querySelectorAll("#disabilityOptions .option-card");
   const submitDisabilityBtn = $("submitDisabilityBtn");
 
+  function resetDisabilitySelection() {
+    selectedDisabilityType = null;
+    if (submitDisabilityBtn) {
+      submitDisabilityBtn.disabled = true;
+      submitDisabilityBtn.setAttribute("disabled", "true");
+    }
+    disabilityOptions.forEach((card) => {
+      card.classList.remove("selected");
+      card.setAttribute("aria-checked", "false");
+      const radio = card.querySelector("input[type='radio']");
+      if (radio) radio.checked = false;
+    });
+  }
+
+  function startQuizQuestions() {
+    $("preQuizArea").classList.add("hidden");
+    $("quizQuestionArea").classList.remove("hidden");
+    currentQuestionIndex = 0;
+    userAnswers = new Array(questions.length).fill(null);
+    loadQuestion(0);
+    announce("Bắt đầu làm bài trắc nghiệm. Câu hỏi số 1.");
+  }
+
+  function getSavedDisabilityType() {
+    return mapAccessProfileToDisability(loadSavedAccessProfile());
+  }
+
   function selectDisability(disType, cardEl) {
     selectedDisabilityType = disType;
     
@@ -414,15 +471,7 @@ function initQuizEvents() {
   if (submitDisabilityBtn) {
     submitDisabilityBtn.addEventListener("click", () => {
       if (!selectedDisabilityType) return;
-      
-      $("preQuizArea").classList.add("hidden");
-      $("quizQuestionArea").classList.remove("hidden");
-      
-      currentQuestionIndex = 0;
-      userAnswers = new Array(questions.length).fill(null);
-      loadQuestion(0);
-      
-      announce("Bắt đầu làm bài trắc nghiệm. Câu hỏi số 1.");
+      startQuizQuestions();
     });
   }
 
@@ -433,23 +482,21 @@ function initQuizEvents() {
       $("assessmentSection").classList.remove("hidden");
       $("quizIntro").classList.add("hidden");
       $("quizQuestionArea").classList.add("hidden");
-      $("preQuizArea").classList.remove("hidden");
       $("quizResultsArea").classList.add("hidden");
-      
-      // Reset disability selection visual state
-      selectedDisabilityType = null;
-      if (submitDisabilityBtn) {
-        submitDisabilityBtn.disabled = true;
-        submitDisabilityBtn.setAttribute("disabled", "true");
-      }
-      disabilityOptions.forEach(card => {
-        card.classList.remove("selected");
-        card.setAttribute("aria-checked", "false");
-        const radio = card.querySelector("input[type='radio']");
-        if (radio) radio.checked = false;
-      });
 
       $("assessmentSection").scrollIntoView({ behavior: "smooth" });
+      const savedDisabilityType = getSavedDisabilityType();
+
+      if (savedDisabilityType) {
+        selectedDisabilityType = savedDisabilityType;
+        $("preQuizArea").classList.add("hidden");
+        startQuizQuestions();
+        announce("Đã dùng nhóm hỗ trợ đã chọn trước đó và mở thẳng bài trắc nghiệm.");
+        return;
+      }
+
+      $("preQuizArea").classList.remove("hidden");
+      resetDisabilitySelection();
       announce("Đã mở bộ câu hỏi sơ tuyển nhóm hỗ trợ tiếp cận.");
     });
   }
@@ -469,19 +516,16 @@ function initQuizEvents() {
       $("quizIntro").classList.add("hidden");
       $("preQuizArea").classList.remove("hidden");
       $("quizQuestionArea").classList.add("hidden");
-      
-      // Reset disability selection visual state
-      selectedDisabilityType = null;
-      if (submitDisabilityBtn) {
-        submitDisabilityBtn.disabled = true;
-        submitDisabilityBtn.setAttribute("disabled", "true");
+
+      const savedDisabilityType = getSavedDisabilityType();
+      if (savedDisabilityType) {
+        selectedDisabilityType = savedDisabilityType;
+        startQuizQuestions();
+        announce("Đã dùng nhóm hỗ trợ đã chọn trước đó và mở thẳng bài trắc nghiệm.");
+        return;
       }
-      disabilityOptions.forEach(card => {
-        card.classList.remove("selected");
-        card.setAttribute("aria-checked", "false");
-        const radio = card.querySelector("input[type='radio']");
-        if (radio) radio.checked = false;
-      });
+
+      resetDisabilitySelection();
     });
   }
 
@@ -499,19 +543,8 @@ function initQuizEvents() {
       $("quizResultsArea").classList.add("hidden");
       $("preQuizArea").classList.remove("hidden");
       $("quizQuestionArea").classList.add("hidden");
-      
-      // Reset disability selection visual state
-      selectedDisabilityType = null;
-      if (submitDisabilityBtn) {
-        submitDisabilityBtn.disabled = true;
-        submitDisabilityBtn.setAttribute("disabled", "true");
-      }
-      disabilityOptions.forEach(card => {
-        card.classList.remove("selected");
-        card.setAttribute("aria-checked", "false");
-        const radio = card.querySelector("input[type='radio']");
-        if (radio) radio.checked = false;
-      });
+
+      resetDisabilitySelection();
       
       announce("Vui lòng sơ chọn lại nhóm hỗ trợ tiếp cận của bạn.");
     });
