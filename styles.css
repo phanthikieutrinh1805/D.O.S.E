@@ -329,12 +329,20 @@ button {
   color: #111111;
 }
 
+.access-onboarding__hint {
+  margin-top: 12px !important;
+  font-size: 15px !important;
+  color: #334155 !important;
+}
+
 .access-onboarding__options {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: minmax(max-content, auto);
+  align-items: start;
   gap: 14px;
   margin-top: 24px;
   padding: 2px 8px 6px 2px;
@@ -345,7 +353,9 @@ button {
   align-content: start;
   gap: 8px;
   width: 100%;
-  min-height: 112px;
+  position: relative;
+  min-height: 0;
+  height: auto;
   padding: 18px 20px;
   border: 2px solid #111111;
   border-radius: 22px;
@@ -359,11 +369,31 @@ button {
     background 180ms ease;
 }
 
+.access-onboarding__key {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.4rem;
+  border: 2px solid currentColor;
+  border-radius: 0.65rem;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .access-onboarding__option strong {
   color: #000000;
   font-size: 20px;
   line-height: 1.22;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .access-onboarding__option span {
@@ -371,6 +401,7 @@ button {
   font-size: 16px;
   line-height: 1.4;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .access-onboarding__option:hover {
@@ -390,6 +421,12 @@ button {
   border-width: 3px;
   background: #edf3ff;
   box-shadow: 0 0 0 0.24rem rgba(0, 56, 184, 0.18);
+}
+
+.access-onboarding__option[aria-pressed="true"] .access-onboarding__key {
+  background: #0038b8;
+  color: #ffffff;
+  border-color: #0038b8;
 }
 
 .access-onboarding__option--vision {
@@ -418,6 +455,11 @@ button {
   border-color: #00298a;
   background: #e8f0ff;
   box-shadow: 0 0 0 0.26rem rgba(0, 56, 184, 0.2);
+}
+
+.access-onboarding__option--vision .access-onboarding__key {
+  background: #ffffff;
+  color: #001b5e;
 }
 
 .access-onboarding__actions {

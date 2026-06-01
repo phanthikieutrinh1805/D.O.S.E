@@ -6,6 +6,7 @@ const previewSurface = document.getElementById("previewSurface");
 const finishButton = document.getElementById("finishOnboardingButton");
 const form = document.getElementById("onboardingForm");
 const accessProfileButtons = Array.from(document.querySelectorAll("[data-access-profile]"));
+const keytipTargets = Array.from(document.querySelectorAll("[data-keytip]"));
 
 const steps = ["welcome", "support", "preview"];
 const state = {
@@ -13,6 +14,9 @@ const state = {
   mainDifficulty: "",
   accessProfile: ""
 };
+let currentStep = "welcome";
+let keytipModeActive = false;
+let altKeyDown = false;
 
 function announce(message) {
   if (!liveRegion) return;
@@ -27,7 +31,97 @@ function setStatus(message) {
   status.textContent = message;
 }
 
+function isTypingTarget(element = document.activeElement) {
+  const tag = element?.tagName?.toLowerCase();
+  return tag === "input" || tag === "textarea" || tag === "select";
+}
+
+function isElementVisible(element) {
+  if (!element || element.hidden) return false;
+  if (element.closest("[hidden]")) return false;
+  return true;
+}
+
+function isKeytipTargetAvailable(element) {
+  if (!isElementVisible(element)) return false;
+  if (element.matches(".option-card")) {
+    return currentStep === "support";
+  }
+  return true;
+}
+
+function hideKeytips() {
+  keytipTargets.forEach((element) => {
+    const badge = element.querySelector(".keytip-badge");
+    if (badge) badge.remove();
+  });
+  keytipModeActive = false;
+}
+
+function showKeytips() {
+  keytipTargets.forEach((element) => {
+    if (!isKeytipTargetAvailable(element)) return;
+    if (element.querySelector(".keytip-badge")) return;
+
+    const badge = document.createElement("span");
+    badge.className = "keytip-badge";
+    badge.setAttribute("aria-hidden", "true");
+    badge.textContent = element.dataset.keytip;
+    element.appendChild(badge);
+  });
+
+  keytipModeActive = true;
+  announce(
+    "Đã hiện phím truy cập nhanh cho bước hiện tại. Bấm ký tự được gắn nhãn để chọn hoặc chuyển bước mà không cần dùng chuột."
+  );
+}
+
+function getKeytipValue(event) {
+  if (event.code && /^Key[A-Z]$/.test(event.code)) {
+    return event.code.slice(3).toLowerCase();
+  }
+
+  if (event.code && /^Digit[0-9]$/.test(event.code)) {
+    return event.code.slice(5);
+  }
+
+  return event.key.toLowerCase();
+}
+
+function activateKeytip(key) {
+  const matchedTarget = keytipTargets.find((element) => {
+    return (
+      isKeytipTargetAvailable(element) &&
+      element.dataset.keytip?.toLowerCase() === key.toLowerCase()
+    );
+  });
+
+  if (!matchedTarget) return false;
+
+  hideKeytips();
+
+  if (matchedTarget.matches(".option-card")) {
+    const input = matchedTarget.querySelector('input[name="supportNeed"]');
+    if (!input) return false;
+    input.checked = !input.checked;
+    input.dispatchEvent(new Event("change", { bubbles: true }));
+    matchedTarget.focus();
+    announce(`${input.checked ? "Đã chọn" : "Đã bỏ chọn"} ${matchedTarget.textContent.trim()}.`);
+    return true;
+  }
+
+  matchedTarget.focus();
+  matchedTarget.click();
+  announce(`Đã kích hoạt ${matchedTarget.textContent.trim()}.`);
+  return true;
+}
+
 function showStep(stepName) {
+  if (keytipModeActive) {
+    hideKeytips();
+  }
+
+  currentStep = stepName;
   steps.forEach((step) => {
     const tab = document.getElementById(`step-${step}-tab`);
     const panel = document.getElementById(`step-${step}`);
@@ -192,6 +286,15 @@ document.querySelectorAll("[data-prev-step]").forEach((button) => {
   });
 });
 
+steps.forEach((step) => {
+  const tab = document.getElementById(`step-${step}-tab`);
+  if (!tab) return;
+
+  tab.addEventListener("click", () => {
+    showStep(step);
+  });
+});
+
 accessProfileButtons.forEach((button) => {
   button.addEventListener("click", () => {
     applyAccessProfileChoice(button.dataset.accessProfile);
@@ -216,6 +319,29 @@ if (form) {
   });
 }
 
+if (form) {
+  form.querySelectorAll('input[name="supportNeed"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      const checked = Array.from(form.querySelectorAll('input[name="supportNeed"]:checked')).map((item) => item.value);
+      state.supportNeeds = checked;
+      ensureVisionDisplayNeeds();
+      updatePreview();
+    });
+  });
+
+  form.querySelectorAll(".option-card").forEach((card) => {
+    card.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      const input = card.querySelector('input[name="supportNeed"]');
+      if (!input) return;
+      input.checked = !input.checked;
+      input.dispatchEvent(new Event("change", { bubbles: true }));
+      announce(`${input.checked ? "Đã chọn" : "Đã bỏ chọn"} ${card.textContent.trim()}.`);
+    });
+  });
+}
+
 if (finishButton) {
   finishButton.addEventListener("click", () => {
     persistSettings();
@@ -229,3 +355,44 @@ if (finishButton) {
 
 showStep("welcome");
 setStatus("Bạn có thể bắt đầu thiết lập hoặc bỏ qua để vào ứng dụng.");
+
+document.addEventListener("keydown", (event) => {
+  if ((event.code === "AltLeft" || event.code === "AltRight") && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+    altKeyDown = true;
+
+    if (!isTypingTarget() && !keytipModeActive) {
+      event.preventDefault();
+      showKeytips();
+    }
+    return;
+  }
+
+  if (
+    keytipModeActive &&
+    !event.metaKey &&
+    !event.ctrlKey &&
+    !event.shiftKey &&
+    (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
+  ) {
+    event.preventDefault();
+    activateKeytip(getKeytipValue(event));
+    return;
+  }
+
+  if (event.key === "Escape" && keytipModeActive) {
+    event.preventDefault();
+    hideKeytips();
+    announce("Đã ẩn phím truy cập nhanh trong onboarding.");
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key !== "Alt") return;
+  if (!altKeyDown) return;
+  altKeyDown = false;
+});
+
+document.addEventListener("click", () => {
+  if (!keytipModeActive) return;
+  hideKeytips();
+});

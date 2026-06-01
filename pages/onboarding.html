@@ -53,18 +53,52 @@
 
       <section class="onboarding-content">
         <div class="auth-tabs onboarding-tabs" role="tablist" aria-label="Các bước onboarding">
-          <button id="step-welcome-tab" class="auth-tab" type="button" role="tab" aria-selected="true" aria-controls="step-welcome" tabindex="0">
+          <button
+            id="step-welcome-tab"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="step-welcome"
+            aria-keyshortcuts="Alt+W"
+            data-keytip="W"
+            tabindex="0"
+          >
             Chào mừng
           </button>
-          <button id="step-support-tab" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="step-support" tabindex="-1">
+          <button
+            id="step-support-tab"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="step-support"
+            aria-keyshortcuts="Alt+S"
+            data-keytip="S"
+            tabindex="-1"
+          >
             Nhu cầu hỗ trợ
           </button>
-          <button id="step-preview-tab" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="step-preview" tabindex="-1">
+          <button
+            id="step-preview-tab"
+            class="auth-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="step-preview"
+            aria-keyshortcuts="Alt+P"
+            data-keytip="P"
+            tabindex="-1"
+          >
             Xem trước
           </button>
         </div>
 
         <div id="onboardingStatus" class="result auth-status" aria-live="polite"></div>
+        <p id="onboardingKeytipHint" class="helper-text onboarding-keytip-hint">
+          Nhấn <kbd>Alt</kbd> hoặc <kbd>Option</kbd> để hiện phím truy cập nhanh ở bước hiện tại. Khi nhãn xuất hiện,
+          bạn có thể bấm đúng ký tự để chọn mà không cần di chuột.
+        </p>
 
         <section id="step-welcome" class="onboarding-step" role="tabpanel" aria-labelledby="step-welcome-tab">
           <div class="step-card">
@@ -82,19 +116,48 @@
                 </p>
               </div>
               <div class="vision-choice-grid">
-                <button type="button" class="vision-choice-card" data-access-profile="vision" aria-pressed="false">
+                <button
+                  type="button"
+                  class="vision-choice-card"
+                  data-access-profile="vision"
+                  data-keytip="1"
+                  aria-keyshortcuts="1"
+                  aria-pressed="false"
+                >
                   <strong>Có, tôi bị thị lực kém</strong>
                   <span>Bật sẵn chữ 150% và tương phản cao trên toàn trang.</span>
                 </button>
-                <button type="button" class="vision-choice-card" data-access-profile="default" aria-pressed="false">
+                <button
+                  type="button"
+                  class="vision-choice-card"
+                  data-access-profile="default"
+                  data-keytip="2"
+                  aria-keyshortcuts="2"
+                  aria-pressed="false"
+                >
                   <strong>Không, dùng giao diện tiêu chuẩn</strong>
                   <span>Giữ giao diện mặc định và tiếp tục chọn thêm nhu cầu khác nếu cần.</span>
                 </button>
               </div>
             </div>
             <div class="hero-actions">
-              <button type="button" class="btn btn-primary btn-lg" data-next-step="support">Bắt đầu thiết lập</button>
-              <a class="btn btn-secondary btn-lg" href="dashboard.html">Bỏ qua và vào ứng dụng</a>
+              <button
+                type="button"
+                class="btn btn-primary btn-lg"
+                data-next-step="support"
+                data-keytip="N"
+                aria-keyshortcuts="Alt+N"
+              >
+                Bắt đầu thiết lập
+              </button>
+              <a
+                class="btn btn-secondary btn-lg"
+                href="dashboard.html"
+                data-keytip="Q"
+                aria-keyshortcuts="Alt+Q"
+              >
+                Bỏ qua và vào ứng dụng
+              </a>
             </div>
           </div>
         </section>
@@ -110,7 +173,7 @@
             <div class="option-grid" role="group" aria-labelledby="support-needs-title">
               <p id="support-needs-title" class="sr-only">Các nhu cầu hỗ trợ</p>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="1" aria-keyshortcuts="1" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="large-text" />
                 <span>
                   <strong>Chữ lớn hơn</strong>
@@ -118,7 +181,7 @@
                 </span>
               </label>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="2" aria-keyshortcuts="2" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="high-contrast" />
                 <span>
                   <strong>Tương phản cao</strong>
@@ -126,7 +189,7 @@
                 </span>
               </label>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="3" aria-keyshortcuts="3" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="reduced-motion" />
                 <span>
                   <strong>Ít chuyển động</strong>
@@ -134,7 +197,7 @@
                 </span>
               </label>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="4" aria-keyshortcuts="4" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="simple-mode" />
                 <span>
                   <strong>Giao diện đơn giản</strong>
@@ -142,7 +205,7 @@
                 </span>
               </label>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="5" aria-keyshortcuts="5" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="read-aloud" />
                 <span>
                   <strong>Đọc nội dung thành tiếng</strong>
@@ -150,7 +213,7 @@
                 </span>
               </label>
 
-              <label class="option-card">
+              <label class="option-card" data-keytip="6" aria-keyshortcuts="6" tabindex="0">
                 <input type="checkbox" name="supportNeed" value="easy-language" />
                 <span>
                   <strong>Giải thích dễ hiểu hơn</strong>
@@ -172,8 +235,23 @@
             </div>
 
             <div class="hero-actions">
-              <button type="button" class="btn btn-secondary btn-lg" data-prev-step="welcome">Quay lại</button>
-              <button type="submit" class="btn btn-primary btn-lg">Xem trước thiết lập</button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-lg"
+                data-prev-step="welcome"
+                data-keytip="B"
+                aria-keyshortcuts="Alt+B"
+              >
+                Quay lại
+              </button>
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                data-keytip="N"
+                aria-keyshortcuts="Alt+N"
+              >
+                Xem trước thiết lập
+              </button>
             </div>
           </form>
         </section>
@@ -215,8 +293,24 @@
             </div>
 
             <div class="hero-actions">
-              <button type="button" class="btn btn-secondary btn-lg" data-prev-step="support">Chỉnh lại lựa chọn</button>
-              <button type="button" id="finishOnboardingButton" class="btn btn-primary btn-lg">Lưu và vào bảng điều khiển</button>
+              <button
+                type="button"
+                class="btn btn-secondary btn-lg"
+                data-prev-step="support"
+                data-keytip="B"
+                aria-keyshortcuts="Alt+B"
+              >
+                Chỉnh lại lựa chọn
+              </button>
+              <button
+                type="button"
+                id="finishOnboardingButton"
+                class="btn btn-primary btn-lg"
+                data-keytip="L"
+                aria-keyshortcuts="Alt+L"
+              >
+                Lưu và vào bảng điều khiển
+              </button>
             </div>
           </div>
         </section>

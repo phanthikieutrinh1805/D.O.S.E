@@ -38,6 +38,9 @@
         <p id="accessOnboardingDescription" class="helper-text">
           Chọn nhóm phù hợp nhất để D.O.S.E gợi ý giao diện dễ dùng hơn ngay từ đầu. Bạn luôn có thể đổi lại sau trong bảng trợ năng.
         </p>
+        <p class="access-onboarding__hint helper-text">
+          Bấm <kbd>1</kbd> đến <kbd>6</kbd> để chọn nhanh, <kbd>Enter</kbd> để tiếp tục hoặc <kbd>0</kbd> để bỏ qua.
+        </p>
 
         <div
           id="accessOnboardingOptions"
@@ -49,28 +52,35 @@
             type="button"
             class="access-onboarding__option access-onboarding__option--vision"
             data-access-profile="vision"
+            data-option-number="1"
             aria-pressed="false"
           >
+            <span class="access-onboarding__key" aria-hidden="true">1</span>
             <strong>Thị lực kém</strong>
             <span>Bật chữ 150% kèm tương phản cao trên toàn trang.</span>
           </button>
-          <button type="button" class="access-onboarding__option" data-access-profile="hearing" aria-pressed="false">
+          <button type="button" class="access-onboarding__option" data-access-profile="hearing" data-option-number="2" aria-pressed="false">
+            <span class="access-onboarding__key" aria-hidden="true">2</span>
             <strong>Khiếm thính hoặc khó nghe</strong>
             <span>Ưu tiên nội dung trực quan, hướng dẫn bằng chữ và tín hiệu rõ ràng.</span>
           </button>
-          <button type="button" class="access-onboarding__option" data-access-profile="motor" aria-pressed="false">
+          <button type="button" class="access-onboarding__option" data-access-profile="motor" data-option-number="3" aria-pressed="false">
+            <span class="access-onboarding__key" aria-hidden="true">3</span>
             <strong>Khó vận động hoặc thao tác</strong>
             <span>Cần thao tác nhẹ nhàng hơn, ít chuyển động và ít bước hơn.</span>
           </button>
-          <button type="button" class="access-onboarding__option" data-access-profile="cognitive" aria-pressed="false">
+          <button type="button" class="access-onboarding__option" data-access-profile="cognitive" data-option-number="4" aria-pressed="false">
+            <span class="access-onboarding__key" aria-hidden="true">4</span>
             <strong>Khó đọc, khó tập trung hoặc khó tiếp nhận thông tin</strong>
             <span>Ưu tiên nội dung đơn giản, cỡ chữ dễ đọc và giảm nhiễu thị giác.</span>
           </button>
-          <button type="button" class="access-onboarding__option" data-access-profile="mental" aria-pressed="false">
+          <button type="button" class="access-onboarding__option" data-access-profile="mental" data-option-number="5" aria-pressed="false">
+            <span class="access-onboarding__key" aria-hidden="true">5</span>
             <strong>Khó khăn tâm lý hoặc tinh thần</strong>
             <span>Cần trải nghiệm dịu hơn, ít áp lực thị giác và nhịp độ nhẹ nhàng.</span>
           </button>
-          <button type="button" class="access-onboarding__option" data-access-profile="default" aria-pressed="false">
+          <button type="button" class="access-onboarding__option" data-access-profile="default" data-option-number="6" aria-pressed="false">
+            <span class="access-onboarding__key" aria-hidden="true">6</span>
             <strong>Khác hoặc chưa muốn chia sẻ</strong>
             <span>Tôi muốn vào trang trước và tự chỉnh trợ năng sau.</span>
           </button>

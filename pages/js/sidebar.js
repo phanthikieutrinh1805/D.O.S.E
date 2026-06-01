@@ -35,95 +35,116 @@
   const isHomePage = currentPage === "home.html";
   const homeHref = isPagesPath ? "home.html" : "pages/home.html";
   const moduleHref = (page) => (isPagesPath ? page : `pages/${page}`);
-  const homeSectionHref = (hash) => (isHomePage ? hash : `${homeHref}${hash}`);
+  const shortcutLabel = (() => {
+    const isMac =
+      typeof navigator !== "undefined" &&
+      /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+    return isMac ? "⌥ Option" : "Alt";
+  })();
+
+  let sidebarLiveRegion = document.getElementById("sidebarLiveRegion");
+  if (!sidebarLiveRegion) {
+    sidebarLiveRegion = document.createElement("div");
+    sidebarLiveRegion.id = "sidebarLiveRegion";
+    sidebarLiveRegion.className = "sr-only";
+    sidebarLiveRegion.setAttribute("aria-live", "polite");
+    sidebarLiveRegion.setAttribute("aria-atomic", "true");
+    body.prepend(sidebarLiveRegion);
+  }
+
+  function announce(message) {
+    if (!sidebarLiveRegion) return;
+    sidebarLiveRegion.textContent = "";
+    window.setTimeout(() => {
+      sidebarLiveRegion.textContent = message;
+    }, 30);
+  }
 
   const groups = currentPage === "dashboard.html"
     ? [
         {
           label: "Bảng điều khiển",
           links: [
-            { href: "#continue-learning", label: "Tiếp tục học", match: "dashboard.html" },
-            { href: "#progress", label: "Tiến độ", match: "dashboard.html" },
-            { href: "#ai-mentor", label: "Trợ lý AI", match: "dashboard.html" },
-            { href: "#recommended", label: "Bài học gợi ý", match: "dashboard.html" },
-            { href: "#community", label: "Bảng tin cộng đồng", match: "dashboard.html" }
-          ]
-        },
-        {
-          label: "Sơ đồ nền tảng",
-          links: [
-            { href: homeSectionHref("#hero-title"), label: "Tổng quan", match: "home.html" },
-            { href: homeSectionHref("#pillars"), label: "4 trụ cột", match: "home.html" },
-            { href: homeSectionHref("#school"), label: "Trường học thấu hiểu", match: "home.html" },
-            { href: homeSectionHref("#accessibility"), label: "Trợ năng", match: "home.html" }
+            { href: "#continue-learning", label: "Tiếp tục học", match: "dashboard.html", keytip: "T" },
+            { href: "#progress", label: "Tiến độ", match: "dashboard.html", keytip: "P" },
+            { href: "#ai-mentor", label: "Trợ lý AI", match: "dashboard.html", keytip: "I" },
+            { href: "#recommended", label: "Bài học gợi ý", match: "dashboard.html", keytip: "G" },
+            { href: "#community", label: "Bảng tin cộng đồng", match: "dashboard.html", keytip: "C" }
           ]
         },
         {
           label: "Modules",
           links: [
-            { href: moduleHref("access.html"), label: "Access", match: "access.html" },
-            { href: moduleHref("education.html"), label: "Education", match: "education.html" },
-            { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html" },
-            { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html" }
-          ]
-        }
-      ]
-    : [
-        {
-          label: "Sơ đồ nền tảng",
-          links: [
-            { href: homeSectionHref("#hero-title"), label: "Tổng quan", match: "home.html", hash: "#hero-title", keytip: "Q" },
-            { href: homeSectionHref("#pillars"), label: "4 trụ cột", match: "home.html", hash: "#pillars", keytip: "W" },
-            { href: homeSectionHref("#school"), label: "Trường học thấu hiểu", match: "home.html", hash: "#school", keytip: "E" },
-            { href: homeSectionHref("#accessibility"), label: "Trợ năng", match: "home.html", hash: "#accessibility", keytip: "R" },
-            { href: homeSectionHref("#stories"), label: "Câu chuyện", match: "home.html", hash: "#stories", keytip: "T" },
-            { href: homeSectionHref("#cta"), label: "Tham gia", match: "home.html", hash: "#cta", keytip: "Y" }
-          ]
-        },
-        {
-          label: "MODULES",
-          links: [
-            { href: moduleHref("access.html"), label: "Access", match: "access.html", keytip: "S" },
-            { href: moduleHref("education.html"), label: "Education", match: "education.html", keytip: "G" },
-            { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html", keytip: "H" },
-            { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html", keytip: "J" }
+            { href: moduleHref("access.html"), label: "Access", match: "access.html", keytip: "A" },
+            { href: moduleHref("education.html"), label: "Education", match: "education.html", keytip: "E" },
+            { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html", keytip: "O" },
+            { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html", keytip: "H" }
           ]
         },
         {
           label: "Luồng trải nghiệm",
           links: [
-            { href: moduleHref("auth.html"), label: "Xác thực", match: "auth.html" },
-            { href: moduleHref("onboarding.html"), label: "Thiết lập ban đầu", match: "onboarding.html" },
-            { href: moduleHref("dashboard.html"), label: "Bảng điều khiển", match: "dashboard.html" }
+            { href: moduleHref("auth.html"), label: "Xác thực", match: "auth.html", keytip: "X" },
+            { href: moduleHref("onboarding.html"), label: "Thiết lập ban đầu", match: "onboarding.html", keytip: "L" },
+            { href: moduleHref("dashboard.html"), label: "Bảng điều khiển", match: "dashboard.html", keytip: "B" }
           ]
         },
         {
           label: "Học theo nhu cầu",
           links: [
-            { href: moduleHref("education-disability.html"), label: "Hồ sơ người khuyết tật", match: "education-disability.html" },
-            { href: moduleHref("education-community.html"), label: "Học cho cộng đồng", match: "education-community.html" },
-            { href: moduleHref("disability-vision.html"), label: "Khiếm thị", match: "disability-vision.html" },
-            { href: moduleHref("disability-hearing.html"), label: "Khiếm thính", match: "disability-hearing.html" }
+            { href: moduleHref("education-disability.html"), label: "Hồ sơ người khuyết tật", match: "education-disability.html", keytip: "R" },
+            { href: moduleHref("education-community.html"), label: "Học cho cộng đồng", match: "education-community.html", keytip: "D" },
+            { href: moduleHref("disability-vision.html"), label: "Khiếm thị", match: "disability-vision.html", keytip: "V" },
+            { href: moduleHref("disability-hearing.html"), label: "Khiếm thính", match: "disability-hearing.html", keytip: "K" },
+            { href: moduleHref("disability-mobility.html"), label: "Khó vận động", match: "disability-mobility.html", keytip: "U" },
+            { href: moduleHref("disability-cognitive.html"), label: "Nhận thức và học tập", match: "disability-cognitive.html", keytip: "N" },
+            { href: moduleHref("disability-mental.html"), label: "Sức khỏe tinh thần", match: "disability-mental.html", keytip: "Z" }
+          ]
+        }
+      ]
+    : [
+        {
+          label: "MODULES",
+          links: [
+            { href: moduleHref("access.html"), label: "Access", match: "access.html", keytip: "A" },
+            { href: moduleHref("education.html"), label: "Education", match: "education.html", keytip: "E" },
+            { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html", keytip: "O" },
+            { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html", keytip: "H" }
+          ]
+        },
+        {
+          label: "Luồng trải nghiệm",
+          links: [
+            { href: moduleHref("auth.html"), label: "Xác thực", match: "auth.html", keytip: "X" },
+            { href: moduleHref("onboarding.html"), label: "Thiết lập ban đầu", match: "onboarding.html", keytip: "L" },
+            { href: moduleHref("dashboard.html"), label: "Bảng điều khiển", match: "dashboard.html", keytip: "B" }
+          ]
+        },
+        {
+          label: "Học theo nhu cầu",
+          links: [
+            { href: moduleHref("education-disability.html"), label: "Hồ sơ người khuyết tật", match: "education-disability.html", keytip: "R" },
+            { href: moduleHref("education-community.html"), label: "Học cho cộng đồng", match: "education-community.html", keytip: "D" },
+            { href: moduleHref("disability-vision.html"), label: "Khiếm thị", match: "disability-vision.html", keytip: "V" },
+            { href: moduleHref("disability-hearing.html"), label: "Khiếm thính", match: "disability-hearing.html", keytip: "K" },
+            { href: moduleHref("disability-mobility.html"), label: "Khó vận động", match: "disability-mobility.html", keytip: "U" },
+            { href: moduleHref("disability-cognitive.html"), label: "Nhận thức và học tập", match: "disability-cognitive.html", keytip: "N" },
+            { href: moduleHref("disability-mental.html"), label: "Sức khỏe tinh thần", match: "disability-mental.html", keytip: "Z" }
           ]
         }
       ];
 
   function isCurrent(link) {
-    if (link.hash && isHomePage) {
-      const effectiveHash = currentHash || "#hero-title";
-      return effectiveHash === link.hash;
-    }
-
     return currentPage === link.match;
   }
 
   function linkMarkup(link) {
     const currentAttr = isCurrent(link) ? ' aria-current="page"' : "";
     const keytipAttr = link.keytip ? ` data-keytip="${link.keytip}"` : "";
-    const hashAttr = link.hash ? ` data-section-hash="${link.hash}"` : "";
+    const shortcutAttr = link.keytip ? ` aria-keyshortcuts="Alt+${link.keytip.toUpperCase()}"` : "";
     return `
       <li>
-        <a class="sidebar-link" href="${link.href}"${currentAttr}${keytipAttr}${hashAttr}>
+        <a class="sidebar-link" href="${link.href}"${currentAttr}${keytipAttr}${shortcutAttr}>
           ${link.label}
         </a>
       </li>
@@ -136,7 +157,13 @@
   sidebar.setAttribute("aria-label", "Sidebar điều hướng");
   sidebar.innerHTML = `
     <div class="sidebar-inner">
-      <a class="brand brand-sidebar" href="${homeHref}" aria-label="D.O.S.E trang chủ"${isHomePage ? ' data-keytip="D"' : ""}>
+      <a
+        class="brand brand-sidebar"
+        href="${homeHref}"
+        aria-label="D.O.S.E trang chủ"
+        data-keytip="D"
+        aria-keyshortcuts="Alt+D"
+      >
         <span class="brand-mark" aria-hidden="true">D</span>
         <span class="brand-copy">
           <span class="brand-name">D.O.S.E</span>
@@ -262,6 +289,7 @@
         element.appendChild(badge);
       });
       keytipModeActive = true;
+      announce(`Đã hiện phím truy cập nhanh trong sidebar. Nhấn phím tương ứng sau khi bấm ${shortcutLabel}.`);
     }
 
     function getKeytipValue(event) {
@@ -287,6 +315,7 @@
       optionKeyDown = false;
       matchedTarget.focus();
       matchedTarget.click();
+      announce(`Đã mở ${matchedTarget.textContent.trim()}.`);
       return true;
     }
 
@@ -319,6 +348,7 @@
         event.preventDefault();
         hideKeytips();
         optionKeyDown = false;
+        announce("Đã ẩn phím truy cập nhanh trong sidebar.");
       }
     });
 
@@ -333,55 +363,4 @@
       optionKeyDown = false;
     });
   }
-
-  if (!isHomePage) return;
-
-  const sectionLinks = Array.from(sidebar.querySelectorAll("[data-section-hash]"));
-  if (sectionLinks.length === 0) return;
-
-  function setActiveSection(hash) {
-    const effectiveHash = hash || "#hero-title";
-    sectionLinks.forEach((link) => {
-      if (link.dataset.sectionHash === effectiveHash) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  }
-
-  const sectionIds = sectionLinks
-    .map((link) => link.dataset.sectionHash)
-    .filter(Boolean);
-
-  const sections = sectionIds
-    .map((hash) => document.querySelector(hash))
-    .filter(Boolean);
-
-  function getActiveSectionFromViewport() {
-    const viewportOffset = window.innerHeight * 0.24;
-    let activeId = "#hero-title";
-
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      if (rect.top - viewportOffset <= 0) {
-        activeId = `#${section.id}`;
-      }
-    });
-
-    return activeId;
-  }
-
-  function syncSidebarToScroll() {
-    const activeHash = getActiveSectionFromViewport();
-    setActiveSection(activeHash);
-  }
-
-  setActiveSection(currentHash || "#hero-title");
-  window.addEventListener("hashchange", () => {
-    setActiveSection(window.location.hash || "#hero-title");
-  });
-  window.addEventListener("scroll", syncSidebarToScroll, { passive: true });
-  window.addEventListener("resize", syncSidebarToScroll);
-  syncSidebarToScroll();
 })();

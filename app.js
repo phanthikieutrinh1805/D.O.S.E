@@ -790,6 +790,36 @@ if (contactForm) {
 
 document.addEventListener("keydown", (event) => {
   if (accessOnboarding && !accessOnboarding.hidden) {
+    const optionDigit = Number.parseInt(event.key, 10);
+
+    if (!Number.isNaN(optionDigit) && optionDigit >= 1 && optionDigit <= accessOnboardingOptions.length) {
+      event.preventDefault();
+      const option = accessOnboardingOptions[optionDigit - 1];
+      const profile = option?.dataset.accessProfile || "";
+      if (profile) {
+        setSelectedAccessProfile(profile);
+        option.focus();
+        announce(`Đã chọn nhanh phương án ${optionDigit}. Nhấn Enter để tiếp tục vào trang.`);
+      }
+      return;
+    }
+
+    if (event.key === "0") {
+      event.preventDefault();
+      completeAccessOnboarding("default", false);
+      return;
+    }
+
+    if (event.key === "Enter" && selectedAccessProfile) {
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      const isButton = activeTag === "button";
+      if (!isButton || accessOnboardingOptions.includes(document.activeElement)) {
+        event.preventDefault();
+        completeAccessOnboarding(selectedAccessProfile);
+        return;
+      }
+    }
+
     if (event.key === "Escape") {
       event.preventDefault();
       completeAccessOnboarding("default", false);
