@@ -21,6 +21,7 @@ const htmlPages = [
 ];
 
 export default defineConfig({
+  base: process.env.NODE_ENV === "production" ? "/D.O.S.E/" : "/",
   build: {
     rollupOptions: {
       input: Object.fromEntries(
