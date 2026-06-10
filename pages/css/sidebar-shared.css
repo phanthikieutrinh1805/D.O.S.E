@@ -109,6 +109,7 @@ body.dark .sidebar {
 .sidebar .brand-sidebar[data-keytip],
 .sidebar .sidebar-link[data-keytip] {
   padding-right: 3.6rem;
+  position: relative;
 }
 
 .sidebar .keytip-badge {

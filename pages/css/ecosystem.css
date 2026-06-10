@@ -178,7 +178,7 @@ textarea {
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  border-radius: 1rem;
+  border-radius: 50%;
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: #fff;
   font-weight: 800;

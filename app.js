@@ -799,7 +799,7 @@ document.addEventListener("keydown", (event) => {
       if (profile) {
         setSelectedAccessProfile(profile);
         option.focus();
-        announce(`Đã chọn nhanh phương án ${optionDigit}. Nhấn Enter để tiếp tục vào trang.`);
+        announce(`Đang xem phương án ${optionDigit}. Nhấn Space để xác nhận hoặc Enter để tiếp tục vào trang.`);
       }
       return;
     }
@@ -816,6 +816,15 @@ document.addEventListener("keydown", (event) => {
       if (!isButton || accessOnboardingOptions.includes(document.activeElement)) {
         event.preventDefault();
         completeAccessOnboarding(selectedAccessProfile);
+        return;
+      }
+    }
+
+    if (event.key === " ") {
+      const focused = document.activeElement;
+      if (accessOnboardingOptions.includes(focused)) {
+        event.preventDefault();
+        focused.click();
         return;
       }
     }

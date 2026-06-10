@@ -1,5 +1,17 @@
 @import url("./ecosystem.css");
 
+/* Sidebar offset - sidebar is fixed at 16.25rem + 1rem inset = 17.25rem */
+.app-shell {
+  margin-left: 18.5rem;
+  min-height: 100vh;
+}
+
+@media (max-width: 48rem) {
+  .app-shell {
+    margin-left: 0;
+  }
+}
+
 .auth-page {
   min-height: 100vh;
   background:
