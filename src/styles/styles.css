@@ -79,11 +79,13 @@
 html {
   font-size: var(--font-scale, 100%);
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-width: 20rem;
+  overflow-x: clip;
   font-family: var(--font-sans);
   font-size: var(--text-base);
   line-height: var(--leading-normal);
@@ -655,16 +657,19 @@ body.dark .topbar {
 }
 
 .topbar-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: var(--space-4);
 }
 
 .topbar-leading {
   display: inline-flex;
+  flex: 1 1 18rem;
   align-items: center;
   gap: var(--space-4);
+  min-width: 0;
 }
 
 .topbar-copy {
@@ -760,9 +765,18 @@ body.high-contrast .brand-mark {
 
 .toolbar {
   display: flex;
+  flex: 1 1 24rem;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--space-2);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.toolbar .btn {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .main-content {
@@ -1668,7 +1682,7 @@ body.simple-mode .reveal {
   }
 
   .topbar-inner {
-    grid-template-columns: auto 1fr;
+    align-items: flex-start;
   }
 }
 
@@ -1688,13 +1702,9 @@ body.simple-mode .reveal {
     flex-direction: column;
   }
 
-  .topbar-inner {
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
   .topbar-leading {
     justify-content: space-between;
+    width: 100%;
   }
 }
 
