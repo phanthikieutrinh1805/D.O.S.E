@@ -1,0 +1,178 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .tw-page-band {
+    @apply w-full px-4 py-12 sm:px-6 lg:px-8;
+  }
+
+  .tw-focus-ring {
+    @apply focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-4;
+    outline-color: var(--focus);
+  }
+
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-transparent px-4 py-3 text-center no-underline transition;
+    min-height: 2.75rem;
+    transition-property: transform, box-shadow, border-color, background-color, color;
+    transition-duration: 160ms;
+    transition-timing-function: ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .btn-primary,
+  .btn-solid {
+    color: #ffffff;
+    background: var(--color-primary, linear-gradient(135deg, var(--primary) 0%, var(--primary-strong) 100%));
+    box-shadow: var(--shadow-sm, none);
+  }
+
+  body.dark .btn-primary,
+  body.high-contrast .btn-primary {
+    color: #000000;
+  }
+
+  .btn-primary:hover {
+    background: var(--color-primary-hover, var(--primary-strong));
+  }
+
+  .btn-secondary {
+    color: var(--color-primary, var(--heading));
+    background: var(--color-primary-soft, rgba(156, 147, 254, 0.15));
+  }
+
+  .btn-outline,
+  .btn-ghost {
+    color: var(--color-text, var(--text));
+    background: var(--color-surface-strong, rgba(255, 255, 255, 0.72));
+    border-color: var(--color-border, var(--border));
+  }
+
+  .btn-ghost {
+    background: var(--color-ghost-bg, transparent);
+  }
+
+  .btn[aria-pressed="true"] {
+    color: var(--color-primary, var(--primary));
+    background: var(--color-primary-soft, rgba(224, 231, 255, 0.88));
+    border-color: rgba(46, 49, 146, 0.24);
+    box-shadow: inset 0 0 0 1px rgba(46, 49, 146, 0.08);
+  }
+
+  .btn-sm {
+    @apply px-3 py-2 text-sm;
+    min-height: 2.4rem;
+  }
+
+  .btn-md {
+    min-height: 2.75rem;
+  }
+
+  .btn-lg {
+    @apply px-5;
+    min-height: 3rem;
+  }
+
+  .container,
+  .page-container {
+    width: min(var(--container, 74rem), calc(100vw - 2rem));
+    margin-inline: auto;
+  }
+
+  .section {
+    padding: var(--space-12, 3rem) 0;
+  }
+
+  .chip,
+  .status-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-semibold;
+    min-height: 2rem;
+    color: var(--color-text, var(--text));
+    background: var(--color-primary-soft, rgba(46, 49, 146, 0.09));
+    border-color: var(--color-border, var(--border));
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-2, 0.5rem);
+  }
+
+  .card,
+  .panel,
+  .mini-highlight,
+  .hero-copy,
+  .hero-panel,
+  .lesson-board,
+  .showcase-card,
+  .story-card,
+  .cta-card,
+  .mini-card,
+  .surface-card,
+  .metric-card,
+  .path-card,
+  .form-card,
+  .quote-card,
+  .support-panel,
+  .cta-band {
+    border: 1px solid var(--color-border, var(--border));
+    border-radius: var(--radius-xl, 1.5rem);
+    background: var(--color-surface, var(--surface));
+    box-shadow: var(--shadow-sm, none);
+  }
+
+  .card,
+  .panel,
+  .mini-highlight {
+    padding: var(--space-4, 1rem);
+  }
+
+  .panel {
+    border-radius: var(--radius-xl, 1.5rem);
+  }
+
+  .hero-actions,
+  .chip-row,
+  .hero-badges,
+  .cta-actions,
+  .segment-actions,
+  .hero-copy .actions {
+    @apply flex flex-wrap;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .hero-actions {
+    margin-top: var(--space-6, 1.5rem);
+  }
+
+  .stack,
+  .section-stack,
+  .section-head,
+  .field-row,
+  .field-stack {
+    display: grid;
+    gap: var(--space-4, 1rem);
+  }
+
+  .stack {
+    margin-top: var(--space-6, 1.5rem);
+  }
+
+  .section-head {
+    max-width: 68ch;
+    gap: var(--space-3, 0.75rem);
+  }
+
+  .field-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

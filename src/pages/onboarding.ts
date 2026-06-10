@@ -1,24 +1,28 @@
-const liveRegion = document.getElementById("onboardingLiveRegion");
-const status = document.getElementById("onboardingStatus");
-const previewUiList = document.getElementById("previewUiList");
-const previewLearningList = document.getElementById("previewLearningList");
-const previewSurface = document.getElementById("previewSurface");
-const finishButton = document.getElementById("finishOnboardingButton");
-const form = document.getElementById("onboardingForm");
-const accessProfileButtons = Array.from(document.querySelectorAll("[data-access-profile]"));
-const keytipTargets = Array.from(document.querySelectorAll("[data-keytip]"));
+import "../styles/styles.css";
+import "../styles/onboarding.css";
+type StepName = "welcome" | "support" | "preview";
 
-const steps = ["welcome", "support", "preview"];
+const liveRegion = document.getElementById("onboardingLiveRegion") as HTMLElement | null;
+const status = document.getElementById("onboardingStatus") as HTMLElement | null;
+const previewUiList = document.getElementById("previewUiList") as HTMLElement | null;
+const previewLearningList = document.getElementById("previewLearningList") as HTMLElement | null;
+const previewSurface = document.getElementById("previewSurface") as HTMLElement | null;
+const finishButton = document.getElementById("finishOnboardingButton") as HTMLButtonElement | null;
+const form = document.getElementById("onboardingForm") as HTMLFormElement | null;
+const accessProfileButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-access-profile]"));
+const keytipTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
+
+const steps: StepName[] = ["welcome", "support", "preview"];
 const state = {
-  supportNeeds: [],
+  supportNeeds: [] as string[],
   mainDifficulty: "",
   accessProfile: ""
 };
-let currentStep = "welcome";
+let currentStep: StepName = "welcome";
 let keytipModeActive = false;
 let altKeyDown = false;
 
-function announce(message) {
+function announce(message: string) {
   if (!liveRegion) return;
   liveRegion.textContent = "";
   window.setTimeout(() => {
@@ -26,7 +30,7 @@ function announce(message) {
   }, 30);
 }
 
-function setStatus(message) {
+function setStatus(message: string) {
   if (!status) return;
   status.textContent = message;
 }
@@ -36,13 +40,13 @@ function isTypingTarget(element = document.activeElement) {
   return tag === "input" || tag === "textarea" || tag === "select";
 }
 
-function isElementVisible(element) {
+function isElementVisible(element: HTMLElement | null) {
   if (!element || element.hidden) return false;
   if (element.closest("[hidden]")) return false;
   return true;
 }
 
-function isKeytipTargetAvailable(element) {
+function isKeytipTargetAvailable(element: HTMLElement) {
   if (!isElementVisible(element)) return false;
   if (element.matches(".option-card")) {
     return currentStep === "support";
@@ -66,7 +70,7 @@ function showKeytips() {
     const badge = document.createElement("span");
     badge.className = "keytip-badge";
     badge.setAttribute("aria-hidden", "true");
-    badge.textContent = element.dataset.keytip;
+    badge.textContent = element.dataset.keytip || "";
     element.appendChild(badge);
   });
 
@@ -76,7 +80,7 @@ function showKeytips() {
   );
 }
 
-function getKeytipValue(event) {
+function getKeytipValue(event: KeyboardEvent) {
   if (event.code && /^Key[A-Z]$/.test(event.code)) {
     return event.code.slice(3).toLowerCase();
   }
@@ -88,7 +92,7 @@ function getKeytipValue(event) {
   return event.key.toLowerCase();
 }
 
-function activateKeytip(key) {
+function activateKeytip(key: string) {
   const matchedTarget = keytipTargets.find((element) => {
     return (
       isKeytipTargetAvailable(element) &&
@@ -101,7 +105,7 @@ function activateKeytip(key) {
   hideKeytips();
 
   if (matchedTarget.matches(".option-card")) {
-    const input = matchedTarget.querySelector('input[name="supportNeed"]');
+    const input = matchedTarget.querySelector<HTMLInputElement>('input[name="supportNeed"]');
     if (!input) return false;
     input.checked = !input.checked;
     input.dispatchEvent(new Event("change", { bubbles: true }));
@@ -116,7 +120,7 @@ function activateKeytip(key) {
   return true;
 }
 
-function showStep(stepName) {
+function showStep(stepName: StepName) {
   if (keytipModeActive) {
     hideKeytips();
   }
@@ -140,7 +144,7 @@ function showStep(stepName) {
   announce(`Đã chuyển sang bước ${stepName}.`);
 }
 
-function getNeedLabels(needs) {
+function getNeedLabels(needs: string[]) {
   const map = {
     "large-text": "Ưu tiên chữ lớn hơn",
     "high-contrast": "Ưu tiên tương phản cao",
@@ -154,8 +158,9 @@ function getNeedLabels(needs) {
 }
 
 function updatePreview() {
-  const uiNeeds = [];
-  const learningNeeds = [];
+  if (!previewUiList || !previewLearningList || !previewSurface) return;
+  const uiNeeds: string[] = [];
+  const learningNeeds: string[] = [];
 
   state.supportNeeds.forEach((need) => {
     if (["large-text", "high-contrast", "reduced-motion", "simple-mode"].includes(need)) {
@@ -200,7 +205,7 @@ function updatePreview() {
 function syncSupportForm() {
   if (!form) return;
   const selectedNeeds = new Set(state.supportNeeds);
-  form.querySelectorAll('input[name="supportNeed"]').forEach((input) => {
+  form.querySelectorAll<HTMLInputElement>('input[name="supportNeed"]').forEach((input) => {
     input.checked = selectedNeeds.has(input.value);
   });
 }
@@ -227,7 +232,7 @@ function applyCurrentPageDisplaySettings() {
   document.body.classList.toggle("high-contrast", useHighContrast);
 }
 
-function applyAccessProfileChoice(profile) {
+function applyAccessProfileChoice(profile = "") {
   state.accessProfile = profile;
 
   accessProfileButtons.forEach((button) => {
@@ -274,15 +279,17 @@ function persistSettings() {
   localStorage.setItem("dose-access-profile", JSON.stringify(state.accessProfile || "default"));
 }
 
-document.querySelectorAll("[data-next-step]").forEach((button) => {
+document.querySelectorAll<HTMLElement>("[data-next-step]").forEach((button) => {
   button.addEventListener("click", () => {
-    showStep(button.dataset.nextStep);
+    const nextStep = button.dataset.nextStep as StepName | undefined;
+    if (nextStep) showStep(nextStep);
   });
 });
 
-document.querySelectorAll("[data-prev-step]").forEach((button) => {
+document.querySelectorAll<HTMLElement>("[data-prev-step]").forEach((button) => {
   button.addEventListener("click", () => {
-    showStep(button.dataset.prevStep);
+    const prevStep = button.dataset.prevStep as StepName | undefined;
+    if (prevStep) showStep(prevStep);
   });
 });
 
@@ -305,8 +312,8 @@ if (form) {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const checked = Array.from(form.querySelectorAll('input[name="supportNeed"]:checked')).map((input) => input.value);
-    const mainDifficulty = document.getElementById("mainDifficulty").value;
+    const checked = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="supportNeed"]:checked')).map((input) => input.value);
+    const mainDifficulty = (document.getElementById("mainDifficulty") as HTMLSelectElement | null)?.value || "";
 
     state.supportNeeds = checked;
     state.mainDifficulty = mainDifficulty;
@@ -320,20 +327,20 @@ if (form) {
 }
 
 if (form) {
-  form.querySelectorAll('input[name="supportNeed"]').forEach((input) => {
+  form.querySelectorAll<HTMLInputElement>('input[name="supportNeed"]').forEach((input) => {
     input.addEventListener("change", () => {
-      const checked = Array.from(form.querySelectorAll('input[name="supportNeed"]:checked')).map((item) => item.value);
+      const checked = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="supportNeed"]:checked')).map((item) => item.value);
       state.supportNeeds = checked;
       ensureVisionDisplayNeeds();
       updatePreview();
     });
   });
 
-  form.querySelectorAll(".option-card").forEach((card) => {
+  form.querySelectorAll<HTMLElement>(".option-card").forEach((card) => {
     card.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
       event.preventDefault();
-      const input = card.querySelector('input[name="supportNeed"]');
+      const input = card.querySelector<HTMLInputElement>('input[name="supportNeed"]');
       if (!input) return;
       input.checked = !input.checked;
       input.dispatchEvent(new Event("change", { bubbles: true }));

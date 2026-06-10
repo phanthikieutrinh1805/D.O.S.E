@@ -1,12 +1,13 @@
-const $ = (id) => document.getElementById(id);
+import "../styles/education-community.css";
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
-function announce(message) {
+function announce(message: string) {
   const status = $("kbdStatus");
   if (status) status.textContent = message;
 }
 
-function toggleMode(buttonId, className, label) {
-  const button = $(buttonId);
+function toggleMode(buttonId: string, className: string, label: string) {
+  const button = $<HTMLButtonElement>(buttonId);
   if (!button) return;
 
   button.addEventListener("click", () => {
@@ -30,7 +31,7 @@ document.addEventListener("keydown", (event) => {
   if (tag === "input" || tag === "textarea" || tag === "select") return;
 
   const key = event.key.toLowerCase();
-  const routeMap = {
+  const routeMap: Record<string, string> = {
     "1": "home.html",
     "2": "access.html",
     "3": "education.html",

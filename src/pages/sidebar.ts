@@ -1,8 +1,22 @@
+import "../styles/tailwind.css";
+
+type SidebarLink = {
+  href: string;
+  label: string;
+  match: string;
+  keytip?: string;
+};
+
+type SidebarGroup = {
+  label: string;
+  links: SidebarLink[];
+};
+
 (function () {
   const body = document.body;
   if (!body) return;
 
-  function loadPreference(key, fallback) {
+  function loadPreference<T>(key: string, fallback: T): T {
     try {
       const value = localStorage.getItem(key);
       return value === null ? fallback : JSON.parse(value);
@@ -34,7 +48,7 @@
   const isPagesPath = window.location.pathname.includes("/pages/");
   const isHomePage = currentPage === "home.html";
   const homeHref = isPagesPath ? "home.html" : "pages/home.html";
-  const moduleHref = (page) => (isPagesPath ? page : `pages/${page}`);
+  const moduleHref = (page: string) => (isPagesPath ? page : `pages/${page}`);
     const shortcutLabel = (() => {
       const isMac =
         typeof navigator !== "undefined" &&
@@ -42,7 +56,7 @@
       return isMac ? "⌥ Option" : "Alt";
     })();
 
-    let sidebarLiveRegion = document.getElementById("sidebarLiveRegion");
+    let sidebarLiveRegion = document.getElementById("sidebarLiveRegion") as HTMLElement | null;
     if (!sidebarLiveRegion) {
       sidebarLiveRegion = document.createElement("div");
       sidebarLiveRegion.id = "sidebarLiveRegion";
@@ -52,7 +66,7 @@
       body.prepend(sidebarLiveRegion);
     }
 
-    function announce(message) {
+    function announce(message: string) {
       if (!sidebarLiveRegion) return;
       sidebarLiveRegion.textContent = "";
       window.setTimeout(() => {
@@ -60,7 +74,7 @@
       }, 30);
     }
 
-    const groups = currentPage === "dashboard.html"
+    const groups: SidebarGroup[] = currentPage === "dashboard.html"
       ? [
           {
             label: "Bảng điều khiển",
@@ -134,11 +148,11 @@
           }
         ];
 
-    function isCurrent(link) {
+    function isCurrent(link: SidebarLink) {
       return currentPage === link.match;
     }
 
-    function linkMarkup(link) {
+    function linkMarkup(link: SidebarLink) {
       const currentAttr = isCurrent(link) ? ' aria-current="page"' : "";
       const keytipAttr = link.keytip ? ` data-keytip="${link.keytip}"` : "";
       const shortcutAttr = link.keytip ? ` aria-keyshortcuts="Alt+${link.keytip.toUpperCase()}"` : "";
@@ -195,7 +209,7 @@
       body.prepend(sidebar);
     }
 
-    let backdrop = document.getElementById("mobileNavBackdrop");
+    let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
     if (!backdrop) {
       backdrop = document.createElement("div");
       backdrop.id = "mobileNavBackdrop";
@@ -204,7 +218,7 @@
       body.prepend(backdrop);
     }
 
-    let toggle = document.getElementById("menuToggle");
+    let toggle = document.getElementById("menuToggle") as HTMLButtonElement | null;
     if (!toggle && !appShell) {
       toggle = document.createElement("button");
       toggle.type = "button";
@@ -264,7 +278,7 @@
     }
 
     if (!isHomePage) {
-      const keytipTargets = Array.from(sidebar.querySelectorAll("[data-keytip]"));
+      const keytipTargets = Array.from(sidebar.querySelectorAll<HTMLElement>("[data-keytip]"));
       let keytipModeActive = false;
       let optionKeyDown = false;
 
@@ -292,7 +306,7 @@
         announce(`Đã hiện phím truy cập nhanh trong sidebar. Nhấn phím tương ứng sau khi bấm ${shortcutLabel}.`);
       }
 
-      function getKeytipValue(event) {
+      function getKeytipValue(event: KeyboardEvent) {
         if (event.code && /^Key[A-Z]$/.test(event.code)) {
           return event.code.slice(3).toLowerCase();
         }
@@ -304,7 +318,7 @@
         return (event.key || "").toLowerCase();
       }
 
-      function activateKeytip(key) {
+      function activateKeytip(key: string) {
         const matchedTarget = keytipTargets.find(
           (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
         );
@@ -363,4 +377,14 @@
         optionKeyDown = false;
       });
     }
+
+    sidebar.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
+          sidebar.classList.remove("is-open");
+          if (backdrop) backdrop.hidden = true;
+          if (toggle) toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+    });
 })();

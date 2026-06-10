@@ -1,14 +1,24 @@
-const $ = (id) => document.getElementById(id);
+import "../styles/education-disability.css";
+type DisabilityType = "vision" | "hearing" | "mobility" | "cognitive" | "mental";
+type DisabilityProfile = {
+  label: string;
+  intro: string;
+  supports: string[];
+  lessons: [string, string][];
+  helper: string;
+};
 
-function announce(message, isError = false) {
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+
+function announce(message: string, isError = false) {
   const status = $("kbdStatus");
   if (!status) return;
   status.textContent = message;
   status.classList.toggle("error", isError);
 }
 
-function toggleMode(buttonId, className, label) {
-  const button = $(buttonId);
+function toggleMode(buttonId: string, className: string, label: string) {
+  const button = $<HTMLButtonElement>(buttonId);
   if (!button) return;
 
   button.addEventListener("click", () => {
@@ -32,7 +42,7 @@ document.addEventListener("keydown", (event) => {
   if (tag === "input" || tag === "textarea" || tag === "select") return;
 
   const key = event.key.toLowerCase();
-  const routeMap = {
+  const routeMap: Record<string, string> = {
     "1": "home.html",
     "2": "access.html",
     "3": "education.html",
@@ -58,7 +68,7 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-const disabilityProfiles = {
+const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
   vision: {
     label: "Khiếm thị / thị giác",
     intro:
@@ -146,7 +156,7 @@ const disabilityProfiles = {
   }
 };
 
-const disabilityRouteMap = {
+const disabilityRouteMap: Record<DisabilityType, string> = {
   vision: "disability-vision.html",
   hearing: "disability-hearing.html",
   mobility: "disability-mobility.html",
@@ -154,13 +164,14 @@ const disabilityRouteMap = {
   mental: "disability-mental.html"
 };
 
-const form = $("disabilityForm");
+const form = $<HTMLFormElement>("disabilityForm");
 const feedback = $("formFeedback");
 form?.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
-  const selectedType = formData.get("disabilityType");
+  const selectedValue = formData.get("disabilityType");
+  const selectedType = typeof selectedValue === "string" ? (selectedValue as DisabilityType) : null;
 
   if (!selectedType || !disabilityProfiles[selectedType]) {
     feedback.textContent = "Vui lòng chọn một loại khuyết tật để tiếp tục.";

@@ -1,12 +1,15 @@
-const $ = (id) => document.getElementById(id);
+import "../styles/opportunity.css";
+type DisabilityType = "vision" | "hearing" | "mobility" | "cognitive" | "mental" | "none";
 
-function announce(message) {
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+
+function announce(message: string) {
   const status = $("kbdStatus");
   if (status) status.textContent = message;
 }
 
-function toggleMode(buttonId, className, label) {
-  const button = $(buttonId);
+function toggleMode(buttonId: string, className: string, label: string) {
+  const button = $<HTMLButtonElement>(buttonId);
   if (!button) return;
 
   button.addEventListener("click", () => {
@@ -18,7 +21,7 @@ function toggleMode(buttonId, className, label) {
   });
 }
 
-function setError(input, message) {
+function setError(input: HTMLInputElement, message: string) {
   const error = document.getElementById(`${input.id}-error`);
   if (!error) return true;
 
@@ -327,8 +330,8 @@ const profilesData = {
 };
 
 let currentQuestionIndex = 0;
-let userAnswers = [];
-let selectedDisabilityType = null;
+let userAnswers: Array<number | null> = [];
+let selectedDisabilityType: DisabilityType | null = null;
 
 function loadSavedAccessProfile() {
   try {
@@ -339,7 +342,7 @@ function loadSavedAccessProfile() {
   }
 }
 
-function mapAccessProfileToDisability(profile) {
+function mapAccessProfileToDisability(profile: string): DisabilityType | null {
   switch (profile) {
     case "vision":
       return "vision";
@@ -393,14 +396,14 @@ const disabilityAccommodations = {
 };
 
 function initQuizEvents() {
-  const startQuizBtn = $("startQuizBtn");
-  const closeQuizBtn = $("closeQuizBtn");
-  const beginQuizBtn = $("beginQuizBtn");
-  const prevQuestionBtn = $("prevQuestionBtn");
-  const restartQuizBtn = $("restartQuizBtn");
-  const exitQuizBtn = $("exitQuizBtn");
-  const disabilityOptions = document.querySelectorAll("#disabilityOptions .option-card");
-  const submitDisabilityBtn = $("submitDisabilityBtn");
+  const startQuizBtn = $<HTMLButtonElement>("startQuizBtn");
+  const closeQuizBtn = $<HTMLButtonElement>("closeQuizBtn");
+  const beginQuizBtn = $<HTMLButtonElement>("beginQuizBtn");
+  const prevQuestionBtn = $<HTMLButtonElement>("prevQuestionBtn");
+  const restartQuizBtn = $<HTMLButtonElement>("restartQuizBtn");
+  const exitQuizBtn = $<HTMLButtonElement>("exitQuizBtn");
+  const disabilityOptions = document.querySelectorAll<HTMLElement>("#disabilityOptions .option-card");
+  const submitDisabilityBtn = $<HTMLButtonElement>("submitDisabilityBtn");
 
   function resetDisabilitySelection() {
     selectedDisabilityType = null;
@@ -411,7 +414,7 @@ function initQuizEvents() {
     disabilityOptions.forEach((card) => {
       card.classList.remove("selected");
       card.setAttribute("aria-checked", "false");
-      const radio = card.querySelector("input[type='radio']");
+      const radio = card.querySelector<HTMLInputElement>("input[type='radio']");
       if (radio) radio.checked = false;
     });
   }
@@ -429,19 +432,20 @@ function initQuizEvents() {
     return mapAccessProfileToDisability(loadSavedAccessProfile());
   }
 
-  function selectDisability(disType, cardEl) {
+  function selectDisability(disType: DisabilityType | null, cardEl: HTMLElement) {
+    if (!disType) return;
     selectedDisabilityType = disType;
     
     disabilityOptions.forEach(card => {
       card.classList.remove("selected");
       card.setAttribute("aria-checked", "false");
-      const radio = card.querySelector("input[type='radio']");
+      const radio = card.querySelector<HTMLInputElement>("input[type='radio']");
       if (radio) radio.checked = false;
     });
 
     cardEl.classList.add("selected");
     cardEl.setAttribute("aria-checked", "true");
-    const radio = cardEl.querySelector("input[type='radio']");
+    const radio = cardEl.querySelector<HTMLInputElement>("input[type='radio']");
     if (radio) radio.checked = true;
 
     if (submitDisabilityBtn) {
@@ -454,13 +458,13 @@ function initQuizEvents() {
   }
 
   disabilityOptions.forEach(card => {
-    const disType = card.getAttribute("data-disability");
+    const disType = card.getAttribute("data-disability") as DisabilityType | null;
     
     card.addEventListener("click", () => {
       selectDisability(disType, card);
     });
 
-    card.addEventListener("keydown", (e) => {
+    card.addEventListener("keydown", (e: KeyboardEvent) => {
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
         selectDisability(disType, card);
@@ -566,7 +570,7 @@ function loadQuestion(index) {
   const qText = $("quizQuestionText");
   const qOptions = $("quizOptions");
   const qCounter = $("quizQuestionCounter");
-  const prevBtn = $("prevQuestionBtn");
+  const prevBtn = $<HTMLButtonElement>("prevQuestionBtn");
 
   // Update progress bar
   const progressPercent = Math.round(((index) / questions.length) * 100);
@@ -594,7 +598,7 @@ function loadQuestion(index) {
     const radio = document.createElement("input");
     radio.type = "radio";
     radio.name = `q-${index}`;
-    radio.value = oIdx;
+    radio.value = String(oIdx);
     radio.id = `q-${index}-opt-${oIdx}`;
     radio.checked = isSelected;
     
@@ -612,7 +616,7 @@ function loadQuestion(index) {
     });
 
     // Keyboard support
-    card.addEventListener("keydown", (e) => {
+    card.addEventListener("keydown", (e: KeyboardEvent) => {
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
         selectOption(index, oIdx);
@@ -626,7 +630,7 @@ function loadQuestion(index) {
   qText.focus();
 }
 
-function selectOption(qIdx, oIdx) {
+function selectOption(qIdx: number, oIdx: number) {
   userAnswers[qIdx] = oIdx;
   
   // Highlight selected card

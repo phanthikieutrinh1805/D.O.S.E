@@ -1,12 +1,13 @@
-const $ = (id) => document.getElementById(id);
+import "../styles/disability-profile.css";
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
-function announce(message) {
+function announce(message: string) {
   const status = $("kbdStatus");
   if (status) status.textContent = message;
 }
 
-function toggleMode(buttonId, className, label) {
-  const button = $(buttonId);
+function toggleMode(buttonId: string, className: string, label: string) {
+  const button = $<HTMLButtonElement>(buttonId);
   if (!button) return;
 
   button.addEventListener("click", () => {
@@ -264,8 +265,11 @@ if (profile) {
   $("pageEyebrow").textContent = profile.eyebrow;
   $("pageTitle").textContent = profile.title;
   $("pageIntro").textContent = profile.intro;
-  $("profileImage").src = profile.image;
-  $("profileImage").alt = profile.imageAlt;
+  const profileImage = $<HTMLImageElement>("profileImage");
+  if (profileImage) {
+    profileImage.src = profile.image;
+    profileImage.alt = profile.imageAlt;
+  }
 
   $("highlightOneTitle").textContent = profile.highlights[0][0];
   $("highlightOneText").textContent = profile.highlights[0][1];

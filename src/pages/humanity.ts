@@ -1,12 +1,13 @@
-const $ = (id) => document.getElementById(id);
+import "../styles/humanity.css";
+const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
-function announce(message) {
+function announce(message: string) {
   const status = $("kbdStatus");
   if (status) status.textContent = message;
 }
 
-function toggleMode(buttonId, className, label) {
-  const button = $(buttonId);
+function toggleMode(buttonId: string, className: string, label: string) {
+  const button = $<HTMLButtonElement>(buttonId);
   if (!button) return;
 
   button.addEventListener("click", () => {
@@ -18,7 +19,7 @@ function toggleMode(buttonId, className, label) {
   });
 }
 
-function setError(input, message) {
+function setError(input: HTMLInputElement, message: string) {
   const error = document.getElementById(`${input.id}-error`);
   if (!error) return true;
 
@@ -39,14 +40,15 @@ toggleMode("contrastToggle", "high-contrast", "Chế độ tương phản cao");
 toggleMode("fontToggle", "large-text", "Chế độ chữ lớn");
 toggleMode("motionToggle", "reduce-motion", "Chế độ giảm chuyển động");
 
-const contactForm = $("contactForm");
+const contactForm = $<HTMLFormElement>("contactForm");
 if (contactForm) {
   contactForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const name = $("name");
-    const email = $("email");
+    const name = $<HTMLInputElement>("name");
+    const email = $<HTMLInputElement>("email");
     const success = $("contactSuccess");
+    if (!name || !email || !success) return;
 
     const okName = setError(name, name.value.trim() ? "" : "Vui lòng nhập họ và tên.");
     const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
@@ -70,7 +72,7 @@ document.addEventListener("keydown", (event) => {
   if (tag === "input" || tag === "textarea" || tag === "select") return;
 
   const key = event.key.toLowerCase();
-  const routeMap = {
+  const routeMap: Record<string, string> = {
     "1": "home.html",
     "2": "access.html",
     "3": "education.html",

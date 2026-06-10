@@ -1,15 +1,5 @@
 @import url("./ecosystem.css");
 
-.hero,
-.panel,
-.card,
-.mini-highlight {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
-}
-
 .hero {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -35,12 +25,6 @@
 .grid-2 {
   display: grid;
   gap: 1rem;
-}
-
-.mini-highlight,
-.panel,
-.card {
-  padding: 1rem;
 }
 
 .grid-3 {

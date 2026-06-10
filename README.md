@@ -18,19 +18,21 @@
 ## Dự án gồm những gì
 
 - `index.html`: entry page, tự điều hướng vào trang Home chính
+
 - `pages/home.html`: landing page / trang Home chính của dự án
 - `pages/`: các màn hình module như `Access`, `Education`, `Opportunity`, `Humanity`, `auth`, `onboarding`, `dashboard`
-- `styles.css`: style chính cho Home
-- `pages/css/`: style cho các trang trong `pages/`
-- `app.js`: logic frontend chính, gồm accessibility tools và chat box
+- `src/`: TypeScript entry va Tailwind entry cho frontend
+- `src/styles/`: Tailwind entry va CSS source duoc Vite bundle theo tung page
+- `src/app.ts` va `src/pages/*.ts`: logic frontend TypeScript, gom accessibility tools, sidebar, dashboard, onboarding va chat box
 - `chat_backend.py`: backend Flask cho AI Mentor
 - `requirements.txt`: thư viện Python cần cài
 
 ## Công nghệ sử dụng
 
 - HTML
-- CSS
-- JavaScript
+- CSS / Tailwind CSS
+- TypeScript
+- Vite
 - Python Flask
 - OpenRouter API cho AI chat
 
@@ -73,21 +75,23 @@ Backend sẽ chạy tại:
 http://localhost:5000
 ```
 
-### 5. Chạy frontend
+### 5. Cai va chay frontend
 
 Mở thêm một terminal khác:
 
 ```bash
-python3 -m http.server 5500
+npm install
+npm run dev
 ```
 
 Sau đó mở trình duyệt tại:
 
 ```txt
-http://127.0.0.1:5500/index.html
+http://127.0.0.1:5173/index.html
 ```
 
 `index.html` sẽ tự chuyển vào trang Home chính.
+
 
 ## Lưu ý khi chạy
 

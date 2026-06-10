@@ -1,3 +1,5 @@
+import "../styles/styles.css";
+import "../styles/dashboard.css";
 const liveRegion = document.getElementById("dashboardLiveRegion");
 const menuToggle = document.getElementById("menuToggle");
 const sideNav = document.getElementById("sideNav");
@@ -38,7 +40,7 @@ const mentorIntro = document.getElementById("mentorIntro");
 const recommendedGrid = document.getElementById("recommendedGrid");
 const communityFeed = document.getElementById("communityFeed");
 
-let lastMenuTrigger = null;
+let lastMenuTrigger: HTMLElement | null = null;
 
 const profileIllustrationMap = {
   vision: `
@@ -652,18 +654,18 @@ function applyProfileFromQuery() {
   announce(`Đã mở không gian học tập cho ${profile.label}.`);
 }
 
-function getFocusableElements(container) {
+function getFocusableElements(container: HTMLElement | null): HTMLElement[] {
   if (!container) return [];
   return Array.from(
-    container.querySelectorAll(
+    container.querySelectorAll<HTMLElement>(
       'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
     )
   );
 }
 
-function openMobileNav(trigger) {
+function openMobileNav(trigger?: HTMLElement | null) {
   if (!sideNav || !menuToggle || window.innerWidth > 992) return;
-  lastMenuTrigger = trigger || document.activeElement;
+  lastMenuTrigger = trigger || (document.activeElement as HTMLElement | null);
   sideNav.classList.add("is-open");
   menuToggle.setAttribute("aria-expanded", "true");
   if (mobileNavBackdrop) mobileNavBackdrop.hidden = false;
