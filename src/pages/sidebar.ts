@@ -300,13 +300,11 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     });
   }
 
-  const currentPath = window.location.pathname.split("/").pop() || "home.html";
-  const currentPage = currentPath === "" ? "home.html" : currentPath;
+  const currentPage = window.location.hash.match(/^#\/[^?]+/)?.[0] || "#/home";
   const currentHash = window.location.hash || "";
-  const isPagesPath = window.location.pathname.includes("/pages/");
-  const isHomePage = currentPage === "home.html";
-  const homeHref = isPagesPath ? "home.html" : "pages/home.html";
-  const moduleHref = (page: string) => (isPagesPath ? page : `pages/${page}`);
+  const isHomePage = currentPage === "#/home";
+  const homeHref = "#/home";
+  const moduleHref = (page: string) => page;
     const shortcutLabel = (() => {
       const isMac =
         typeof navigator !== "undefined" &&
@@ -335,45 +333,45 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     createGlobalAccessibilityControls();
     syncGlobalControls();
 
-    const groups: SidebarGroup[] = currentPage === "dashboard.html"
+    const groups: SidebarGroup[] = currentPage === "#/dashboard"
       ? [
           {
             label: "Bảng điều khiển",
             links: [
-              { href: "#continue-learning", label: "Tiếp tục học", match: "dashboard.html", keytip: "T" },
-              { href: "#progress", label: "Tiến độ", match: "dashboard.html", keytip: "P" },
-              { href: "#ai-mentor", label: "Trợ lý AI", match: "dashboard.html", keytip: "I" },
-              { href: "#recommended", label: "Bài học gợi ý", match: "dashboard.html", keytip: "G" },
-              { href: "#community", label: "Bảng tin cộng đồng", match: "dashboard.html", keytip: "C" }
+              { href: "#continue-learning", label: "Tiếp tục học", match: "#/dashboard", keytip: "T" },
+              { href: "#progress", label: "Tiến độ", match: "#/dashboard", keytip: "P" },
+              { href: "#ai-mentor", label: "Trợ lý AI", match: "#/dashboard", keytip: "I" },
+              { href: "#recommended", label: "Bài học gợi ý", match: "#/dashboard", keytip: "G" },
+              { href: "#community", label: "Bảng tin cộng đồng", match: "#/dashboard", keytip: "C" }
             ]
           },
           {
             label: "C�c ph�n hệ",
             links: [
-              { href: moduleHref("access.html"), label: "Tiếp cận", match: "access.html", keytip: "A" },
-              { href: moduleHref("education.html"), label: "Giáo dục", match: "education.html", keytip: "E" },
-              { href: moduleHref("opportunity.html"), label: "Cơ hội", match: "opportunity.html", keytip: "O" },
-              { href: moduleHref("humanity.html"), label: "Nh�n văn", match: "humanity.html", keytip: "H" }
+              { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
+              { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
+              { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
+              { href: moduleHref("#/humanity"), label: "Nh�n văn", match: "#/humanity", keytip: "H" }
             ]
           },
           {
             label: "Luồng trải nghiệm",
             links: [
-              { href: moduleHref("auth.html"), label: "Xác thực", match: "auth.html", keytip: "X" },
-              { href: moduleHref("onboarding.html"), label: "Thiết lập ban đầu", match: "onboarding.html", keytip: "L" },
-              { href: moduleHref("dashboard.html"), label: "Bảng điều khiển", match: "dashboard.html", keytip: "B" }
+              { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
+              { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
+              { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
             ]
           },
           {
             label: "Học theo nhu cầu",
             links: [
-              { href: moduleHref("education-disability.html"), label: "Hồ sơ người khuyết tật", match: "education-disability.html", keytip: "R" },
-              { href: moduleHref("education-community.html"), label: "Học cho cộng đồng", match: "education-community.html", keytip: "D" },
-              { href: moduleHref("disability-vision.html"), label: "Khiếm thị", match: "disability-vision.html", keytip: "V" },
-              { href: moduleHref("disability-hearing.html"), label: "Khiếm thính", match: "disability-hearing.html", keytip: "K" },
-              { href: moduleHref("disability-mobility.html"), label: "Khó vận động", match: "disability-mobility.html", keytip: "U" },
-              { href: moduleHref("disability-cognitive.html"), label: "Nhận thức và học tập", match: "disability-cognitive.html", keytip: "N" },
-              { href: moduleHref("disability-mental.html"), label: "Sức khỏe tinh thần", match: "disability-mental.html", keytip: "Z" }
+              { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
+              { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
+              { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
+              { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
+              { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
+              { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
+              { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
             ]
           }
         ]
@@ -381,37 +379,37 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
           {
             label: "C�c ph�n hệ",
             links: [
-              { href: moduleHref("access.html"), label: "Tiếp cận", match: "access.html", keytip: "A" },
-              { href: moduleHref("education.html"), label: "Giáo dục", match: "education.html", keytip: "E" },
-              { href: moduleHref("opportunity.html"), label: "Cơ hội", match: "opportunity.html", keytip: "O" },
-              { href: moduleHref("humanity.html"), label: "Nh�n văn", match: "humanity.html", keytip: "H" }
+              { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
+              { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
+              { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
+              { href: moduleHref("#/humanity"), label: "Nh�n văn", match: "#/humanity", keytip: "H" }
             ]
           },
           {
             label: "Luồng trải nghiệm",
             links: [
-              { href: moduleHref("auth.html"), label: "Xác thực", match: "auth.html", keytip: "X" },
-              { href: moduleHref("onboarding.html"), label: "Thiết lập ban đầu", match: "onboarding.html", keytip: "L" },
-              { href: moduleHref("dashboard.html"), label: "Bảng điều khiển", match: "dashboard.html", keytip: "B" }
+              { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
+              { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
+              { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
             ]
           },
           {
             label: "Học theo nhu cầu",
             links: [
-              { href: moduleHref("education-disability.html"), label: "Hồ sơ người khuyết tật", match: "education-disability.html", keytip: "R" },
-              { href: moduleHref("education-community.html"), label: "Học cho cộng đồng", match: "education-community.html", keytip: "D" },
-              { href: moduleHref("disability-vision.html"), label: "Khiếm thị", match: "disability-vision.html", keytip: "V" },
-              { href: moduleHref("disability-hearing.html"), label: "Khiếm thính", match: "disability-hearing.html", keytip: "K" },
-              { href: moduleHref("disability-mobility.html"), label: "Khó vận động", match: "disability-mobility.html", keytip: "U" },
-              { href: moduleHref("disability-cognitive.html"), label: "Nhận thức và học tập", match: "disability-cognitive.html", keytip: "N" },
-              { href: moduleHref("disability-mental.html"), label: "Sức khỏe tinh thần", match: "disability-mental.html", keytip: "Z" }
+              { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
+              { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
+              { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
+              { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
+              { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
+              { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
+              { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
             ]
           }
         ];
 
     function isCurrent(link: SidebarLink) {
       if (currentPage !== link.match) return false;
-      if (currentPage === "dashboard.html" && !link.href.startsWith("#")) return false;
+      if (currentPage === "#/dashboard" && !link.href.startsWith("#")) return false;
       if (!link.href.startsWith("#")) return true;
       return currentHash ? link.href === currentHash : link.href === "#continue-learning";
     }

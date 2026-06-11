@@ -21,4 +21,9 @@ export function renderPage(content: PageContent): void {
   });
 
   document.body.innerHTML = content.html;
+
+  const anchor = new URLSearchParams(window.location.hash.split("?")[1] || "").get("anchor");
+  if (anchor) {
+    window.requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView());
+  }
 }

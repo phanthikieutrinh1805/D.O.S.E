@@ -359,7 +359,7 @@ if (finishButton) {
     setStatus("Đã lưu thiết lập onboarding. Đang chuyển vào dashboard.");
     announce("Đã lưu thiết lập onboarding.");
     window.setTimeout(() => {
-      window.location.href = "dashboard.html";
+      window.location.href = "#/dashboard";
     }, 500);
   });
 }

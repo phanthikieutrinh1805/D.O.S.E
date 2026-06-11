@@ -7,15 +7,15 @@ import { disabilityVisionContent } from "../page-content/disability-vision";
 import { renderPage } from "../page-content/render";
 
 const disabilityContentMap = {
-  "disability-cognitive.html": disabilityCognitiveContent,
-  "disability-hearing.html": disabilityHearingContent,
-  "disability-mental.html": disabilityMentalContent,
-  "disability-mobility.html": disabilityMobilityContent,
-  "disability-vision.html": disabilityVisionContent
+  cognitive: disabilityCognitiveContent,
+  hearing: disabilityHearingContent,
+  mental: disabilityMentalContent,
+  mobility: disabilityMobilityContent,
+  vision: disabilityVisionContent
 };
 
-const currentPageName = window.location.pathname.split("/").pop() || "disability-vision.html";
-renderPage(disabilityContentMap[currentPageName] || disabilityVisionContent);
+const currentProfileKey = window.location.hash.match(/^#\/disability-([^?]+)/)?.[1] || "vision";
+renderPage(disabilityContentMap[currentProfileKey] || disabilityVisionContent);
 void import("./sidebar");
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
@@ -314,11 +314,11 @@ document.addEventListener("keydown", (event) => {
 
   const key = event.key.toLowerCase();
   const routeMap = {
-    "1": "home.html",
-    "2": "access.html",
-    "3": "education.html",
-    "4": "opportunity.html",
-    "5": "humanity.html"
+    "1": "#/home",
+    "2": "#/access",
+    "3": "#/education",
+    "4": "#/opportunity",
+    "5": "#/humanity"
   };
 
   if (routeMap[key]) {

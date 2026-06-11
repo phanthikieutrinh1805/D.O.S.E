@@ -78,11 +78,11 @@ document.addEventListener("keydown", (event) => {
 
   const key = event.key.toLowerCase();
   const routeMap: Record<string, string> = {
-    "1": "home.html",
-    "2": "access.html",
-    "3": "education.html",
-    "4": "opportunity.html",
-    "5": "humanity.html"
+    "1": "#/home",
+    "2": "#/access",
+    "3": "#/education",
+    "4": "#/opportunity",
+    "5": "#/humanity"
   };
 
   if (routeMap[key]) {

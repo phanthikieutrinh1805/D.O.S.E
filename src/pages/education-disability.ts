@@ -48,11 +48,11 @@ document.addEventListener("keydown", (event) => {
 
   const key = event.key.toLowerCase();
   const routeMap: Record<string, string> = {
-    "1": "home.html",
-    "2": "access.html",
-    "3": "education.html",
-    "4": "opportunity.html",
-    "5": "humanity.html"
+    "1": "#/home",
+    "2": "#/access",
+    "3": "#/education",
+    "4": "#/opportunity",
+    "5": "#/humanity"
   };
 
   if (routeMap[key]) {
@@ -162,11 +162,11 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
 };
 
 const disabilityRouteMap: Record<DisabilityType, string> = {
-  vision: "disability-vision.html",
-  hearing: "disability-hearing.html",
-  mobility: "disability-mobility.html",
-  cognitive: "disability-cognitive.html",
-  mental: "disability-mental.html"
+  vision: "#/disability-vision",
+  hearing: "#/disability-hearing",
+  mobility: "#/disability-mobility",
+  cognitive: "#/disability-cognitive",
+  mental: "#/disability-mental"
 };
 
 const form = $<HTMLFormElement>("disabilityForm");
