@@ -245,8 +245,12 @@ function updateShortcutHints() {
   }
 }
 
+function getKeytipTargets() {
+  return Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
+}
+
 function hideKeytips() {
-  keytipTargets.forEach((element) => {
+  getKeytipTargets().forEach((element) => {
     const badge = element.querySelector(".keytip-badge");
     if (badge) badge.remove();
   });
@@ -254,7 +258,7 @@ function hideKeytips() {
 }
 
 function showKeytips() {
-  keytipTargets.forEach((element) => {
+  getKeytipTargets().forEach((element) => {
     if (element.querySelector(".keytip-badge")) return;
     const keytip = element.dataset.keytip;
     if (!keytip) return;
@@ -278,7 +282,7 @@ function toggleKeytips() {
 }
 
 function activateKeytip(key) {
-  const matchedTarget = keytipTargets.find(
+  const matchedTarget = getKeytipTargets().find(
     (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
   );
 
@@ -962,124 +966,3 @@ window.addEventListener("resize", () => {
   }
 });
 
-// Chat Box Logic
-const floatingChatButton = $("floatingChatButton") as HTMLButtonElement | null;
-const chatBoxContainer = $("chatBoxContainer") as HTMLElement | null;
-const closeChatButton = $("closeChatButton") as HTMLButtonElement | null;
-const chatInput = $("chatInput") as HTMLInputElement | null;
-const sendChatButton = $("sendChatButton") as HTMLButtonElement | null;
-const chatMessages = $("chatMessages") as HTMLElement | null;
-const chatApiUrl =
-  ((import.meta as ImportMeta & { env?: { VITE_CHAT_API_URL?: string } }).env?.VITE_CHAT_API_URL ??
-    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
-      ? "http://localhost:5000/api/chat"
-      : ""));
-
-let chatHistory: Array<{ role: string; content: string; reasoning_details?: unknown }> = [];
-
-if (floatingChatButton && chatBoxContainer) {
-  floatingChatButton.addEventListener("click", () => {
-    chatBoxContainer.hidden = false;
-    floatingChatButton.setAttribute("aria-expanded", "true");
-    chatBoxContainer.setAttribute("aria-hidden", "false");
-    chatInput?.focus();
-  });
-
-  closeChatButton.addEventListener("click", () => {
-    chatBoxContainer.hidden = true;
-    floatingChatButton.setAttribute("aria-expanded", "false");
-    chatBoxContainer.setAttribute("aria-hidden", "true");
-    floatingChatButton.focus();
-  });
-}
-
-function addMessageToUI(content: string, role: string) {
-  const messageDiv = document.createElement("div");
-  messageDiv.className = `chat-message ${role}`;
-  
-  if (role.includes("user") || typeof marked === "undefined") {
-    messageDiv.textContent = content;
-  } else {
-    // Parse Markdown to HTML for assistant messages
-    messageDiv.innerHTML = marked.parse(content);
-  }
-  
-  chatMessages?.appendChild(messageDiv);
-  if (chatMessages) {
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-  return messageDiv;
-}
-
-async function sendChatMessage() {
-  if (!chatInput || !sendChatButton || !chatMessages) return;
-  const text = chatInput.value.trim();
-  if (!text) return;
-
-  chatInput.value = "";
-  chatInput.disabled = true;
-  sendChatButton.disabled = true;
-
-  addMessageToUI(text, "user");
-  chatHistory.push({ role: "user", content: text });
-
-  const loadingMsg = addMessageToUI("AI Mentor đang suy nghĩ...", "assistant loading");
-  loadingMsg.classList.add("loading");
-
-  if (!chatApiUrl) {
-    chatMessages.removeChild(loadingMsg);
-    addMessageToUI("Chat box cần backend riêng. Hãy cấu hình VITE_CHAT_API_URL hoặc chạy Flask backend trước khi dùng.", "assistant");
-    chatHistory.pop();
-    chatInput.disabled = false;
-    sendChatButton.disabled = false;
-    chatInput.focus();
-    return;
-  }
-
-  try {
-    const response = await fetch(chatApiUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: chatHistory }),
-    });
-
-    const data = await response.json();
-    chatMessages.removeChild(loadingMsg);
-
-    if (data.success && data.message) {
-      const assistantMessage = data.message;
-      addMessageToUI(assistantMessage.content, "assistant");
-      
-      // Save assistant message to history, including reasoning_details if present
-      chatHistory.push({
-        role: "assistant",
-        content: assistantMessage.content,
-        reasoning_details: assistantMessage.reasoning_details
-      });
-    } else {
-      addMessageToUI("Xin lỗi, đã có lỗi kết nối hoặc API key chưa được cấu hình đúng.", "assistant");
-      chatHistory.pop(); // remove user message from history if failed
-    }
-  } catch (error) {
-    chatMessages.removeChild(loadingMsg);
-    addMessageToUI("Lỗi mạng: Không thể kết nối tới server. Vui lòng kiểm tra server Flask đã chạy chưa.", "assistant");
-    chatHistory.pop();
-  }
-
-  chatInput.disabled = false;
-  sendChatButton.disabled = false;
-  chatInput.focus();
-}
-
-if (sendChatButton) {
-  sendChatButton.addEventListener("click", sendChatMessage);
-}
-
-if (chatInput) {
-  chatInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      sendChatMessage();
-    }
-  });
-}

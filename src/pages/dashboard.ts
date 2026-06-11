@@ -141,20 +141,20 @@ const profileCopyMap = {
     eyebrow: "Không gian học tập cho bạn",
     title: "Bạn đang ở chế độ học tập ưu tiên thị giác dễ tiếp cận",
     intro:
-      "Bảng điều khiển này có thể được tối ưu thêm cho trình đọc màn hình, cấu trúc rõ ràng và điều hướng tuần tự.",
+      "Bảng điều khiển này ưu tiên trình đọc màn hình, cấu trúc rõ ràng, điều hướng tuần tự và nội dung có mô tả thay thế.",
     glyph: "A",
     artCaption: "Biểu tượng chữ nổi bật đại diện cho không gian ưu tiên đọc, nghe nội dung bằng công cụ hỗ trợ và định hướng rõ ràng.",
     imageSrc: "asset/khiemthi.png",
-    imageAlt: "Anh dai dien cho nguoi khiem thi",
+    imageAlt: "Ảnh đại diện cho người khiếm thị",
     accentSoft: "#d8f5e2",
     accentStrong: "#5f9f7a",
     accentText: "#1d5b3c",
     traitsIntro:
-      "Những đặc điểm thường gặp dưới đ�y gi�p hệ thống tổ chức nội dung theo c�ch dễ theo d�i v� �t g�y cản trở hơn cho bạn.",
+      "Những đặc điểm dưới đây giúp hệ thống tổ chức nội dung theo cách dễ theo dõi và ít gây cản trở hơn cho bạn.",
     traits: [
-      "Dễ tiếp nhận th�ng tin tốt hơn khi nội dung c� thứ tự r�, ti�u đề ph�n cấp v� �t phụ thuộc v�o h�nh ảnh thuần t�y.",
+      "Dễ tiếp nhận thông tin hơn khi nội dung có thứ tự rõ, tiêu đề phân cấp và ít phụ thuộc vào hình ảnh thuần túy.",
       "Cần mô tả thay thế cho hình, biểu đồ và nút chức năng để không bỏ lỡ ý quan trọng.",
-      "Thường có lợi hơn khi điều hướng theo tiêu đề, vùng chính của trang hoặc phím tắt thay vì phải rà soát toàn màn hình."
+      "Thường thuận lợi hơn khi điều hướng theo tiêu đề, vùng chính của trang hoặc phím tắt."
     ],
     supports: [
       "Tăng tương phản chữ và nền để nhận diện thông tin nhanh hơn.",
@@ -183,28 +183,28 @@ const profileCopyMap = {
       ["Tùy chỉnh tương phản và cỡ chữ", "69%"]
     ],
     mentor:
-      "Trợ l� AI c� thể đọc t�m tắt nội dung, m� tả lại bố cục trang v� đề xuất bước tiếp theo ph� hợp với c�ch tiếp cận bằng �m thanh.",
+      "Trợ lý AI có thể đọc tóm tắt nội dung, mô tả lại bố cục trang và đề xuất bước tiếp theo phù hợp với cách tiếp cận bằng âm thanh.",
     recommended: [
       ["09 phút", "Độ tương phản và kiểu chữ dễ đọc", "Hiểu cách chọn màu, cỡ chữ và khoảng cách để nội dung rõ hơn khi dùng thị lực yếu hoặc phóng to màn hình."],
-      ["11 phút", "Trình đọc màn hình hoạt động như thế nào", "Nắm những nguyên tắc cơ bản để đọc trang bằng tiêu đề, vùng chính, liên kết và biểu mẫu."],
-      ["08 ph�t", "C�ch y�u cầu t�i liệu dễ tiếp cận", "Mẫu c�u ngắn để xin phi�n bản c� m� tả ảnh, tệp PDF dễ đọc hoặc nội dung theo cấu tr�c r� r�ng."]
+      ["11 phút", "Trình đọc màn hình hoạt động như thế nào", "Nắm nguyên tắc cơ bản để đọc trang bằng tiêu đề, vùng chính, liên kết và biểu mẫu."],
+      ["08 phút", "Cách yêu cầu tài liệu dễ tiếp cận", "Mẫu câu ngắn để xin phiên bản có mô tả ảnh, tệp PDF dễ đọc hoặc nội dung theo cấu trúc rõ ràng."]
     ],
     community: [
-      ["Người đồng hành cộng đồng", "Buổi chia sẻ về mô tả ảnh trong tài liệu học tập", "Nhóm cộng đồng sẽ cùng xem cách viết mô tả thay thế và cách tránh đặt thông tin quan trọng chỉ trong hình ảnh."],
-      ["C�u chuyện người d�ng", "Một th�nh vi�n chia sẻ c�ch học hiệu quả hơn với tr�nh đọc m�n h�nh", "Bạn ấy đ� thay đổi thứ tự đọc, lưu ph�m tắt quan trọng v� giảm thời gian t�m � ch�nh trong b�i giảng số."],
-      ["Hỗ trợ đồng đẳng", "Kho tài liệu dễ đọc đang được cập nhật thêm", "Cộng đồng vừa thêm các tài liệu có tiêu đề rõ, bản đọc ngắn và nội dung chia khối để bạn truy cập nhanh hơn."]
+      ["Người đồng hành cộng đồng", "Buổi chia sẻ về mô tả ảnh trong tài liệu học tập", "Nhóm cộng đồng sẽ cùng xem cách viết mô tả thay thế và tránh đặt thông tin quan trọng chỉ trong hình ảnh."],
+      ["Câu chuyện người dùng", "Một thành viên học hiệu quả hơn với trình đọc màn hình", "Bạn ấy thay đổi thứ tự đọc, lưu phím tắt quan trọng và giảm thời gian tìm ý chính trong bài giảng số."],
+      ["Hỗ trợ đồng đẳng", "Kho tài liệu dễ đọc đang được cập nhật", "Cộng đồng vừa thêm tài liệu có tiêu đề rõ, bản đọc ngắn và nội dung chia khối để truy cập nhanh hơn."]
     ],
     guidanceIntro:
-      "Phiên bản này ưu tiên những giải pháp giúp bạn đọc, nghe và định hướng nội dung số rõ ràng hơn mà không bị phụ thuộc vào cách trình bày thuần hình ảnh.",
+      "Phiên bản này ưu tiên giải pháp giúp bạn đọc, nghe và định hướng nội dung số rõ ràng hơn mà không phụ thuộc vào cách trình bày thuần hình ảnh.",
     solutions: [
       "Ưu tiên tài liệu có tiêu đề rõ, mô tả ảnh đầy đủ và cấu trúc nội dung có thể đi tuần tự.",
-      "Sử dụng tr�nh đọc m�n h�nh hoặc c�ng cụ đọc to để nắm khung nội dung trước khi đọc s�u.",
+      "Sử dụng trình đọc màn hình hoặc công cụ đọc to để nắm khung nội dung trước khi đọc sâu.",
       "Bật tương phản cao, tăng cỡ chữ hoặc phóng to màn hình khi cần nhận diện nhanh các điểm chính."
     ],
     scenarios: [
-      "Gặp slide có quá nhiều chữ trong ảnh và không có mô tả thay thế.",
-      "Gặp biểu mẫu dài nhưng nhãn trường nhập không rõ hoặc thứ tự tab lộn xộn.",
-      "Gặp tài liệu PDF khó đọc, không có tiêu đề rõ và không thể dò ý chính nhanh."
+      "Slide có quá nhiều chữ trong ảnh và không có mô tả thay thế.",
+      "Biểu mẫu dài nhưng nhãn trường nhập không rõ hoặc thứ tự tab lộn xộn.",
+      "Tài liệu PDF khó đọc, không có tiêu đề rõ và không thể dò ý chính nhanh."
     ],
     checklist: [
       "Kiểm tra xem nội dung quan trọng có đang nằm riêng trong ảnh hay không.",
@@ -217,30 +217,30 @@ const profileCopyMap = {
     eyebrow: "Không gian học tập cho bạn",
     title: "Bạn đang ở chế độ học tập ưu tiên nội dung trực quan",
     intro:
-      "Bảng điều khiển này có thể được tối ưu thêm cho phụ đề, bản chép lời và các tín hiệu hiển thị rõ ràng.",
+      "Bảng điều khiển này ưu tiên phụ đề, bản chép lời và các tín hiệu hiển thị rõ ràng thay vì phụ thuộc vào âm thanh.",
     glyph: "CC",
     artCaption: "Biểu tượng phụ đề đại diện cho không gian học tập ưu tiên chữ viết, tín hiệu hình ảnh và nội dung dễ quan sát.",
     imageSrc: "asset/khiemthinh.png",
-    imageAlt: "Anh dai dien cho nguoi khiem thinh",
+    imageAlt: "Ảnh đại diện cho người khiếm thính",
     accentSoft: "#e3f4ff",
     accentStrong: "#6ca7d4",
     accentText: "#1e557c",
     traitsIntro:
-      "Trang n�y sẽ nhấn mạnh c�c điểm mạnh về quan s�t trực quan v� giảm phụ thuộc v�o �m thanh để bạn theo kịp nội dung tốt hơn.",
+      "Trang này nhấn mạnh điểm mạnh về quan sát trực quan và giảm phụ thuộc vào âm thanh để bạn theo kịp nội dung tốt hơn.",
     traits: [
       "Tiếp nhận tốt hơn khi thông tin được trình bày bằng chữ, sơ đồ, tín hiệu hình ảnh hoặc bố cục dễ quét mắt.",
-      "C� thể bỏ lỡ nội dung quan trọng nếu th�ng b�o chỉ xuất hiện qua �m thanh hoặc lời n�i nhanh.",
-      "Thường cần đồng bộ giữa nội dung nhìn thấy trên màn hình và phần giải thích kèm theo."
+      "Có thể bỏ lỡ nội dung quan trọng nếu thông báo chỉ xuất hiện qua âm thanh hoặc lời nói nhanh.",
+      "Cần đồng bộ giữa nội dung nhìn thấy trên màn hình và phần giải thích đi kèm."
     ],
     supports: [
-      "Cung cấp phụ đề, bản ch�p lời v� ghi ch� t�m tắt cho video hoặc �m thanh.",
+      "Cung cấp phụ đề, bản chép lời và ghi chú tóm tắt cho video hoặc âm thanh.",
       "Biến tín hiệu cảnh báo thành thông báo trực quan rõ ràng trên màn hình.",
       "Ưu tiên bố cục có biểu tượng, minh họa và các mốc thông tin dễ định vị."
     ],
     learning: [
       "Đọc bản chép lời trước để nắm ý chính rồi mới xem video chi tiết.",
       "Ghi chú theo sơ đồ hoặc cột ý chính để tiết kiệm công sức theo dõi.",
-      "Chọn tài liệu có hình minh họa, gạch đầu dòng rõ và ví dụ trực quan để học nhanh hơn."
+      "Chọn tài liệu có hình minh họa, gạch đầu dòng rõ và ví dụ trực quan."
     ],
     metrics: ["04 nội dung đang mở", "+14% so với tuần trước", "03 gợi ý mới từ Trợ lý AI"],
     continue: {
@@ -259,27 +259,27 @@ const profileCopyMap = {
       ["Yêu cầu phụ đề và bản chép lời", "70%"]
     ],
     mentor:
-      "Trợ l� AI c� thể t�m tắt video th�nh gạch đầu d�ng ngắn, chuyển �m thanh th�nh bản ch�p lời v� gợi � nội dung trực quan dễ theo d�i hơn.",
+      "Trợ lý AI có thể tóm tắt video thành gạch đầu dòng ngắn, chuyển âm thanh thành bản chép lời và gợi ý nội dung trực quan dễ theo dõi hơn.",
     recommended: [
-      ["10 phút", "Phụ đề tốt cần có gì", "Hiểu sự khác nhau giữa phụ đề cơ bản, phụ đề đầy đủ ngữ cảnh và bản chép lời hỗ trợ học tập."],
+      ["10 phút", "Phụ đề tốt cần có gì", "Hiểu khác nhau giữa phụ đề cơ bản, phụ đề đầy đủ ngữ cảnh và bản chép lời hỗ trợ học tập."],
       ["12 phút", "Tổ chức ghi chú theo sơ đồ", "Một cách ghi chú trực quan để không bị mất ý chính khi theo dõi lớp học hoặc bài giảng video."],
-      ["07 ph�t", "Mẫu c�u xin t�i liệu dạng chữ", "Những c�ch diễn đạt ngắn gọn để xin gi�o vi�n hoặc nh�m học cung cấp phụ đề, bản ch�p lời hoặc t�m tắt."]
+      ["07 phút", "Mẫu câu xin tài liệu dạng chữ", "Cách diễn đạt ngắn gọn để xin giáo viên hoặc nhóm học cung cấp phụ đề, bản chép lời hoặc tóm tắt."]
     ],
     community: [
       ["Người đồng hành cộng đồng", "Workshop mini về phụ đề trong thuyết trình", "Buổi chia sẻ tập trung vào cách làm slide và video dễ theo dõi hơn cho người khiếm thính."],
-      ["C�u chuyện người d�ng", "Một th�nh vi�n cải thiện việc học nhờ bản ch�p lời", "Bạn ấy chia sẻ c�ch đọc bản ch�p lời trước, đ�nh dấu � ch�nh v� quay lại video ở đ�ng đoạn cần xem."],
+      ["Câu chuyện người dùng", "Một thành viên cải thiện việc học nhờ bản chép lời", "Bạn ấy đọc bản chép lời trước, đánh dấu ý chính và quay lại video ở đúng đoạn cần xem."],
       ["Hỗ trợ đồng đẳng", "Nhóm cộng đồng đang thu thập video có phụ đề tốt", "Danh sách tài liệu trực quan và bản chép lời đang được cập nhật để mọi người dễ tra cứu hơn."]
     ],
     guidanceIntro:
-      "Phiên bản này tập trung vào việc biến thông tin nghe được thành thông tin nhìn thấy được, để bạn không bỏ lỡ ý chính trong lớp học, video hay buổi thuyết trình.",
+      "Phiên bản này biến thông tin nghe được thành thông tin nhìn thấy được, để bạn không bỏ lỡ ý chính trong lớp học, video hay buổi thuyết trình.",
     solutions: [
-      "Ưu tiên phụ đề đồng bộ, bản chép lời rõ ràng và nội dung có sơ đồ hoặc gạch đầu dòng dễ quét mắt.",
-      "Chuyển c�c t�n hiệu �m thanh th�nh th�ng b�o chữ hoặc dấu hiệu hiển thị tr�n m�n h�nh.",
+      "Ưu tiên phụ đề đồng bộ, bản chép lời rõ ràng và nội dung có sơ đồ hoặc gạch đầu dòng.",
+      "Chuyển tín hiệu âm thanh thành thông báo chữ hoặc dấu hiệu hiển thị trên màn hình.",
       "Chuẩn bị ghi chú trực quan trước khi vào buổi học để theo dõi nội dung dễ hơn."
     ],
     scenarios: [
       "Video không có phụ đề hoặc phụ đề thiếu ngữ cảnh quan trọng.",
-      "Th�ng b�o hệ thống chỉ c� �m b�o m� kh�ng c� nội dung chữ.",
+      "Thông báo hệ thống chỉ có âm báo mà không có nội dung chữ.",
       "Bài giảng nói nhanh, đổi chủ đề liên tục và không có slide tóm tắt."
     ],
     checklist: [
@@ -293,19 +293,19 @@ const profileCopyMap = {
     eyebrow: "Không gian học tập cho bạn",
     title: "Bạn đang ở chế độ học tập ưu tiên thao tác ngắn gọn",
     intro:
-      "Bảng điều khiển này có thể được tối ưu thêm cho vùng bấm lớn, ít bước thao tác và điều hướng bàn phím.",
+      "Bảng điều khiển này ưu tiên vùng bấm lớn, ít bước thao tác và điều hướng bàn phím rõ ràng.",
     glyph: "+",
-    artCaption: "Biểu tượng vùng bấm lớn đại diện cho không gian học tập giảm thao tác lặp, giảm yêu cầu chính xác tay và rút ngắn đường đi.",
+    artCaption: "Biểu tượng vùng bấm lớn đại diện cho không gian học tập giảm thao tác lặp và rút ngắn đường đi.",
     imageSrc: "asset/khokhanvandong.png",
-    imageAlt: "Anh dai dien cho nguoi gap kho khan van dong",
+    imageAlt: "Ảnh đại diện cho người gặp khó khăn vận động",
     accentSoft: "#e0f6ef",
     accentStrong: "#78ab9a",
     accentText: "#1f5a4a",
     traitsIntro:
-      "Những đặc điểm này giúp hệ thống hiểu rằng bạn cần một luồng học ngắn, vùng tương tác rộng và khả năng điều hướng ít mệt hơn.",
+      "Những đặc điểm này giúp hệ thống hiểu rằng bạn cần luồng học ngắn, vùng tương tác rộng và điều hướng ít mệt hơn.",
     traits: [
       "Dễ mệt khi phải bấm nhiều lần, rê chuột chính xác hoặc thực hiện chuỗi thao tác dài.",
-      "Cần vùng chạm rộng, khoảng cách hợp lý giữa các nút và phản hồi rõ ràng sau mỗi thao tác.",
+      "Cần vùng chạm rộng, khoảng cách hợp lý giữa các nút và phản hồi rõ sau mỗi thao tác.",
       "Có thể thuận tiện hơn khi dùng bàn phím, công tắc hỗ trợ hoặc thiết bị nhập thay thế."
     ],
     supports: [
@@ -342,12 +342,12 @@ const profileCopyMap = {
       ["09 phút", "Tự sắp xếp nhịp nghỉ khi dùng máy", "Cách nhận biết lúc nên dừng, đổi tư thế hoặc chia tác vụ để tránh mỏi quá mức."]
     ],
     community: [
-      ["Người đồng hành cộng đồng", "Buổi trao đổi về điều hướng bàn phím trong lớp học số", "Nhóm cộng đồng sẽ cùng chia sẻ cách dùng tab, vùng được chọn và phím tắt để giảm thao tác lặp."],
-      ["C�u chuyện người d�ng", "Một th�nh vi�n r�t ngắn 1 nửa số thao t�c khi học online", "Bạn ấy thay đổi c�ch d�ng ph�m tắt v� chọn nền tảng c� luồng thao t�c ngắn hơn."],
-      ["Hỗ trợ đồng đẳng", "Danh sách công cụ hỗ trợ thao tác đang được cập nhật", "Cộng đồng vừa bổ sung các gợi ý về công tắc, bàn phím thay thế và mẹo thao tác tiết kiệm sức hơn."]
+      ["Người đồng hành cộng đồng", "Trao đổi về điều hướng bàn phím trong lớp học số", "Cộng đồng chia sẻ cách dùng tab, vùng được chọn và phím tắt để giảm thao tác lặp."],
+      ["Câu chuyện người dùng", "Một thành viên rút ngắn một nửa số thao tác khi học online", "Bạn ấy thay đổi cách dùng phím tắt và chọn nền tảng có luồng thao tác ngắn hơn."],
+      ["Hỗ trợ đồng đẳng", "Danh sách công cụ hỗ trợ thao tác đang được cập nhật", "Cộng đồng bổ sung gợi ý về công tắc, bàn phím thay thế và mẹo thao tác tiết kiệm sức hơn."]
     ],
     guidanceIntro:
-      "Phiên bản này ưu tiên những giải pháp giúp bạn hoàn thành tác vụ với ít bước hơn, ít mỏi hơn và ít phụ thuộc hơn vào thao tác chính xác bằng tay.",
+      "Phiên bản này ưu tiên giải pháp giúp bạn hoàn thành tác vụ với ít bước hơn, ít mỏi hơn và ít phụ thuộc vào thao tác chính xác bằng tay.",
     solutions: [
       "Chọn các luồng thao tác ngắn, ít trường nhập và có nút tiếp tục rõ ràng.",
       "Ưu tiên điều hướng bàn phím, vùng bấm lớn và vị trí nút dễ đoán.",
@@ -369,24 +369,24 @@ const profileCopyMap = {
     eyebrow: "Không gian học tập cho bạn",
     title: "Bạn đang ở chế độ học tập ưu tiên nội dung đơn giản",
     intro:
-      "Bảng điều khiển n�y c� thể được tối ưu th�m bằng c�u ngắn, từng bước nhỏ v� nhịp tiếp nhận nhẹ hơn.",
+      "Bảng điều khiển này ưu tiên câu ngắn, từng bước nhỏ, nhịp tiếp nhận nhẹ hơn và ít nhiễu thị giác.",
     glyph: "IQ",
     artCaption: "Biểu tượng nhịp học chậm rãi đại diện cho không gian học tập ít nhiễu, hướng dẫn ngắn và từng bước rõ ràng.",
     imageSrc: "asset/khokhannhanthuc,hoc tap.png",
-    imageAlt: "Anh dai dien cho nguoi gap kho khan nhan thuc va hoc tap",
+    imageAlt: "Ảnh đại diện cho người gặp khó khăn nhận thức và học tập",
     accentSoft: "#f2f3ff",
     accentStrong: "#9aa3dd",
     accentText: "#46508d",
     traitsIntro:
-      "Mục này tóm tắt các đặc điểm phổ biến để nội dung được chia nhỏ hơn, trực tiếp hơn và dễ theo dõi trong từng bước.",
+      "Mục này tóm tắt các đặc điểm để nội dung được chia nhỏ hơn, trực tiếp hơn và dễ theo dõi trong từng bước.",
     traits: [
       "Dễ quá tải khi một màn hình chứa quá nhiều chữ, quá nhiều lựa chọn hoặc nhiều yêu cầu cùng lúc.",
       "Tiếp nhận hiệu quả hơn khi thông tin được chia khối nhỏ, nhắc lại ý chính và có ví dụ cụ thể.",
       "Cần nhịp học chậm hơn một chút để hiểu, ghi nhớ và chuyển sang bước tiếp theo tự tin hơn."
     ],
     supports: [
-      "Giảm nhiễu thị gi�c, giữ c�u ngắn v� l�m nổi bật h�nh động tiếp theo.",
-      "Thêm danh sách kiểm tra hoặc tóm tắt sau mỗi phần để củng cố hiểu biết.",
+      "Giảm nhiễu thị giác, giữ câu ngắn và làm nổi bật hành động tiếp theo.",
+      "Thêm checklist hoặc tóm tắt sau mỗi phần để củng cố hiểu biết.",
       "Ưu tiên một nhiệm vụ chính trên mỗi màn hình thay vì dồn nhiều mục tiêu."
     ],
     learning: [
@@ -399,7 +399,7 @@ const profileCopyMap = {
       linkLabel: "Mở toàn bộ nội dung",
       tag: "Nội dung ưu tiên",
       title: "Chia thông tin thành từng bước nhỏ dễ theo dõi",
-      desc: "Bạn đang xem phần về cách dùng danh sách kiểm tra, tóm tắt ý chính và giới hạn mỗi màn hình chỉ còn một việc quan trọng cần làm.",
+      desc: "Bạn đang xem phần về cách dùng checklist, tóm tắt ý chính và giới hạn mỗi màn hình chỉ còn một việc quan trọng cần làm.",
       progress: 77,
       progressLabel: "77% đã xem",
       primaryLabel: "Tiếp tục xem",
@@ -411,45 +411,45 @@ const profileCopyMap = {
       ["Nhận biết quá tải thông tin", "71%"]
     ],
     mentor:
-      "Trợ l� AI c� thể r�t gọn nội dung th�nh c�u ngắn, chia từng bước r� r�ng v� nhắc lại � ch�nh sau mỗi phần để bạn theo d�i dễ hơn.",
+      "Trợ lý AI có thể rút gọn nội dung thành câu ngắn, chia từng bước rõ ràng và nhắc lại ý chính sau mỗi phần để bạn theo dõi dễ hơn.",
     recommended: [
-      ["07 ph�t", "C�ch đọc nhanh một trang nhiều chữ", "Ưu ti�n nh�n ti�u đề, � ch�nh v� h�nh động tiếp theo trước khi đọc s�u v�o chi tiết."],
-      ["09 phút", "Biến nội dung dài thành danh sách kiểm tra", "Một phương pháp đơn giản để chia nhiệm vụ thành 2 đến 3 bước dễ nhớ hơn."],
-      ["08 phút", "Dừng đúng lúc khi quá tải", "Những dấu hiệu cho thấy bạn cần nghỉ, đổi cách tiếp cận hoặc nhờ thêm hỗ trợ."]
+      ["07 phút", "Cách đọc nhanh một trang nhiều chữ", "Ưu tiên nhìn tiêu đề, ý chính và hành động tiếp theo trước khi đọc sâu vào chi tiết."],
+      ["09 phút", "Biến nội dung dài thành checklist", "Một phương pháp đơn giản để chia nhiệm vụ thành 2 đến 3 bước dễ nhớ hơn."],
+      ["08 phút", "Dừng đúng lúc khi quá tải", "Dấu hiệu cho thấy bạn cần nghỉ, đổi cách tiếp cận hoặc nhờ thêm hỗ trợ."]
     ],
     community: [
-      ["Người đồng h�nh cộng đồng", "Buổi chia sẻ về ng�n ngữ đơn giản trong t�i liệu học", "Cộng đồng c�ng xem c�ch viết c�u ngắn, r� v� �t g�y qu� tải hơn cho người đọc."],
-      ["C�u chuyện người d�ng", "Một th�nh vi�n học hiệu quả hơn nhờ danh s�ch kiểm tra", "Bạn ấy chia mỗi nội dung th�nh 3 việc nhỏ v� theo d�i được tiến độ m� kh�ng bị ngợp."],
+      ["Người đồng hành cộng đồng", "Chia sẻ về ngôn ngữ đơn giản trong tài liệu học", "Cộng đồng cùng xem cách viết câu ngắn, rõ và ít gây quá tải hơn cho người đọc."],
+      ["Câu chuyện người dùng", "Một thành viên học hiệu quả hơn nhờ checklist", "Bạn ấy chia mỗi nội dung thành 3 việc nhỏ và theo dõi được tiến độ mà không bị ngợp."],
       ["Hỗ trợ đồng đẳng", "Kho tóm tắt siêu ngắn đang được mở rộng", "Cộng đồng đang thêm các bản rút gọn, bản gạch đầu dòng và mẫu trình bày dễ hiểu hơn."]
     ],
     guidanceIntro:
-      "Phi�n bản n�y tập trung v�o việc l�m nội dung gọn hơn, r� hơn v� �t g�y qu� tải hơn để bạn giữ được mạch hiểu từ đầu đến cuối.",
+      "Phiên bản này tập trung vào việc làm nội dung gọn hơn, rõ hơn và ít gây quá tải hơn để bạn giữ được mạch hiểu từ đầu đến cuối.",
     solutions: [
       "Chia nội dung thành từng bước nhỏ, mỗi màn hình chỉ giữ một mục tiêu chính.",
-      "Dùng danh sách kiểm tra, tóm tắt ý chính và ví dụ cụ thể để giảm áp lực ghi nhớ.",
+      "Dùng checklist, tóm tắt ý chính và ví dụ cụ thể để giảm áp lực ghi nhớ.",
       "Ưu tiên bản siêu ngắn hoặc bản gạch đầu dòng nếu nội dung gốc quá dày đặc."
     ],
     scenarios: [
-      "Một trang c� qu� nhiều chữ, nhiều n�t v� kh�ng r� n�n bắt đầu từ đ�u.",
+      "Một trang có quá nhiều chữ, nhiều nút và không rõ nên bắt đầu từ đâu.",
       "Nội dung dài nhưng không có tóm tắt hay đánh dấu ý chính.",
       "Bị ngợp khi vừa phải đọc, vừa phải nhớ, vừa phải quyết định nhiều việc cùng lúc."
     ],
     checklist: [
       "Đọc tiêu đề trước rồi tìm ngay hành động tiếp theo quan trọng nhất.",
       "Tự rút ra 2 đến 3 ý chính trước khi chuyển sang phần khác.",
-      "Nếu thấy quá tải, dừng lại và chuyển sang bản ngắn hơn hoặc nhờ Trợ lý AI tóm tắt."
+      "Nếu quá tải, dừng lại và chuyển sang bản ngắn hơn hoặc nhờ Trợ lý AI tóm tắt."
     ]
   },
   mental: {
-    label: "Kh� khăn sức khỏe t�m thần",
+    label: "Khó khăn sức khỏe tâm thần",
     eyebrow: "Không gian học tập cho bạn",
     title: "Bạn đang ở chế độ học tập ưu tiên cảm giác an toàn",
     intro:
-      "Bảng điều khiển này có thể được tối ưu thêm để giảm áp lực, giảm nhiễu và giữ nhịp học linh hoạt hơn.",
+      "Bảng điều khiển này ưu tiên giảm áp lực, giảm nhiễu và giữ nhịp học linh hoạt hơn.",
     glyph: "EQ",
-    artCaption: "Biểu tượng c�n bằng cảm x�c đại diện cho kh�ng gian học tập dịu hơn, �t k�ch th�ch v� cho ph�p bạn quay lại theo nhịp ri�ng.",
+    artCaption: "Biểu tượng cân bằng cảm xúc đại diện cho không gian học tập dịu hơn, ít kích thích và cho phép bạn quay lại theo nhịp riêng.",
     imageSrc: "asset/khokhansuckhoetamthan.png",
-    imageAlt: "Anh dai dien cho nguoi gap kho khan suc khoe tam than",
+    imageAlt: "Ảnh đại diện cho người gặp khó khăn sức khỏe tâm thần",
     accentSoft: "#f8ecd9",
     accentStrong: "#d7a168",
     accentText: "#7f4f20",
@@ -457,16 +457,16 @@ const profileCopyMap = {
       "Khi kéo xuống, bạn sẽ thấy các đặc điểm giúp hệ thống giữ trải nghiệm dịu hơn, an toàn hơn và ít tạo áp lực thành tích.",
     traits: [
       "Có thể nhạy cảm hơn với nội dung dồn dập, cảnh báo mạnh hoặc quá nhiều kích thích cùng lúc.",
-      "Cần một nhịp học linh hoạt để có thể tạm dừng, nghỉ ngắn và quay lại mà không bị mất hướng.",
+      "Cần nhịp học linh hoạt để có thể tạm dừng, nghỉ ngắn và quay lại mà không mất hướng.",
       "Thường học hiệu quả hơn trong môi trường trung tính, không phán xét và không tạo cảm giác thất bại."
     ],
     supports: [
-      "Giảm c�c yếu tố g�y xao nh�ng v� chỉ giữ lại những t�n hiệu thật sự cần thiết.",
+      "Giảm các yếu tố gây xao nhãng và chỉ giữ lại những tín hiệu thật sự cần thiết.",
       "Cho phép tạm dừng hoặc quay lại bài học dễ dàng mà không làm mất tiến độ chính.",
       "Dùng ngôn ngữ hỗ trợ nhẹ nhàng, trung tính và khích lệ vừa đủ."
     ],
     learning: [
-      "Chọn khoảng thời gian học ngắn nhưng đều thay v� �p bản th�n học qu� l�u.",
+      "Chọn khoảng thời gian học ngắn nhưng đều thay vì ép bản thân học quá lâu.",
       "Tự thiết lập điểm nghỉ rõ ràng để giữ cảm giác kiểm soát và an toàn.",
       "Bắt đầu bằng các mục dễ trước, sau đó mới chuyển dần sang phần cần nhiều năng lượng hơn."
     ],
@@ -489,14 +489,14 @@ const profileCopyMap = {
     mentor:
       "Trợ lý AI có thể tóm tắt nội dung theo nhịp chậm hơn, gợi ý điểm nghỉ và đề xuất các bước nhẹ nhàng hơn khi bạn cảm thấy quá tải.",
     recommended: [
-      ["08 ph�t", "Nhịp học đủ nhẹ để kh�ng kiệt sức", "Gợi � c�ch chia thời gian, chọn mục ti�u nhỏ v� quay lại nội dung m� kh�ng tự g�y �p lực."],
-      ["10 ph�t", "Tạo g�c học an to�n", "Những điều chỉnh về �nh s�ng, �m thanh, thời lượng v� mức k�ch th�ch để trải nghiệm học dịu hơn."],
-      ["07 ph�t", "Mẫu c�u xin hỗ trợ kh�ng tự tr�ch bản th�n", "Một số c�ch diễn đạt ngắn gọn để n�i về giới hạn hiện tại v� nhu cầu hỗ trợ." ]
+      ["08 phút", "Nhịp học đủ nhẹ để không kiệt sức", "Gợi ý cách chia thời gian, chọn mục tiêu nhỏ và quay lại nội dung mà không tự gây áp lực."],
+      ["10 phút", "Tạo góc học an toàn", "Điều chỉnh ánh sáng, âm thanh, thời lượng và mức kích thích để trải nghiệm học dịu hơn."],
+      ["07 phút", "Mẫu câu xin hỗ trợ không tự trách bản thân", "Một số cách diễn đạt ngắn gọn để nói về giới hạn hiện tại và nhu cầu hỗ trợ."]
     ],
     community: [
-      ["Người đồng hành cộng đồng", "Buổi trò chuyện về học tập không áp lực", "Nhóm cộng đồng sẽ chia sẻ những cách giữ nhịp học an toàn hơn mà vẫn duy trì được kết nối."],
-      ["C�u chuyện người d�ng", "Một th�nh vi�n t�m lại cảm gi�c kiểm so�t khi học online", "Bạn ấy đ� thay đổi mục ti�u, th�m điểm nghỉ v� d�ng ng�n ngữ trung t�nh hơn với ch�nh m�nh."],
-      ["Hỗ trợ đồng đẳng", "Không gian phản tư nhẹ nhàng cuối tuần", "Bạn có thể tham gia một vòng chia sẻ nhỏ, không phán xét, để nghe góc nhìn từ những người đồng hành khác."]
+      ["Người đồng hành cộng đồng", "Trò chuyện về học tập không áp lực", "Nhóm cộng đồng chia sẻ cách giữ nhịp học an toàn hơn mà vẫn duy trì được kết nối."],
+      ["Câu chuyện người dùng", "Một thành viên tìm lại cảm giác kiểm soát khi học online", "Bạn ấy thay đổi mục tiêu, thêm điểm nghỉ và dùng ngôn ngữ trung tính hơn với chính mình."],
+      ["Hỗ trợ đồng đẳng", "Không gian phản tư nhẹ nhàng cuối tuần", "Bạn có thể tham gia một vòng chia sẻ nhỏ, không phán xét, để nghe góc nhìn từ người đồng hành khác."]
     ],
     guidanceIntro:
       "Phiên bản này ưu tiên cảm giác an toàn, nhịp tiếp cận nhẹ hơn và những điều chỉnh giúp bạn quay lại nội dung mà không tự tạo thêm áp lực.",
@@ -512,12 +512,11 @@ const profileCopyMap = {
     ],
     checklist: [
       "Tự chọn điểm dừng trước khi bắt đầu thay vì cố xem hết một lần.",
-      "Nếu thấy quá tải, chuyển sang mục nhẹ hơn hoặc mở bản tóm tắt trước.",
+      "Nếu quá tải, chuyển sang mục nhẹ hơn hoặc mở bản tóm tắt trước.",
       "Giữ mục tiêu nhỏ và cụ thể để tránh cảm giác thất bại không cần thiết."
     ]
   }
 };
-
 function renderProgressList(items) {
   if (!progressList) return;
   progressList.innerHTML = items
@@ -760,3 +759,4 @@ if (mentorSuggestionButton && mentorFeedback) {
     announce("Đã hiển thị gợi ý bài học tiếp theo.");
   });
 }
+

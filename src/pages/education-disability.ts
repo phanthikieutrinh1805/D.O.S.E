@@ -85,7 +85,7 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
     ],
     lessons: [
       ["Bài 1", "Làm quen trình đọc màn hình và cách di chuyển bằng heading, landmark, link."],
-      ["B�i 2", "C� nh�n h�a tốc độ đọc, cỡ chữ v� tương phản theo m�i trường sử dụng."],
+      ["Bài 2", "Cá nhân hóa tốc độ đọc, cỡ chữ và tương phản theo môi trường sử dụng."],
       ["Bài 3", "Nhận biết biểu mẫu khó dùng và cách yêu cầu phiên bản dễ truy cập hơn."]
     ],
     helper:
@@ -94,16 +94,16 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
   hearing: {
     label: "Khiếm thính / thính giác",
     intro:
-      "Giao diện n�y ưu ti�n truyền đạt bằng chữ v� h�nh, hạn chế phụ thuộc v�o �m thanh hoặc th�ng b�o chỉ ph�t bằng giọng n�i.",
+      "Giao diện này ưu tiên truyền đạt bằng chữ và hình, hạn chế phụ thuộc vào âm thanh hoặc thông báo chỉ phát bằng giọng nói.",
     supports: [
       "Video nên có phụ đề đồng bộ và bản chép lời ngắn gọn bên dưới.",
-      "Th�ng b�o hệ thống phải xuất hiện bằng văn bản r� r�ng, kh�ng chỉ d�ng �m b�o.",
+      "Thông báo hệ thống phải xuất hiện bằng văn bản rõ ràng, không chỉ dùng âm báo.",
       "Bài học ưu tiên sơ đồ, icon, tóm tắt đầu dòng và ví dụ trực quan."
     ],
     lessons: [
       ["Bài 1", "Cách tận dụng phụ đề, transcript và ghi chú song song khi học trực tuyến."],
       ["Bài 2", "Đọc nhanh tín hiệu trực quan trong lớp học, cuộc họp và bài giảng video."],
-      ["B�i 3", "Mẫu c�u đề nghị gi�o vi�n hoặc nh�m học cung cấp nội dung dạng chữ."]
+      ["Bài 3", "Mẫu câu đề nghị giáo viên hoặc nhóm học cung cấp nội dung dạng chữ."]
     ],
     helper:
       "Hãy ưu tiên tài liệu có transcript từ đầu, sau đó dùng ghi chú ngắn để gom lại ý chính thay vì cố nhớ toàn bộ lời nói."
@@ -120,7 +120,7 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
     lessons: [
       ["Bài 1", "Thiết lập phím tắt và công cụ hỗ trợ để giảm thao tác lặp lại."],
       ["Bài 2", "Tổ chức phiên học ngắn, có điểm dừng rõ để tránh quá tải thể chất."],
-      ["B�i 3", "Nhận diện giao diện g�y mệt v� c�ch chuyển sang luồng thao t�c tối giản hơn."]
+      ["Bài 3", "Nhận diện giao diện gây mệt và cách chuyển sang luồng thao tác tối giản hơn."]
     ],
     helper:
       "Ưu tiên những đường đi chỉ cần một tay hoặc bàn phím, và đừng ngại bỏ qua các tính năng phụ nếu chúng tăng gánh thao tác."
@@ -128,7 +128,7 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
   cognitive: {
     label: "Khó khăn nhận thức / học tập",
     intro:
-      "Giao diện n�y được tối giản để gi�p tiếp nhận dễ hơn: �t nhiễu, c�u ngắn, từng bước nhỏ v� nhấn mạnh một việc tại một thời điểm.",
+      "Giao diện này được tối giản để giúp tiếp nhận dễ hơn: ít nhiễu, câu ngắn, từng bước nhỏ và nhấn mạnh một việc tại một thời điểm.",
     supports: [
       "Nội dung được chia khối nhỏ với tiêu đề rõ, không nhồi quá nhiều ý trong một màn hình.",
       "Ngôn ngữ trực tiếp, ví dụ cụ thể và hướng dẫn tuần tự từng bước.",
@@ -140,21 +140,21 @@ const disabilityProfiles: Record<DisabilityType, DisabilityProfile> = {
       ["Bài 3", "Cách nhận biết dấu hiệu quá tải thông tin và tạm dừng đúng lúc."]
     ],
     helper:
-      "Mỗi lần chỉ tập trung một nhiệm vụ nhỏ. Khi thấy trang qu� nhiều chữ, h�y t�m ti�u đề v� checklist trước khi đọc s�u."
+      "Mỗi lần chỉ tập trung một nhiệm vụ nhỏ. Khi thấy trang quá nhiều chữ, hãy tìm tiêu đề và checklist trước khi đọc sâu."
   },
   mental: {
-    label: "Kh� khăn sức khỏe t�m thần",
+    label: "Khó khăn sức khỏe tâm thần",
     intro:
       "Giao diện này được thiết kế nhẹ áp lực hơn, giúp bạn giữ cảm giác an toàn, có thể tạm dừng và quay lại mà không bị mất định hướng.",
     supports: [
-      "Nhịp nội dung chậm hơn, �t yếu tố g�y xao nh�ng v� kh�ng d�ng cảnh b�o gắt trừ khi thực sự cần.",
+      "Nhịp nội dung chậm hơn, ít yếu tố gây xao nhãng và không dùng cảnh báo gắt trừ khi thực sự cần.",
       "Các bước học có thể tạm dừng giữa chừng, quay lại dễ dàng và không tạo cảm giác thất bại.",
       "Thông điệp hỗ trợ trung tính, tôn trọng và giảm áp lực thành tích."
     ],
     lessons: [
       ["Bài 1", "Tạo góc học an toàn: giảm kích thích, đặt thời lượng vừa sức và khoảng nghỉ rõ ràng."],
       ["Bài 2", "Nhận biết tín hiệu căng thẳng khi học online và cách dừng đúng lúc."],
-      ["B�i 3", "Viết ra nhu cầu hỗ trợ bằng ng�n ngữ ngắn gọn, kh�ng tự tr�ch bản th�n."]
+      ["Bài 3", "Viết ra nhu cầu hỗ trợ bằng ngôn ngữ ngắn gọn, không tự trách bản thân."]
     ],
     helper:
       "Chọn nhịp học đủ nhẹ cho bạn. Mục tiêu không phải học thật nhiều trong một lần, mà là duy trì được cảm giác an toàn để tiếp tục."
@@ -179,9 +179,9 @@ form?.addEventListener("submit", (event) => {
   const selectedType = typeof selectedValue === "string" ? (selectedValue as DisabilityType) : null;
 
   if (!selectedType || !disabilityProfiles[selectedType]) {
-    feedback.textContent = "Vui lòng chọn một loại khuyết tật để tiếp tục.";
+    feedback.textContent = "Vui lòng chọn một loại nhu cầu hỗ trợ để tiếp tục.";
     feedback.classList.add("error");
-    announce("Vui lòng chọn một loại khuyết tật để tiếp tục.", true);
+    announce("Vui lòng chọn một loại nhu cầu hỗ trợ để tiếp tục.", true);
     return;
   }
 

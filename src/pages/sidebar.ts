@@ -305,167 +305,167 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
   const isHomePage = currentPage === "#/home";
   const homeHref = "#/home";
   const moduleHref = (page: string) => page;
-    const shortcutLabel = (() => {
-      const isMac =
-        typeof navigator !== "undefined" &&
-        /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
-      return isMac ? "⌥ Option" : "Alt";
-    })();
+  const shortcutLabel = (() => {
+    const isMac =
+      typeof navigator !== "undefined" &&
+      /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+    return isMac ? "⌥ Option" : "Alt";
+  })();
 
-    let sidebarLiveRegion = document.getElementById("sidebarLiveRegion") as HTMLElement | null;
-    if (!sidebarLiveRegion) {
-      sidebarLiveRegion = document.createElement("div");
-      sidebarLiveRegion.id = "sidebarLiveRegion";
-      sidebarLiveRegion.className = "sr-only";
-      sidebarLiveRegion.setAttribute("aria-live", "polite");
-      sidebarLiveRegion.setAttribute("aria-atomic", "true");
-      body.prepend(sidebarLiveRegion);
-    }
+  let sidebarLiveRegion = document.getElementById("sidebarLiveRegion") as HTMLElement | null;
+  if (!sidebarLiveRegion) {
+    sidebarLiveRegion = document.createElement("div");
+    sidebarLiveRegion.id = "sidebarLiveRegion";
+    sidebarLiveRegion.className = "sr-only";
+    sidebarLiveRegion.setAttribute("aria-live", "polite");
+    sidebarLiveRegion.setAttribute("aria-atomic", "true");
+    body.prepend(sidebarLiveRegion);
+  }
 
-    function announce(message: string) {
-      if (!sidebarLiveRegion) return;
-      sidebarLiveRegion.textContent = "";
-      window.setTimeout(() => {
-        sidebarLiveRegion.textContent = message;
-      }, 30);
-    }
+  function announce(message: string) {
+    if (!sidebarLiveRegion) return;
+    sidebarLiveRegion.textContent = "";
+    window.setTimeout(() => {
+      sidebarLiveRegion.textContent = message;
+    }, 30);
+  }
 
-    createGlobalAccessibilityControls();
-    syncGlobalControls();
+  createGlobalAccessibilityControls();
+  syncGlobalControls();
 
-    const groups: SidebarGroup[] = currentPage === "#/dashboard"
-      ? [
-          {
-            label: "Bảng điều khiển",
-            links: [
-              { href: "#continue-learning", label: "Tiếp tục học", match: "#/dashboard", keytip: "T" },
-              { href: "#progress", label: "Tiến độ", match: "#/dashboard", keytip: "P" },
-              { href: "#ai-mentor", label: "Trợ lý AI", match: "#/dashboard", keytip: "I" },
-              { href: "#recommended", label: "Bài học gợi ý", match: "#/dashboard", keytip: "G" },
-              { href: "#community", label: "Bảng tin cộng đồng", match: "#/dashboard", keytip: "C" }
-            ]
-          },
-          {
-            label: "C�c ph�n hệ",
-            links: [
-              { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
-              { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
-              { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
-              { href: moduleHref("#/humanity"), label: "Nh�n văn", match: "#/humanity", keytip: "H" }
-            ]
-          },
-          {
-            label: "Luồng trải nghiệm",
-            links: [
-              { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
-              { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
-              { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
-            ]
-          },
-          {
-            label: "Học theo nhu cầu",
-            links: [
-              { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
-              { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
-              { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
-              { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
-              { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
-              { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
-              { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
-            ]
-          }
+  const groups: SidebarGroup[] = currentPage === "#/dashboard"
+    ? [
+      {
+        label: "Bảng điều khiển",
+        links: [
+          { href: "#continue-learning", label: "Tiếp tục học", match: "#/dashboard", keytip: "T" },
+          { href: "#progress", label: "Tiến độ", match: "#/dashboard", keytip: "P" },
+          { href: "#ai-mentor", label: "Trợ lý AI", match: "#/dashboard", keytip: "I" },
+          { href: "#recommended", label: "Bài học gợi ý", match: "#/dashboard", keytip: "G" },
+          { href: "#community", label: "Bảng tin cộng đồng", match: "#/dashboard", keytip: "C" }
         ]
-      : [
-          {
-            label: "C�c ph�n hệ",
-            links: [
-              { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
-              { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
-              { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
-              { href: moduleHref("#/humanity"), label: "Nh�n văn", match: "#/humanity", keytip: "H" }
-            ]
-          },
-          {
-            label: "Luồng trải nghiệm",
-            links: [
-              { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
-              { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
-              { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
-            ]
-          },
-          {
-            label: "Học theo nhu cầu",
-            links: [
-              { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
-              { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
-              { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
-              { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
-              { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
-              { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
-              { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
-            ]
-          }
-        ];
-
-    function isCurrent(link: SidebarLink) {
-      if (currentPage !== link.match) return false;
-      if (currentPage === "#/dashboard" && !link.href.startsWith("#")) return false;
-      if (!link.href.startsWith("#")) return true;
-      return currentHash ? link.href === currentHash : link.href === "#continue-learning";
-    }
-
-    function setCurrentSidebarLink(targetLink: HTMLAnchorElement) {
-      sidebar.querySelectorAll<HTMLAnchorElement>(".sidebar-link[aria-current]").forEach((link) => {
-        link.removeAttribute("aria-current");
-      });
-      targetLink.setAttribute("aria-current", "page");
-    }
-
-    function keepCurrentSidebarItemInView(behavior: ScrollBehavior = "auto") {
-      const currentLink = sidebar.querySelector<HTMLAnchorElement>('.sidebar-link[aria-current="page"]');
-      if (!currentLink) return;
-      window.requestAnimationFrame(() => {
-        currentLink.scrollIntoView({ block: "center", inline: "nearest", behavior });
-      });
-    }
-
-    function getSidebarScrollKey() {
-      return `dose-sidebar-scroll:${currentPage}`;
-    }
-
-    function restoreSidebarScroll() {
-      const saved = loadPreference<number>(getSidebarScrollKey(), -1);
-      if (saved < 0 || !sidebarInner) {
-        keepCurrentSidebarItemInView();
-        return;
+      },
+      {
+        label: "Các phân hệ",
+        links: [
+          { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
+          { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
+          { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
+          { href: moduleHref("#/humanity"), label: "Nhân văn", match: "#/humanity", keytip: "H" }
+        ]
+      },
+      {
+        label: "Luồng trải nghiệm",
+        links: [
+          { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
+          { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
+          { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
+        ]
+      },
+      {
+        label: "Học theo nhu cầu",
+        links: [
+          { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
+          { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
+          { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
+          { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
+          { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
+          { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
+          { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
+        ]
       }
+    ]
+    : [
+      {
+        label: "Các phân hệ",
+        links: [
+          { href: moduleHref("#/access"), label: "Tiếp cận", match: "#/access", keytip: "A" },
+          { href: moduleHref("#/education"), label: "Giáo dục", match: "#/education", keytip: "E" },
+          { href: moduleHref("#/opportunity"), label: "Cơ hội", match: "#/opportunity", keytip: "O" },
+          { href: moduleHref("#/humanity"), label: "Nhân văn", match: "#/humanity", keytip: "H" }
+        ]
+      },
+      {
+        label: "Luồng trải nghiệm",
+        links: [
+          { href: moduleHref("#/auth"), label: "Xác thực", match: "#/auth", keytip: "X" },
+          { href: moduleHref("#/onboarding"), label: "Thiết lập ban đầu", match: "#/onboarding", keytip: "L" },
+          { href: moduleHref("#/dashboard"), label: "Bảng điều khiển", match: "#/dashboard", keytip: "B" }
+        ]
+      },
+      {
+        label: "Học theo nhu cầu",
+        links: [
+          { href: moduleHref("#/education-disability"), label: "Hồ sơ người khuyết tật", match: "#/education-disability", keytip: "R" },
+          { href: moduleHref("#/education-community"), label: "Học cho cộng đồng", match: "#/education-community", keytip: "D" },
+          { href: moduleHref("#/disability-vision"), label: "Khiếm thị", match: "#/disability-vision", keytip: "V" },
+          { href: moduleHref("#/disability-hearing"), label: "Khiếm thính", match: "#/disability-hearing", keytip: "K" },
+          { href: moduleHref("#/disability-mobility"), label: "Khó vận động", match: "#/disability-mobility", keytip: "U" },
+          { href: moduleHref("#/disability-cognitive"), label: "Nhận thức và học tập", match: "#/disability-cognitive", keytip: "N" },
+          { href: moduleHref("#/disability-mental"), label: "Sức khỏe tinh thần", match: "#/disability-mental", keytip: "Z" }
+        ]
+      }
+    ];
 
-      sidebarInner.scrollTop = saved;
+  function isCurrent(link: SidebarLink) {
+    if (currentPage !== link.match) return false;
+    if (currentPage === "#/dashboard" && !link.href.startsWith("#")) return false;
+    if (!link.href.startsWith("#")) return true;
+    return currentHash ? link.href === currentHash : link.href === "#continue-learning";
+  }
+
+  function setCurrentSidebarLink(targetLink: HTMLAnchorElement) {
+    sidebar.querySelectorAll<HTMLAnchorElement>(".sidebar-link[aria-current]").forEach((link) => {
+      link.removeAttribute("aria-current");
+    });
+    targetLink.setAttribute("aria-current", "page");
+  }
+
+  function keepCurrentSidebarItemInView(behavior: ScrollBehavior = "auto") {
+    const currentLink = sidebar.querySelector<HTMLAnchorElement>('.sidebar-link[aria-current="page"]');
+    if (!currentLink) return;
+    window.requestAnimationFrame(() => {
+      currentLink.scrollIntoView({ block: "center", inline: "nearest", behavior });
+    });
+  }
+
+  function getSidebarScrollKey() {
+    return `dose-sidebar-scroll:${currentPage}`;
+  }
+
+  function restoreSidebarScroll() {
+    const saved = loadPreference<number>(getSidebarScrollKey(), -1);
+    if (saved < 0 || !sidebarInner) {
+      keepCurrentSidebarItemInView();
+      return;
     }
 
-    function persistSidebarScroll() {
-      if (!sidebarInner) return;
-      savePreference(getSidebarScrollKey(), sidebarInner.scrollTop);
-    }
+    sidebarInner.scrollTop = saved;
+  }
 
-    function linkMarkup(link: SidebarLink) {
-      const currentAttr = isCurrent(link) ? ' aria-current="page"' : "";
-      const keytipAttr = link.keytip ? ` data-keytip="${link.keytip}"` : "";
-      const shortcutAttr = link.keytip ? ` aria-keyshortcuts="Alt+${link.keytip.toUpperCase()}"` : "";
-      return `
+  function persistSidebarScroll() {
+    if (!sidebarInner) return;
+    savePreference(getSidebarScrollKey(), sidebarInner.scrollTop);
+  }
+
+  function linkMarkup(link: SidebarLink) {
+    const currentAttr = isCurrent(link) ? ' aria-current="page"' : "";
+    const keytipAttr = link.keytip ? ` data-keytip="${link.keytip}"` : "";
+    const shortcutAttr = link.keytip ? ` aria-keyshortcuts="Alt+${link.keytip.toUpperCase()}"` : "";
+    return `
         <li>
           <a class="sidebar-link" href="${link.href}"${currentAttr}${keytipAttr}${shortcutAttr}>
             ${link.label}
           </a>
         </li>
       `;
-    }
+  }
 
-    const sidebar = document.createElement("aside");
-    sidebar.id = "sideNav";
-    sidebar.className = "sidebar";
-    sidebar.setAttribute("aria-label", "Sidebar điều hướng");
-    sidebar.innerHTML = `
+  const sidebar = document.createElement("aside");
+  sidebar.id = "sideNav";
+  sidebar.className = "sidebar";
+  sidebar.setAttribute("aria-label", "Sidebar điều hướng");
+  sidebar.innerHTML = `
       <div class="sidebar-inner">
         <a
           class="brand brand-sidebar"
@@ -477,12 +477,12 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
           <span class="brand-mark" aria-hidden="true">D</span>
           <span class="brand-copy">
             <span class="brand-name">D.O.S.E</span>
-            <span class="brand-tag">Một liều của sự nh�n văn</span>
+            <span class="brand-tag">Một liều của sự Nhân văn</span>
           </span>
         </a>
         ${groups
-          .map(
-            (group) => `
+      .map(
+        (group) => `
               <nav class="sidebar-nav" aria-label="${group.label}">
                 <p class="sidebar-label">${group.label}</p>
                 <ul class="sidebar-list">
@@ -490,211 +490,211 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
                 </ul>
               </nav>
             `
-          )
-          .join("")}
+      )
+      .join("")}
       </div>
     `;
 
-    const appShell = document.querySelector(".app-shell");
-    const existingSideNav = document.getElementById("sideNav");
-    if (existingSideNav) {
-      existingSideNav.replaceWith(sidebar);
-    } else if (appShell) {
-      appShell.prepend(sidebar);
-    } else {
-      body.prepend(sidebar);
-    }
+  const appShell = document.querySelector(".app-shell");
+  const existingSideNav = document.getElementById("sideNav");
+  if (existingSideNav) {
+    existingSideNav.replaceWith(sidebar);
+  } else if (appShell) {
+    appShell.prepend(sidebar);
+  } else {
+    body.prepend(sidebar);
+  }
 
-    const sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
-    restoreSidebarScroll();
-    if (sidebarInner) {
-      sidebarInner.addEventListener("scroll", () => {
-        persistSidebarScroll();
-      });
-    }
-
-    let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
-    if (!backdrop) {
-      backdrop = document.createElement("div");
-      backdrop.id = "mobileNavBackdrop";
-      backdrop.className = "global-sidebar-backdrop";
-      backdrop.hidden = true;
-      body.prepend(backdrop);
-    }
-
-    let toggle = document.getElementById("menuToggle") as HTMLButtonElement | null;
-    if (!toggle && !appShell) {
-      toggle = document.createElement("button");
-      toggle.type = "button";
-      toggle.id = "menuToggle";
-      toggle.className = "global-sidebar-toggle";
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.setAttribute("aria-controls", "sideNav");
-      toggle.setAttribute("aria-label", "Mở hoặc đóng sidebar");
-      toggle.innerHTML = "<span aria-hidden=\"true\">Menu</span>";
-      body.prepend(toggle);
-    }
-
-    if (!appShell && toggle) {
-      function openSidebar() {
-        sidebar.classList.add("is-open");
-        toggle.setAttribute("aria-expanded", "true");
-        backdrop.hidden = false;
-      }
-
-      function closeSidebar() {
-        sidebar.classList.remove("is-open");
-        toggle.setAttribute("aria-expanded", "false");
-        backdrop.hidden = true;
-      }
-
-      if (!toggle.dataset.sidebarBound) {
-        toggle.dataset.sidebarBound = "true";
-        toggle.addEventListener("click", () => {
-          if (sidebar.classList.contains("is-open")) {
-            closeSidebar();
-          } else {
-            openSidebar();
-          }
-        });
-      }
-
-      if (!backdrop.dataset.sidebarBound) {
-        backdrop.dataset.sidebarBound = "true";
-        backdrop.addEventListener("click", closeSidebar);
-      }
-
-      window.addEventListener("resize", () => {
-        if (window.innerWidth > 992) {
-          closeSidebar();
-        }
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && sidebar.classList.contains("is-open")) {
-          closeSidebar();
-        }
-      });
-    }
-
-    if (!appShell) {
-      body.classList.add("has-global-sidebar");
-    }
-
-    if (!isHomePage) {
-      const keytipTargets = Array.from(sidebar.querySelectorAll<HTMLElement>("[data-keytip]"));
-      let keytipModeActive = false;
-      let optionKeyDown = false;
-
-      function hideKeytips() {
-        keytipTargets.forEach((element) => {
-          const badge = element.querySelector(".keytip-badge");
-          if (badge) badge.remove();
-        });
-        keytipModeActive = false;
-      }
-
-      function showKeytips() {
-        keytipTargets.forEach((element) => {
-          if (element.querySelector(".keytip-badge")) return;
-          const keytip = element.dataset.keytip;
-          if (!keytip) return;
-
-          const badge = document.createElement("span");
-          badge.className = "keytip-badge";
-          badge.setAttribute("aria-hidden", "true");
-          badge.textContent = keytip;
-          element.appendChild(badge);
-        });
-        keytipModeActive = true;
-        announce(`Đã hiện phím truy cập nhanh trong sidebar. Nhấn phím tương ứng sau khi bấm ${shortcutLabel}.`);
-      }
-
-      function getKeytipValue(event: KeyboardEvent) {
-        if (event.code && /^Key[A-Z]$/.test(event.code)) {
-          return event.code.slice(3).toLowerCase();
-        }
-
-        if (event.code && /^Digit[0-9]$/.test(event.code)) {
-          return event.code.slice(5);
-        }
-
-        return (event.key || "").toLowerCase();
-      }
-
-      function activateKeytip(key: string) {
-        const matchedTarget = keytipTargets.find(
-          (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
-        );
-
-        if (!matchedTarget) return false;
-
-        hideKeytips();
-        optionKeyDown = false;
-        matchedTarget.focus();
-        matchedTarget.click();
-        announce(`Đã mở ${matchedTarget.textContent.trim()}.`);
-        return true;
-      }
-
-      document.addEventListener("keydown", (event) => {
-        const activeTag = document.activeElement?.tagName?.toLowerCase();
-        const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
-
-        if ((event.code === "AltLeft" || event.code === "AltRight") && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
-          optionKeyDown = true;
-          if (!isTypingTarget && !keytipModeActive) {
-            event.preventDefault();
-            showKeytips();
-          }
-          return;
-        }
-
-        if (
-          keytipModeActive &&
-          !event.metaKey &&
-          !event.ctrlKey &&
-          !event.shiftKey &&
-          (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
-        ) {
-          event.preventDefault();
-          activateKeytip(getKeytipValue(event));
-          return;
-        }
-
-        if (event.key === "Escape" && keytipModeActive) {
-          event.preventDefault();
-          hideKeytips();
-          optionKeyDown = false;
-          announce("Đã ẩn phím truy cập nhanh trong sidebar.");
-        }
-      });
-
-      document.addEventListener("keyup", (event) => {
-        if (event.code !== "AltLeft" && event.code !== "AltRight") return;
-        optionKeyDown = false;
-      });
-
-      document.addEventListener("click", () => {
-        if (!keytipModeActive) return;
-        hideKeytips();
-        optionKeyDown = false;
-      });
-    }
-
-    sidebar.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        const href = link.getAttribute("href") || "";
-        if (href.startsWith("#")) {
-          setCurrentSidebarLink(link);
-          keepCurrentSidebarItemInView("smooth");
-        }
-
-        if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
-          sidebar.classList.remove("is-open");
-          if (backdrop) backdrop.hidden = true;
-          if (toggle) toggle.setAttribute("aria-expanded", "false");
-        }
-      });
+  const sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
+  restoreSidebarScroll();
+  if (sidebarInner) {
+    sidebarInner.addEventListener("scroll", () => {
+      persistSidebarScroll();
     });
+  }
+
+  let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
+  if (!backdrop) {
+    backdrop = document.createElement("div");
+    backdrop.id = "mobileNavBackdrop";
+    backdrop.className = "global-sidebar-backdrop";
+    backdrop.hidden = true;
+    body.prepend(backdrop);
+  }
+
+  let toggle = document.getElementById("menuToggle") as HTMLButtonElement | null;
+  if (!toggle && !appShell) {
+    toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.id = "menuToggle";
+    toggle.className = "global-sidebar-toggle";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "sideNav");
+    toggle.setAttribute("aria-label", "Mở hoặc đóng sidebar");
+    toggle.innerHTML = "<span aria-hidden=\"true\">Menu</span>";
+    body.prepend(toggle);
+  }
+
+  if (!appShell && toggle) {
+    function openSidebar() {
+      sidebar.classList.add("is-open");
+      toggle.setAttribute("aria-expanded", "true");
+      backdrop.hidden = false;
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      backdrop.hidden = true;
+    }
+
+    if (!toggle.dataset.sidebarBound) {
+      toggle.dataset.sidebarBound = "true";
+      toggle.addEventListener("click", () => {
+        if (sidebar.classList.contains("is-open")) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
+    }
+
+    if (!backdrop.dataset.sidebarBound) {
+      backdrop.dataset.sidebarBound = "true";
+      backdrop.addEventListener("click", closeSidebar);
+    }
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 992) {
+        closeSidebar();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && sidebar.classList.contains("is-open")) {
+        closeSidebar();
+      }
+    });
+  }
+
+  if (!appShell) {
+    body.classList.add("has-global-sidebar");
+  }
+
+  {
+    const keytipTargets = Array.from(sidebar.querySelectorAll<HTMLElement>("[data-keytip]"));
+    let keytipModeActive = false;
+    let optionKeyDown = false;
+
+    function hideKeytips() {
+      keytipTargets.forEach((element) => {
+        const badge = element.querySelector(".keytip-badge");
+        if (badge) badge.remove();
+      });
+      keytipModeActive = false;
+    }
+
+    function showKeytips() {
+      keytipTargets.forEach((element) => {
+        if (element.querySelector(".keytip-badge")) return;
+        const keytip = element.dataset.keytip;
+        if (!keytip) return;
+
+        const badge = document.createElement("span");
+        badge.className = "keytip-badge";
+        badge.setAttribute("aria-hidden", "true");
+        badge.textContent = keytip;
+        element.appendChild(badge);
+      });
+      keytipModeActive = true;
+      announce(`Đã hiện phím truy cập nhanh trong sidebar. Nhấn phím tương ứng sau khi bấm ${shortcutLabel}.`);
+    }
+
+    function getKeytipValue(event: KeyboardEvent) {
+      if (event.code && /^Key[A-Z]$/.test(event.code)) {
+        return event.code.slice(3).toLowerCase();
+      }
+
+      if (event.code && /^Digit[0-9]$/.test(event.code)) {
+        return event.code.slice(5);
+      }
+
+      return (event.key || "").toLowerCase();
+    }
+
+    function activateKeytip(key: string) {
+      const matchedTarget = keytipTargets.find(
+        (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
+      );
+
+      if (!matchedTarget) return false;
+
+      hideKeytips();
+      optionKeyDown = false;
+      matchedTarget.focus();
+      matchedTarget.click();
+      announce(`Đã mở ${matchedTarget.textContent.trim()}.`);
+      return true;
+    }
+
+    document.addEventListener("keydown", (event) => {
+      const activeTag = document.activeElement?.tagName?.toLowerCase();
+      const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
+
+      if ((event.code === "AltLeft" || event.code === "AltRight") && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+        optionKeyDown = true;
+        if (!isTypingTarget && !keytipModeActive) {
+          event.preventDefault();
+          showKeytips();
+        }
+        return;
+      }
+
+      if (
+        keytipModeActive &&
+        !event.metaKey &&
+        !event.ctrlKey &&
+        !event.shiftKey &&
+        (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
+      ) {
+        event.preventDefault();
+        activateKeytip(getKeytipValue(event));
+        return;
+      }
+
+      if (event.key === "Escape" && keytipModeActive) {
+        event.preventDefault();
+        hideKeytips();
+        optionKeyDown = false;
+        announce("Đã ẩn phím truy cập nhanh trong sidebar.");
+      }
+    });
+
+    document.addEventListener("keyup", (event) => {
+      if (event.code !== "AltLeft" && event.code !== "AltRight") return;
+      optionKeyDown = false;
+    });
+
+    document.addEventListener("click", () => {
+      if (!keytipModeActive) return;
+      hideKeytips();
+      optionKeyDown = false;
+    });
+  }
+
+  sidebar.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      const href = link.getAttribute("href") || "";
+      if (href.startsWith("#")) {
+        setCurrentSidebarLink(link);
+        keepCurrentSidebarItemInView("smooth");
+      }
+
+      if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
+        sidebar.classList.remove("is-open");
+        if (backdrop) backdrop.hidden = true;
+        if (toggle) toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
 })();

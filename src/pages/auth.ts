@@ -65,7 +65,12 @@ function showView(view: AuthView, options: ViewOptions = {}): void {
   }
 
   if (options.announce !== false) {
-    announce(`�� chuy?n sang bi?u m?u ${view}.`);
+    const viewLabel: Record<AuthView, string> = {
+      login: "đăng nhập",
+      register: "đăng ký",
+      forgot: "khôi phục mật khẩu"
+    };
+    announce(`Đã chuyển sang biểu mẫu ${viewLabel[view]}.`);
   }
 
   showNextStep(false);
@@ -137,25 +142,25 @@ if (loginForm) {
     const password = document.getElementById("loginPassword") as HTMLInputElement | null;
     if (!email || !password) return;
 
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui l�ng nh?p email h?p l?.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nhập email hợp lệ.");
     const validPassword = setError(
       password,
-      password.value.trim().length >= 6 ? "" : "M?t kh?u c?n �t nh?t 6 k� t?."
+      password.value.trim().length >= 6 ? "" : "Mật khẩu cần ít nhất 6 ký tự."
     );
 
     if (!(validEmail && validPassword)) {
-      setStatus("Bi?u m?u dang nh?p c�n l?i. Vui l�ng ki?m tra l?i.", "error");
+      setStatus("Biểu mẫu đăng nhập còn lỗi. Vui lòng kiểm tra lại.", "error");
       showNextStep(false);
       (loginForm.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus();
-      announce("Bi?u m?u dang nh?p c� l?i.");
+      announce("Biểu mẫu đăng nhập có lỗi.");
       return;
     }
 
     setStatus(
-      "�ang nh?p demo th�nh c�ng. B?n c� th? v�o onboarding d? ch?n nhu c?u h? tr? tru?c khi v�o ?ng d?ng."
+      "Đăng nhập demo thành công. Bạn có thể vào onboarding để chọn nhu cầu hỗ trợ trước khi vào ứng dụng."
     );
     showNextStep(true);
-    announce("�ang nh?p demo th�nh c�ng.");
+    announce("Đăng nhập demo thành công.");
     loginForm.reset();
   });
 }
@@ -171,30 +176,30 @@ if (registerForm) {
     const confirmPassword = document.getElementById("registerConfirmPassword") as HTMLInputElement | null;
     if (!name || !email || !password || !confirmPassword) return;
 
-    const validName = setError(name, name.value.trim() ? "" : "Vui l�ng nh?p h? v� t�n.");
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui l�ng nh?p email h?p l?.");
+    const validName = setError(name, name.value.trim() ? "" : "Vui lòng nhập họ và tên.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nhập email hợp lệ.");
     const validPassword = setError(
       password,
-      password.value.trim().length >= 8 ? "" : "M?t kh?u c?n �t nh?t 8 k� t?."
+      password.value.trim().length >= 8 ? "" : "Mật khẩu cần ít nhất 8 ký tự."
     );
     const validConfirm = setError(
       confirmPassword,
-      confirmPassword.value === password.value ? "" : "X�c nh?n m?t kh?u chua kh?p."
+      confirmPassword.value === password.value ? "" : "Xác nhận mật khẩu chưa khớp."
     );
 
     if (!(validName && validEmail && validPassword && validConfirm)) {
-      setStatus("Bi?u m?u dang k� c�n l?i. Vui l�ng ki?m tra l?i.", "error");
+      setStatus("Biểu mẫu đăng ký còn lỗi. Vui lòng kiểm tra lại.", "error");
       showNextStep(false);
       (registerForm.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus();
-      announce("Bi?u m?u dang k� c� l?i.");
+      announce("Biểu mẫu đăng ký có lỗi.");
       return;
     }
 
     setStatus(
-      "T?o t�i kho?n demo th�nh c�ng. Ti?p theo b?n c� th? dang nh?p b?ng flow th?t.",
+      "Tạo tài khoản demo thành công. Tiếp theo bạn có thể đăng nhập bằng flow thật.",
       "success"
     );
-    announce("T?o t�i kho?n demo th�nh c�ng.");
+    announce("Tạo tài khoản demo thành công.");
     registerForm.reset();
     showView("login");
   });
@@ -208,21 +213,21 @@ if (forgotForm) {
     const email = document.getElementById("forgotEmail") as HTMLInputElement | null;
     if (!email) return;
 
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui l�ng nh?p email h?p l?.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nhập email hợp lệ.");
 
     if (!validEmail) {
-      setStatus("Bi?u m?u kh�i ph?c c�n l?i. Vui l�ng ki?m tra l?i.", "error");
+      setStatus("Biểu mẫu khôi phục còn lỗi. Vui lòng kiểm tra lại.", "error");
       showNextStep(false);
       email.focus();
-      announce("Bi?u m?u kh�i ph?c c� l?i.");
+      announce("Biểu mẫu khôi phục có lỗi.");
       return;
     }
 
     setStatus(
-      "�� g?i hu?ng d?n kh�i ph?c d?ng demo. Sau n�y bu?c n�y s? g?i API g?i email th?t.",
+      "Đã gửi hướng dẫn khôi phục dạng demo. Sau này bước này sẽ gọi API gửi email thật.",
       "success"
     );
-    announce("�� g?i hu?ng d?n kh�i ph?c d?ng demo.");
+    announce("Đã gửi hướng dẫn khôi phục dạng demo.");
     forgotForm.reset();
     showView("login");
   });

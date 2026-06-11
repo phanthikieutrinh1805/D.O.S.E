@@ -57,11 +57,10 @@ const ACCESS_PROFILE_STORAGE_KEY = "dose-access-profile";
 // --- BỘ TRẮC NGHIỆM HƯỚNG NGHIỆP 20 CÂU HỎI ---
 // ==========================================
 const questions = [
-  // Nhóm 1: Sở thích & Kỹ năng
   {
     text: "Bạn cảm thấy tự tin nhất khi làm việc với:",
     options: [
-      { text: "Con số, dữ liệu v� ph�n t�ch logic m�y t�nh.", profile: "A" },
+      { text: "Con số, dữ liệu và phân tích logic máy tính.", profile: "A" },
       { text: "Chữ viết, sáng tạo nội dung và viết kịch bản.", profile: "B" },
       { text: "Thiết kế, đồ họa nghệ thuật và giao diện trực quan.", profile: "C" },
       { text: "Lắng nghe, thấu cảm và trực tiếp hỗ trợ, tư vấn mọi người.", profile: "D" }
@@ -70,8 +69,8 @@ const questions = [
   {
     text: "Khi gặp một vấn đề khó trong công việc, cách giải quyết tự nhiên của bạn là:",
     options: [
-      { text: "T�m quy luật hệ thống, ph�n t�ch dữ liệu gốc hoặc lập tr�nh.", profile: "A" },
-      { text: "Viết ra các ý tưởng sáng tạo hoặc thảo luận lập tức với đồng nghiệp.", profile: "B" },
+      { text: "Tìm quy luật hệ thống, phân tích dữ liệu gốc hoặc lập trình.", profile: "A" },
+      { text: "Viết ra các ý tưởng sáng tạo hoặc thảo luận ngay với đồng nghiệp.", profile: "B" },
       { text: "Vẽ sơ đồ tư duy, tìm giải pháp thiết kế hoặc phác thảo trực quan.", profile: "C" },
       { text: "Hỏi han xem vấn đề đó đang ảnh hưởng đến mọi người như thế nào.", profile: "D" }
     ]
@@ -80,50 +79,49 @@ const questions = [
     text: "Lĩnh vực học tập hoặc nghiên cứu khiến bạn hứng thú nhất là:",
     options: [
       { text: "Công nghệ thông tin, Toán học hoặc Khoa học máy tính.", profile: "A" },
-      { text: "Ngôn ngữ, Truyền thông xã hội hoặc Marketing nội dung.", profile: "B" },
-      { text: "Mỹ thuật, Thiết kế đồ họa hoặc UI/UX sản phẩm.", profile: "C" },
-      { text: "T�m l� học, Gi�o dục đặc biệt hoặc Quản trị nh�n sự.", profile: "D" }
+      { text: "Ngôn ngữ, truyền thông xã hội hoặc marketing nội dung.", profile: "B" },
+      { text: "Mỹ thuật, thiết kế đồ họa hoặc UI/UX sản phẩm.", profile: "C" },
+      { text: "Tâm lý học, giáo dục đặc biệt hoặc quản trị nhân sự.", profile: "D" }
     ]
   },
   {
-    text: "Bạn th�ch kiểu nhiệm vụ n�o sau đ�y nhất khi l�m việc nh�m:",
+    text: "Bạn thích kiểu nhiệm vụ nào nhất khi làm việc nhóm:",
     options: [
       { text: "Thiết lập cơ sở dữ liệu hoặc viết mã/script tự động hóa.", profile: "A" },
-      { text: "Biên tập tài liệu, viết bài PR hoặc viết dịch thuật.", profile: "B" },
-      { text: "Thiết kế slide thuyết trình, vẽ hình minh họa hoặc chỉnh video.", profile: "C" },
+      { text: "Biên tập tài liệu, viết bài truyền thông hoặc dịch thuật.", profile: "B" },
+      { text: "Thiết kế slide thuyết trình, vẽ minh họa hoặc chỉnh video.", profile: "C" },
       { text: "Làm MC, chăm sóc khách hàng hoặc giải đáp thắc mắc.", profile: "D" }
     ]
   },
   {
     text: "Cách tiếp thu kiến thức mới hiệu quả nhất đối với bạn là:",
     options: [
-      { text: "Đọc t�i liệu ph�n t�ch chi tiết v� c�c sơ đồ cấu tr�c logic.", profile: "A" },
-      { text: "Nghe audio, sách nói hoặc thảo luận kể chuyện.", profile: "B" },
+      { text: "Đọc tài liệu phân tích chi tiết và các sơ đồ cấu trúc logic.", profile: "A" },
+      { text: "Nghe audio, sách nói hoặc thảo luận theo kiểu kể chuyện.", profile: "B" },
       { text: "Xem video hướng dẫn, hình ảnh đồ họa hoặc infographic.", profile: "C" },
       { text: "Học qua thực hành trực tiếp cùng một người hướng dẫn kèm cặp.", profile: "D" }
     ]
   },
   {
-    text: "Mức độ kiên nhẫn của bạn đối với các chi tiết nhỏ hoặc công việc lặp đi lặp lại:",
+    text: "Mức độ kiên nhẫn của bạn với chi tiết nhỏ hoặc việc lặp lại:",
     options: [
       { text: "Rất cao, tôi thích sự chính xác và nhất quán tuyệt đối.", profile: "A" },
       { text: "Bình thường, tôi cần thêm yếu tố sáng tạo để giữ cảm hứng.", profile: "B" },
-      { text: "Tốt nếu đó là các chi tiết về mặt thẩm mỹ hoặc sắp xếp hình ảnh.", profile: "C" },
-      { text: "Tôi thích tập trung tương tác với con người hơn là quy trình máy móc.", profile: "D" }
+      { text: "Tốt nếu đó là các chi tiết thẩm mỹ hoặc sắp xếp hình ảnh.", profile: "C" },
+      { text: "Tôi thích tập trung tương tác với con người hơn quy trình máy móc.", profile: "D" }
     ]
   },
-  // Nhóm 2: Môi trường làm việc
   {
     text: "Hình thức làm việc lý tưởng để bạn phát huy tối đa năng lượng:",
     options: [
       { text: "Làm việc từ xa (Remote 100%) tại nhà hoặc nơi an toàn.", profile: "A", accommodation: "Làm việc từ xa (Remote)" },
-      { text: "Kết hợp linh hoạt (Hybrid) giữa lên văn phòng và tại nhà.", profile: "B", accommodation: "Làm việc Hybrid" },
+      { text: "Kết hợp linh hoạt (Hybrid) giữa văn phòng và tại nhà.", profile: "B", accommodation: "Làm việc Hybrid" },
       { text: "Làm việc trực tiếp tại văn phòng để dễ tương tác xã hội.", profile: "C", accommodation: "Môi trường văn phòng trực tiếp" },
-      { text: "Làm việc tự do (Freelance) theo dự án và tiến độ tự quyết.", profile: "D", accommodation: "Lịch trình Freelance tự do" }
+      { text: "Làm việc tự do theo dự án và tiến độ tự quyết.", profile: "D", accommodation: "Lịch trình Freelance tự do" }
     ]
   },
   {
-    text: "Mức độ giao tiếp và họp nhóm hàng ngày bạn mong muốn:",
+    text: "Mức độ giao tiếp và họp nhóm hằng ngày bạn mong muốn:",
     options: [
       { text: "Tối thiểu, giao tiếp chủ yếu qua tin nhắn hoặc văn bản hướng dẫn.", profile: "A", accommodation: "Giao tiếp văn bản (Asynchronous)" },
       { text: "Vừa phải, có họp ngắn định kỳ và phần lớn thời gian tự xử lý.", profile: "B" },
@@ -132,208 +130,205 @@ const questions = [
     ]
   },
   {
-    text: "Bạn muốn kiểm soát và quản lý thời gian làm việc như thế nào:",
+    text: "Bạn muốn kiểm soát thời gian làm việc như thế nào:",
     options: [
-      { text: "Khung giờ cực kỳ linh hoạt để điều hòa theo năng lượng sinh học.", profile: "A", accommodation: "Thời gian làm việc linh hoạt" },
-      { text: "Giờ h�nh ch�nh cố định để ph�n định r� c�ng việc v� gia đ�nh.", profile: "B", accommodation: "Giờ l�m việc cố định" },
-      { text: "Chỉ khoán sản phẩm đầu ra, không quan trọng thời gian làm việc.", profile: "C" },
-      { text: "Cần có nhiều khoảng nghỉ ngắn định sẵn để tránh quá tải năng lượng.", profile: "D", accommodation: "Khoảng nghỉ ngắn thường xuyên (Micro-breaks)" }
+      { text: "Khung giờ rất linh hoạt để điều hòa theo năng lượng sinh học.", profile: "A", accommodation: "Thời gian làm việc linh hoạt" },
+      { text: "Giờ hành chính cố định để phân định rõ công việc và gia đình.", profile: "B", accommodation: "Giờ làm việc cố định" },
+      { text: "Chỉ khoán sản phẩm đầu ra, không quá quan trọng thời gian làm việc.", profile: "C" },
+      { text: "Cần nhiều khoảng nghỉ ngắn định sẵn để tránh quá tải năng lượng.", profile: "D", accommodation: "Khoảng nghỉ ngắn thường xuyên (Micro-breaks)" }
     ]
   },
   {
-    text: "Cách phản ứng của bạn khi gặp áp lực đột xuất (deadlines, thay đổi đột ngột):",
+    text: "Cách phản ứng của bạn khi gặp áp lực đột xuất:",
     options: [
-      { text: "B�nh tĩnh lập kế hoạch v� ph�n r� c�c bước thực hiện chi tiết.", profile: "A" },
-      { text: "Cần một khoảng lặng hoặc nhịp độ chậm lại để tránh bị quá tải cảm xúc.", profile: "B", accommodation: "Nhịp độ công việc vừa phải" },
-      { text: "Thích ứng nhanh và coi đó là động lực kích thích sự sáng tạo.", profile: "C" },
+      { text: "Bình tĩnh lập kế hoạch và phân rõ các bước thực hiện chi tiết.", profile: "A" },
+      { text: "Cần một khoảng lặng hoặc nhịp độ chậm lại để tránh quá tải cảm xúc.", profile: "B", accommodation: "Nhịp độ công việc vừa phải" },
+      { text: "Thích ứng nhanh và coi đó là động lực kích thích sáng tạo.", profile: "C" },
       { text: "Cần sự động viên và chia sẻ kịp thời của quản lý hoặc đồng nghiệp.", profile: "D", accommodation: "Hệ thống hỗ trợ tinh thần (Mental Support)" }
     ]
   },
   {
-    text: "M�i trường �m thanh v� �nh s�ng xung quanh ảnh hưởng thế n�o đến bạn:",
+    text: "Môi trường âm thanh và ánh sáng xung quanh ảnh hưởng thế nào đến bạn:",
     options: [
-      { text: "Cực kỳ nhạy cảm, tôi cần không gian yên tĩnh tuyệt đối hoặc giảm kích thích giác quan.", profile: "A", accommodation: "Văn phòng giảm kích thích giác quan (Quiet Zone)" },
+      { text: "Tôi rất nhạy cảm, cần không gian yên tĩnh hoặc giảm kích thích giác quan.", profile: "A", accommodation: "Văn phòng giảm kích thích giác quan (Quiet Zone)" },
       { text: "Bình thường, tôi có thể làm việc ở nơi hơi náo nhiệt như quán cà phê.", profile: "B" },
-      { text: "T�i th�ch kh�ng gian c� �m nhạc nhẹ nh�ng để th�c đẩy cảm hứng s�ng tạo.", profile: "C" },
-      { text: "Tôi cần có thiết bị riêng chống ồn hoặc điều chỉnh ánh sáng đặc thù.", profile: "D", accommodation: "Thiết bị chống ồn & điều chỉnh ánh sáng riêng" }
+      { text: "Tôi thích không gian có âm nhạc nhẹ nhàng để thúc đẩy cảm hứng sáng tạo.", profile: "C" },
+      { text: "Tôi cần thiết bị riêng chống ồn hoặc điều chỉnh ánh sáng đặc thù.", profile: "D", accommodation: "Thiết bị chống ồn & điều chỉnh ánh sáng riêng" }
     ]
   },
-  // Nhóm 3: Tiếp cận & Trợ năng
   {
     text: "Thiết bị hoặc tính năng nào giúp bạn thao tác máy tính tốt nhất:",
     options: [
-      { text: "Tr�nh đọc m�n h�nh (Screen Reader - VoiceOver/NVDA) hoặc �m thanh phản hồi.", profile: "A", accommodation: "Tương th�ch tr�nh đọc m�n h�nh" },
+      { text: "Trình đọc màn hình hoặc âm thanh phản hồi.", profile: "A", accommodation: "Tương thích trình đọc màn hình" },
       { text: "Phần mềm phóng to chữ, thay đổi kích thước văn bản hoặc tương phản cao.", profile: "C", accommodation: "Giao diện độ tương phản cao & chữ lớn" },
-      { text: "Nhập liệu bằng giọng nói (Speech-to-Text) hoặc bàn phím chuyên dụng ảo.", profile: "B", accommodation: "Công cụ nhập liệu thay thế (Speech-to-Text)" },
-      { text: "Chuột v� b�n ph�m ti�u chuẩn nhưng giao diện tối giản, �t g�y rối mắt.", profile: "D", accommodation: "Giao diện tối giản, trực quan" }
+      { text: "Nhập liệu bằng giọng nói hoặc bàn phím chuyên dụng ảo.", profile: "B", accommodation: "Công cụ nhập liệu thay thế (Speech-to-Text)" },
+      { text: "Chuột và bàn phím tiêu chuẩn nhưng giao diện tối giản, ít gây rối mắt.", profile: "D", accommodation: "Giao diện tối giản, trực quan" }
     ]
   },
   {
-    text: "Để làm việc tại văn phòng công ty (nếu có), bạn cần sự tiếp cận vật lý nào:",
+    text: "Khi làm việc tại văn phòng, bạn cần tiếp cận vật lý nào nhất:",
     options: [
-      { text: "Lối đi phẳng, không bậc, thang máy rộng và nhà vệ sinh tiếp cận lăn.", profile: "C", accommodation: "Văn phòng không rào cản vật lý (Wheelchair Accessible)" },
-      { text: "Khu vực làm việc giảm tiếng ồn, ánh sáng dịu nhẹ tránh stress.", profile: "A", accommodation: "Góc làm việc yên tĩnh, giảm kích thích" },
-      { text: "Hệ thống bảng hiệu trực quan, hoặc hỗ trợ ngôn ngữ ký hiệu tiếng Việt.", profile: "D", accommodation: "Hỗ trợ ngôn ngữ ký hiệu / Bảng hiệu trực quan" },
-      { text: "Tôi ưu tiên làm việc tại nhà nên chỉ cần hỗ trợ setup công thái học tại nhà.", profile: "B", accommodation: "Hỗ trợ thiết bị công thái học tại nhà" }
+      { text: "Lối đi phẳng, không bậc, thang máy rộng và nhà vệ sinh tiếp cận xe lăn.", profile: "C", accommodation: "Văn phòng không rào cản vật lý (Wheelchair Accessible)" },
+      { text: "Khu vực làm việc giảm tiếng ồn, ánh sáng dịu nhẹ để tránh stress.", profile: "A", accommodation: "Góc làm việc yên tĩnh, giảm kích thích" },
+      { text: "Bảng hiệu trực quan hoặc hỗ trợ ngôn ngữ ký hiệu tiếng Việt.", profile: "D", accommodation: "Hỗ trợ ngôn ngữ ký hiệu / Bảng hiệu trực quan" },
+      { text: "Tôi ưu tiên làm việc tại nhà nên cần hỗ trợ setup công thái học tại nhà.", profile: "B", accommodation: "Hỗ trợ thiết bị công thái học tại nhà" }
     ]
   },
   {
     text: "Hình thức giao tiếp nhiệm vụ giúp bạn nắm bắt nhanh và chính xác nhất:",
     options: [
-      { text: "Bằng văn bản chi tiết, liệt kê từng đầu việc cần làm (checklist).", profile: "A", accommodation: "Nhiệm vụ dạng văn bản / Checklist chi tiết" },
-      { text: "Qua video trao đổi trực quan sinh động hoặc gặp gỡ trực tiếp.", profile: "C", accommodation: "Hướng dẫn trực quan / Video giải thích" },
-      { text: "Kết hợp cả văn bản kèm sơ đồ hoặc video ngắn minh họa.", profile: "B" },
-      { text: "Có sự đồng hành hướng dẫn trực tiếp từ người kèm cặp (Buddy/Mentor).", profile: "D", accommodation: "Hệ thống Mentor/Buddy đồng hành" }
+      { text: "Văn bản chi tiết, liệt kê từng đầu việc cần làm (checklist).", profile: "A", accommodation: "Nhiệm vụ dạng văn bản / Checklist chi tiết" },
+      { text: "Video trao đổi trực quan hoặc gặp gỡ trực tiếp.", profile: "C", accommodation: "Hướng dẫn trực quan / Video giải thích" },
+      { text: "Kết hợp văn bản kèm sơ đồ hoặc video ngắn minh họa.", profile: "B" },
+      { text: "Có người hướng dẫn trực tiếp từ buddy hoặc mentor.", profile: "D", accommodation: "Hệ thống Mentor/Buddy đồng hành" }
     ]
   },
   {
-    text: "Yếu tố sức khỏe nào bạn cần doanh nghiệp thấu hiểu và tạo điều kiện nhất:",
+    text: "Yếu tố sức khỏe nào bạn cần doanh nghiệp thấu hiểu nhất:",
     options: [
-      { text: "Lịch làm việc linh động để sắp xếp đi khám sức khỏe hoặc trị liệu định kỳ.", profile: "A", accommodation: "Lịch linh hoạt trị liệu y tế" },
-      { text: "Được nghỉ ngơi ngắn khi gặp c�c vấn đề căng thẳng tinh thần đột ngột.", profile: "D", accommodation: "Hỗ trợ phục hồi t�m l� / Nghỉ giải lao linh động" },
-      { text: "Sự kiên nhẫn và bình tĩnh khi giao tiếp do tốc độ nói hoặc gõ phím khác biệt.", profile: "B", accommodation: "Môi trường giao tiếp kiên nhẫn, không hối thúc" },
-      { text: "Cung cấp c�c c�ng cụ hỗ trợ c�ng th�i học tr�nh đau mỏi thể chất k�o d�i.", profile: "C", accommodation: "Ghế c�ng th�i học / B�n n�ng hạ" }
+      { text: "Lịch làm việc linh động để đi khám sức khỏe hoặc trị liệu định kỳ.", profile: "A", accommodation: "Lịch linh hoạt trị liệu y tế" },
+      { text: "Được nghỉ ngơi ngắn khi gặp căng thẳng tinh thần đột ngột.", profile: "D", accommodation: "Hỗ trợ phục hồi tâm lý / Nghỉ giải lao linh động" },
+      { text: "Sự kiên nhẫn khi giao tiếp do tốc độ nói hoặc gõ phím khác biệt.", profile: "B", accommodation: "Môi trường giao tiếp kiên nhẫn, không hối thúc" },
+      { text: "Công cụ công thái học để tránh đau mỏi thể chất kéo dài.", profile: "C", accommodation: "Ghế công thái học / Bàn nâng hạ" }
     ]
   },
   {
-    text: "Bạn mong muốn một doanh nghiệp hòa nhập thể hiện sự cam kết rõ nhất ở:",
+    text: "Doanh nghiệp hòa nhập nên thể hiện cam kết rõ nhất ở:",
     options: [
-      { text: "Quy trình ứng tuyển mở rộng, cho phép nộp bài test thay thế phỏng vấn áp lực cao.", profile: "A", accommodation: "Quy trình tuyển dụng tiếp cận" },
-      { text: "Chính sách Accommodation (Hỗ trợ điều chỉnh) được công khai rõ ràng trên tin tuyển dụng.", profile: "B", accommodation: "Chính sách Accommodation minh bạch" },
-      { text: "Tập thể c�n bộ nh�n vi�n được đ�o tạo b�i bản về đa dạng sinh học v� đồng cảm.", profile: "D", accommodation: "Đồng nghiệp thấu hiểu & được đ�o tạo tiếp cận" },
-      { text: "Cung cấp c�c sản phẩm v� dịch vụ tiếp cận số cho to�n bộ nh�n sự sử dụng.", profile: "C" }
+      { text: "Quy trình ứng tuyển mở, cho phép bài test thay thế phỏng vấn áp lực cao.", profile: "A", accommodation: "Quy trình tuyển dụng tiếp cận" },
+      { text: "Chính sách hỗ trợ điều chỉnh được công khai rõ trên tin tuyển dụng.", profile: "B", accommodation: "Chính sách Accommodation minh bạch" },
+      { text: "Nhân viên được đào tạo bài bản về đa dạng và đồng cảm.", profile: "D", accommodation: "Đồng nghiệp thấu hiểu & được đào tạo tiếp cận" },
+      { text: "Sản phẩm và dịch vụ tiếp cận số có sẵn cho toàn bộ nhân sự.", profile: "C" }
     ]
   },
-  // Nhóm 4: Phong cách & Phát triển
   {
-    text: "Trong một dự án chung, vai trò giúp bạn tỏa sáng và thoải mái nhất là:",
+    text: "Trong một dự án chung, vai trò giúp bạn tỏa sáng nhất là:",
     options: [
-      { text: "Người thực thi thầm lặng: giải quyết các bài toán kỹ thuật phức tạp khó nhằn.", profile: "A" },
-      { text: "Người lên ý tưởng sáng tạo: mang lại các góc nhìn độc đáo, mới mẻ.", profile: "B" },
-      { text: "Người điều phối trực quan: rà soát giao diện và tính thẩm mỹ tổng quan sản phẩm.", profile: "C" },
-      { text: "Người gắn kết đồng đội: hỗ trợ, động viên mọi người hoàn thành đúng tiến độ.", profile: "D" }
+      { text: "Người thực thi thầm lặng, giải quyết bài toán kỹ thuật phức tạp.", profile: "A" },
+      { text: "Người lên ý tưởng sáng tạo, mang lại góc nhìn mới mẻ.", profile: "B" },
+      { text: "Người điều phối trực quan, rà soát giao diện và thẩm mỹ tổng quan.", profile: "C" },
+      { text: "Người gắn kết đồng đội, hỗ trợ và động viên mọi người.", profile: "D" }
     ]
   },
   {
     text: "Mục tiêu phát triển sự nghiệp quan trọng nhất của bạn trong 2 năm tới là:",
     options: [
-      { text: "Trở th�nh chuy�n gia kỹ thuật giỏi trong mảng c�ng nghệ chuy�n s�u.", profile: "A" },
-      { text: "Tự chủ tài chính bền vững thông qua các công việc freelance từ xa tự do.", profile: "B" },
-      { text: "Sáng tạo các sản phẩm đem lại tác động xã hội to lớn cho cộng đồng yếu thế.", profile: "C" },
-      { text: "X�y dựng c�c mối quan hệ đồng nghiệp s�u sắc tại m�i trường c�ng sở văn minh.", profile: "D" }
+      { text: "Trở thành chuyên gia kỹ thuật trong mảng công nghệ chuyên sâu.", profile: "A" },
+      { text: "Tự chủ tài chính bền vững qua công việc freelance từ xa.", profile: "B" },
+      { text: "Sáng tạo sản phẩm đem lại tác động xã hội cho cộng đồng yếu thế.", profile: "C" },
+      { text: "Xây dựng quan hệ đồng nghiệp sâu sắc trong môi trường văn minh.", profile: "D" }
     ]
   },
   {
-    text: "Khi nhận phản hồi hoặc góp ý từ cấp trên, bạn mong muốn điều gì nhất:",
+    text: "Khi nhận phản hồi từ cấp trên, bạn mong muốn điều gì nhất:",
     options: [
-      { text: "Góp ý thẳng thắn bằng văn bản cụ thể từng lỗi sai kèm hướng khắc phục mẫu.", profile: "A" },
-      { text: "Trao đổi riêng tư cởi mở, có sự động viên ghi nhận trước khi chỉ ra điểm cần sửa.", profile: "D" },
-      { text: "Phản hồi thông qua các ghi chú trực quan rõ ràng, tránh nói chung chung mơ hồ.", profile: "C" },
-      { text: "Góp ý mang tính định hướng mở để tôi tự do tìm giải pháp sửa đổi sáng tạo.", profile: "B" }
+      { text: "Góp ý thẳng thắn bằng văn bản cụ thể từng lỗi và cách khắc phục.", profile: "A" },
+      { text: "Trao đổi riêng tư, có ghi nhận trước khi chỉ ra điểm cần sửa.", profile: "D" },
+      { text: "Phản hồi bằng ghi chú trực quan rõ ràng, tránh nói chung chung.", profile: "C" },
+      { text: "Góp ý mang tính định hướng để tôi tự do tìm giải pháp sáng tạo.", profile: "B" }
     ]
   },
   {
-    text: "Để bắt đầu một công việc mới một cách tự tin, điều bạn cần chuẩn bị nhất là:",
+    text: "Để bắt đầu một công việc mới tự tin hơn, bạn cần chuẩn bị nhất là:",
     options: [
-      { text: "Tài liệu Onboarding hướng dẫn quy trình làm việc cực kỳ rõ ràng, chi tiết.", profile: "A" },
-      { text: "C� một người bạn đồng h�nh (Buddy) nhiệt t�nh hỗ trợ trả lời mọi c�u hỏi cơ bản.", profile: "D" },
-      { text: "Được chia sẻ cởi mở về c�c nhu cầu hỗ trợ c� nh�n của m�nh với cả nh�m l�m việc.", profile: "B" },
-      { text: "Thời gian thử việc với nhịp độ công việc tăng dần để làm quen từ từ với áp lực.", profile: "C" }
+      { text: "Tài liệu onboarding hướng dẫn quy trình cực kỳ rõ ràng, chi tiết.", profile: "A" },
+      { text: "Có một buddy nhiệt tình hỗ trợ trả lời các câu hỏi cơ bản.", profile: "D" },
+      { text: "Được chia sẻ cởi mở về nhu cầu hỗ trợ cá nhân với cả nhóm.", profile: "B" },
+      { text: "Thời gian thử việc với nhịp độ tăng dần để làm quen áp lực.", profile: "C" }
     ]
   }
 ];
 
 const profilesData = {
-  "A": {
+  A: {
     title: "Nhà phát triển công nghệ hỗ trợ (Tech & Assistive Developer)",
-    desc: "Bạn c� tư duy ph�n t�ch sắc b�n, y�u th�ch logic v� c�ng nghệ. Bạn ph� hợp nhất với c�c c�ng việc lập tr�nh, xử l� dữ liệu, kiểm thử trợ năng web/app hoặc nghi�n cứu giải ph�p kỹ thuật số gi�p ph� bỏ r�o cản cho người khuyết tật.",
+    desc: "Bạn có tư duy phân tích sắc bén, yêu thích logic và công nghệ. Bạn phù hợp với lập trình, xử lý dữ liệu, kiểm thử trợ năng web/app hoặc nghiên cứu giải pháp kỹ thuật số giúp phá bỏ rào cản cho người khuyết tật.",
     salary: "15 - 30 triệu VNĐ/tháng",
-    trend: "Rất cao, đặc biệt khi c�c doanh nghiệp to�n cầu bắt buộc tu�n thủ chuẩn tiếp cận số.",
+    trend: "Rất cao, đặc biệt khi doanh nghiệp toàn cầu phải tuân thủ chuẩn tiếp cận số.",
     jobs: [
       {
-        title: "Lập trình viên Front-End (Chuyên về Trợ năng)",
+        title: "Lập trình viên Front-End chuyên về trợ năng",
         company: "EnableTech Group",
-        desc: "Đảm bảo mã nguồn tối ưu chuẩn WCAG, tương thích hoàn hảo với Screen Reader.",
+        desc: "Đảm bảo mã nguồn tối ưu chuẩn WCAG và tương thích tốt với trình đọc màn hình.",
         tags: ["Remote 100%", "Lương: 18 - 25M", "Screen Reader Aware", "Hợp với bạn: 98%"],
         link: "#"
       },
       {
-        title: "Chuy�n vi�n Ph�n t�ch Dữ liệu H�a nhập",
+        title: "Chuyên viên phân tích dữ liệu hòa nhập",
         company: "DOSE Impact Solutions",
-        desc: "Khảo sát và lập báo cáo dữ liệu thị trường lao động khuyết tật quốc gia.",
+        desc: "Khảo sát và lập báo cáo dữ liệu về thị trường lao động cho người khuyết tật.",
         tags: ["Hybrid / Remote", "Lương: 15 - 22M", "Lịch trị liệu linh hoạt", "Hợp với bạn: 92%"],
         link: "#"
       }
     ]
   },
-  "B": {
+  B: {
     title: "Nhà sáng tạo nội dung hòa nhập (Inclusive Content Creator)",
-    desc: "Bạn là người giàu cảm xúc, có năng khiếu ngôn ngữ và sáng tạo. Bạn phù hợp với việc viết lách, truyền thông xã hội, dịch thuật hoặc sản xuất nội dung giáo dục đặc biệt để lan tỏa sự đồng cảm trong cộng đồng.",
+    desc: "Bạn giàu cảm xúc, có năng khiếu ngôn ngữ và sáng tạo. Bạn phù hợp với viết lách, truyền thông xã hội, dịch thuật hoặc sản xuất nội dung giáo dục đặc biệt để lan tỏa sự đồng cảm.",
     salary: "12 - 22 triệu VNĐ/tháng",
-    trend: "Cao, c�c tổ chức phi ch�nh phủ v� doanh nghiệp x� hội li�n tục t�m kiếm c�u chuyện nh�n văn.",
+    trend: "Cao, các tổ chức xã hội và doanh nghiệp nhân văn liên tục cần câu chuyện dễ hiểu, tử tế và có sức lan tỏa.",
     jobs: [
       {
-        title: "Biên tập viên Nội dung Giáo dục Hòa nhập",
+        title: "Biên tập viên nội dung giáo dục hòa nhập",
         company: "Special Education Hub",
-        desc: "Viết giáo án điện tử dễ hiểu cho học sinh khuyết tật học tập và tự kỷ.",
+        desc: "Viết giáo án điện tử dễ hiểu cho học sinh có nhu cầu học tập khác biệt.",
         tags: ["Remote", "Lương: 12 - 16M", "Giao tiếp không hối thúc", "Hợp với bạn: 95%"],
         link: "#"
       },
       {
-        title: "Copywriter Sáng tạo (Social-Tech Projects)",
+        title: "Copywriter sáng tạo cho dự án social-tech",
         company: "Humanity Media",
-        desc: "L�n chiến dịch truyền th�ng nhằm n�ng cao nhận thức cộng đồng về người khiếm th�nh.",
+        desc: "Lên chiến dịch truyền thông nâng cao nhận thức cộng đồng về người khiếm thính.",
         tags: ["Hybrid", "Lương: 10 - 15M", "Lịch làm việc linh hoạt", "Hợp với bạn: 89%"],
         link: "#"
       }
     ]
   },
-  "C": {
-    title: "Chuyên viên UI/UX Tiếp cận (UI/UX Accessibility Specialist)",
-    desc: "Bạn chú trọng đến từng chi tiết trực quan, màu sắc và cảm giác tương tác. Bạn có tiềm năng lớn trong thiết kế đồ họa tiếp cận, thiết kế UI/UX thích ứng hoặc tư vấn quy hoạch văn phòng vật lý không rào cản.",
+  C: {
+    title: "Chuyên viên UI/UX tiếp cận (UI/UX Accessibility Specialist)",
+    desc: "Bạn chú trọng chi tiết trực quan, màu sắc và cảm giác tương tác. Bạn có tiềm năng trong thiết kế giao diện tiếp cận, đồ họa hòa nhập hoặc tư vấn không gian làm việc không rào cản.",
     salary: "14 - 25 triệu VNĐ/tháng",
-    trend: "Tăng trưởng mạnh mẽ cùng xu hướng Inclusive Design trên toàn cầu.",
+    trend: "Tăng trưởng mạnh cùng xu hướng Inclusive Design trên toàn cầu.",
     jobs: [
       {
-        title: "Chuyên viên Thiết kế UI/UX Accessibility",
+        title: "Chuyên viên thiết kế UI/UX Accessibility",
         company: "Digital Access Corp",
-        desc: "Thiết kế các mockup giao diện web/app với bảng màu tương phản cao, cỡ chữ linh hoạt.",
+        desc: "Thiết kế mockup web/app với bảng màu tương phản cao, cỡ chữ linh hoạt và luồng thao tác rõ.",
         tags: ["Hybrid", "Lương: 16 - 24M", "Lối đi phẳng / Công thái học", "Hợp với bạn: 97%"],
         link: "#"
       },
       {
-        title: "Nhà thiết kế Đồ họa Tiếp cận Số",
+        title: "Nhà thiết kế đồ họa tiếp cận số",
         company: "Creative Inclusion Agency",
-        desc: "Thiết kế infographic trực quan, ấn phẩm truyền thông dành cho người khiếm thị nhẹ.",
+        desc: "Thiết kế infographic trực quan và ấn phẩm truyền thông dễ tiếp cận.",
         tags: ["Remote", "Lương: 12 - 18M", "UI đơn giản trực quan", "Hợp với bạn: 90%"],
         link: "#"
       }
     ]
   },
-  "D": {
-    title: "Chuyên viên Hỗ trợ & Truyền thông Cộng đồng (Customer Support & Community Advocate)",
-    desc: "Bạn có lòng trắc ẩn lớn, thích trò chuyện và hỗ trợ trực tiếp. Bạn phù hợp nhất với công việc tư vấn viên, chăm sóc khách hàng đặc biệt, phiên dịch ngôn ngữ ký hiệu hoặc quản lý cộng đồng người yếu thế.",
+  D: {
+    title: "Chuyên viên hỗ trợ & truyền thông cộng đồng",
+    desc: "Bạn có lòng trắc ẩn, thích trò chuyện và hỗ trợ trực tiếp. Bạn phù hợp với tư vấn viên, chăm sóc khách hàng đặc biệt, phiên dịch ngôn ngữ ký hiệu hoặc quản lý cộng đồng.",
     salary: "10 - 18 triệu VNĐ/tháng",
-    trend: "Bền vững, c�c tổ chức lu�n cần nh�n sự thấu hiểu s�u sắc t�m l� để chăm s�c kh�ch h�ng.",
+    trend: "Bền vững, các tổ chức luôn cần nhân sự thấu hiểu tâm lý và biết chăm sóc cộng đồng.",
     jobs: [
       {
-        title: "Tư vấn viên Chăm sóc Khách hàng Đặc biệt",
+        title: "Tư vấn viên chăm sóc khách hàng đặc biệt",
         company: "HearUs Vietnam",
         desc: "Hỗ trợ khách hàng điếc qua video call bằng ngôn ngữ ký hiệu hoặc chat trực tuyến.",
-        tags: ["On-site/Hybrid", "Lương: 10 - 14M", "Hỗ trợ Ký hiệu / Mentor", "Hợp với bạn: 96%"],
+        tags: ["On-site/Hybrid", "Lương: 10 - 14M", "Hỗ trợ ký hiệu / Mentor", "Hợp với bạn: 96%"],
         link: "#"
       },
       {
-        title: "Chuyên viên Kết nối Cộng đồng Hòa nhập",
+        title: "Chuyên viên kết nối cộng đồng hòa nhập",
         company: "DOSE Foundation",
-        desc: "Hỗ trợ tổ chức các buổi hội thảo hướng nghiệp và đào tạo kỹ năng mềm.",
+        desc: "Tổ chức hội thảo hướng nghiệp và đào tạo kỹ năng mềm cho cộng đồng.",
         tags: ["Hybrid", "Lương: 11 - 15M", "Nghỉ ngơi linh động", "Hợp với bạn: 91%"],
         link: "#"
       }
     ]
   }
 };
-
 let currentQuestionIndex = 0;
 let userAnswers: Array<number | null> = [];
 let selectedDisabilityType: DisabilityType | null = null;
@@ -381,13 +376,13 @@ const disabilityAccommodations = {
   ],
   mobility: [
     "Môi trường văn phòng hoàn toàn không rào cản vật lý (Wheelchair Accessible)",
-    "Hỗ trợ b�n l�m việc n�ng hạ v� ghế ngồi c�ng th�i học đặc biệt",
+    "Hỗ trợ bàn làm việc nâng hạ và ghế ngồi công thái học đặc biệt",
     "Lịch làm việc linh hoạt hoặc hỗ trợ làm việc từ xa (Remote/Hybrid)",
     "Vị trí đỗ xe ưu tiên và lối tiếp cận thang máy dễ dàng"
   ],
   cognitive: [
     "Hướng dẫn công việc bằng sơ đồ trực quan & Danh sách đầu việc (Checklist) rõ ràng",
-    "Giao diện l�m việc tối giản, giảm thiểu c�c yếu tố g�y xao nh�ng",
+    "Giao diện làm việc tối giản, giảm thiểu các yếu tố gây xao nhãng",
     "Nhịp độ làm việc vừa phải với thời gian hướng dẫn/onboarding kéo dài",
     "Hệ thống Mentor/Buddy hỗ trợ giải thích quy trình tận tình"
   ],
@@ -430,7 +425,7 @@ function initQuizEvents() {
     currentQuestionIndex = 0;
     userAnswers = new Array(questions.length).fill(null);
     loadQuestion(0);
-    announce("Bắt đầu l�m b�i trắc nghiệm. C�u hỏi số 1.");
+    announce("Bắt đầu làm bài trắc nghiệm. Câu hỏi số 1.");
   }
 
   function getSavedDisabilityType() {
@@ -506,7 +501,7 @@ function initQuizEvents() {
 
       $("preQuizArea").classList.remove("hidden");
       resetDisabilitySelection();
-      announce("Đ� mở bộ c�u hỏi sơ tuyển nh�m hỗ trợ tiếp cận.");
+      announce("Đã mở bộ câu hỏi sơ tuyển nhóm hỗ trợ tiếp cận.");
     });
   }
 
@@ -585,7 +580,7 @@ function loadQuestion(index) {
   $("quizProgressText").textContent = `Tiến trình: ${progressPercent}%`;
 
   qText.textContent = `${index + 1}. ${question.text}`;
-  qCounter.textContent = `C�u ${index + 1} của ${questions.length}`;
+  qCounter.textContent = `Câu ${index + 1} của ${questions.length}`;
   prevBtn.disabled = index === 0;
 
   // Render options
@@ -810,7 +805,7 @@ function showResults(results) {
     applyBtn.textContent = "Ứng tuyển (Mô phỏng)";
     
     applyBtn.addEventListener("click", () => {
-      alert(`🎉 Ch�c mừng! Bạn đang bắt đầu quy tr�nh ứng tuyển c�ng việc "${job.title}" tại ${job.company}.\n\nHệ thống D.O.S.E đ� tự động đ�nh k�m chứng nhận hồ sơ năng lực v� danh s�ch Accommodation khuyến nghị của bạn gửi tới bộ phận Nh�n sự của doanh nghiệp.`);
+      alert(`Chúc mừng! Bạn đang bắt đầu quy trình ứng tuyển công việc "${job.title}" tại ${job.company}.\n\nHệ thống D.O.S.E đã tự động đính kèm chứng nhận hồ sơ năng lực và danh sách Accommodation khuyến nghị của bạn gửi tới bộ phận nhân sự của doanh nghiệp.`);
     });
 
     card.appendChild(header);
@@ -858,3 +853,4 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+
