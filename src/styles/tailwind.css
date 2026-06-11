@@ -245,12 +245,10 @@
 
   h1 {
     font-size: clamp(2.4rem, 6vw, var(--text-4xl));
-    max-width: 20rem;
   }
 
   h2 {
     font-size: clamp(1.9rem, 4vw, var(--text-3xl));
-    max-width: 32rem;
   }
 
   h3 {

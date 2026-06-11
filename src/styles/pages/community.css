@@ -105,10 +105,49 @@
   ───────────────────────────────────────────────────── */
   .opportunity-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
-    gap: var(--space-5);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(1.5rem, 4vw, var(--space-8));
+    align-items: start;
     margin-top: var(--space-6);
+    padding: var(--space-10) 0 var(--space-8);
   }
+
+  /* Hero copy section in opportunity-grid */
+  .opportunity-grid .hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .opportunity-grid .hero-copy h1 {
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-heading);
+    margin: 0;
+    /* No max-width — let it fill naturally */
+  }
+
+  /* Hero panel (aside) in opportunity-grid */
+  .opportunity-grid .hero-panel {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .opportunity-grid .hero-panel h2 {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 700;
+    color: var(--color-heading);
+    line-height: 1.35;
+    margin: 0;
+  }
+
 
   .jobs-list-grid { display: grid; gap: var(--space-4); margin-top: var(--space-5); }
 
