@@ -75,6 +75,8 @@ Backend sẽ chạy tại:
 http://localhost:5000
 ```
 
+Khi deploy frontend, hãy set `VITE_CHAT_API_URL` trỏ tới backend Flask đã deploy, vì GitHub Pages chỉ host phần frontend.
+
 ### 5. Cai va chay frontend
 
 Mở thêm một terminal khác:

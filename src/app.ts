@@ -969,6 +969,11 @@ const closeChatButton = $("closeChatButton") as HTMLButtonElement | null;
 const chatInput = $("chatInput") as HTMLInputElement | null;
 const sendChatButton = $("sendChatButton") as HTMLButtonElement | null;
 const chatMessages = $("chatMessages") as HTMLElement | null;
+const chatApiUrl =
+  ((import.meta as ImportMeta & { env?: { VITE_CHAT_API_URL?: string } }).env?.VITE_CHAT_API_URL ??
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:5000/api/chat"
+      : ""));
 
 let chatHistory: Array<{ role: string; content: string; reasoning_details?: unknown }> = [];
 
@@ -1021,8 +1026,18 @@ async function sendChatMessage() {
   const loadingMsg = addMessageToUI("AI Mentor đang suy nghĩ...", "assistant loading");
   loadingMsg.classList.add("loading");
 
+  if (!chatApiUrl) {
+    chatMessages.removeChild(loadingMsg);
+    addMessageToUI("Chat box cần backend riêng. Hãy cấu hình VITE_CHAT_API_URL hoặc chạy Flask backend trước khi dùng.", "assistant");
+    chatHistory.pop();
+    chatInput.disabled = false;
+    sendChatButton.disabled = false;
+    chatInput.focus();
+    return;
+  }
+
   try {
-    const response = await fetch("http://localhost:5000/api/chat", {
+    const response = await fetch(chatApiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: chatHistory }),
