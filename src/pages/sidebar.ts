@@ -12,6 +12,53 @@ type SidebarGroup = {
   links: SidebarLink[];
 };
 
+type DisplaySetting = "high-contrast" | "reduce-motion" | "simple-mode" | "dark-mode";
+
+type SettingMeta = {
+  className: string;
+  storageKey: string;
+  onLabel: string;
+  offLabel: string;
+  onMessage: string;
+  offMessage: string;
+};
+
+const FONT_SCALE_STEPS = [100, 112.5, 125, 150];
+const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
+  "high-contrast": {
+    className: "high-contrast",
+    storageKey: "dose-high-contrast",
+    onLabel: "Tắt tương phản cao",
+    offLabel: "Tương phản cao",
+    onMessage: "Đã bật chế độ tương phản cao.",
+    offMessage: "Đã tắt chế độ tương phản cao."
+  },
+  "reduce-motion": {
+    className: "reduce-motion",
+    storageKey: "dose-reduce-motion",
+    onLabel: "Bật chuyển động",
+    offLabel: "Giảm chuyển động",
+    onMessage: "Đã bật chế độ giảm chuyển động.",
+    offMessage: "Đã dùng lại chuyển động mặc định."
+  },
+  "simple-mode": {
+    className: "simple-mode",
+    storageKey: "dose-simple-mode",
+    onLabel: "Tắt chế độ đơn giản",
+    offLabel: "Chế độ đơn giản",
+    onMessage: "Đã bật chế độ đơn giản.",
+    offMessage: "Đã tắt chế độ đơn giản."
+  },
+  "dark-mode": {
+    className: "dark",
+    storageKey: "dose-dark-mode",
+    onLabel: "Tắt chế độ tối",
+    offLabel: "Chế độ tối",
+    onMessage: "Đã bật chế độ tối.",
+    offMessage: "Đã quay về chế độ sáng."
+  }
+};
+
 (function () {
   const body = document.body;
   if (!body) return;
@@ -25,22 +72,233 @@ type SidebarGroup = {
     }
   }
 
+  function savePreference<T>(key: string, value: T) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (_error) {
+      // The visual setting still applies for this session if storage is blocked.
+    }
+  }
+
+  function clampFontScale(value: number) {
+    return FONT_SCALE_STEPS.includes(value) ? value : 100;
+  }
+
   function applyStoredDisplayPreferences() {
-    const fontScale = loadPreference("dose-font-scale", 100);
-    const highContrast = loadPreference("dose-high-contrast", false);
-    const reducedMotion = loadPreference("dose-reduce-motion", false);
-    const simpleMode = loadPreference("dose-simple-mode", false);
+    const fontScale = clampFontScale(loadPreference("dose-font-scale", 100));
+    const highContrast = loadPreference(SETTINGS_META["high-contrast"].storageKey, false);
+    const reducedMotion = loadPreference(SETTINGS_META["reduce-motion"].storageKey, false);
+    const simpleMode = loadPreference(SETTINGS_META["simple-mode"].storageKey, false);
+    const darkMode = loadPreference(SETTINGS_META["dark-mode"].storageKey, false);
 
     document.documentElement.style.setProperty("--font-scale-custom", `${fontScale}%`);
+    document.documentElement.style.setProperty("--font-scale", `${fontScale}%`);
     body.style.setProperty("--font-scale-custom", `${fontScale}%`);
     document.documentElement.classList.toggle("large-text", fontScale > 100);
     body.classList.toggle("large-text", fontScale > 100);
     body.classList.toggle("high-contrast", Boolean(highContrast));
     body.classList.toggle("reduce-motion", Boolean(reducedMotion));
     body.classList.toggle("simple-mode", Boolean(simpleMode));
+    body.classList.toggle("dark", Boolean(darkMode));
   }
 
   applyStoredDisplayPreferences();
+
+  function getSetting(setting: DisplaySetting) {
+    return loadPreference(SETTINGS_META[setting].storageKey, false);
+  }
+
+  function setSetting(setting: DisplaySetting, value: boolean) {
+    const meta = SETTINGS_META[setting];
+    body.classList.toggle(meta.className, value);
+    savePreference(meta.storageKey, value);
+  }
+
+  function syncGlobalControls() {
+    (Object.keys(SETTINGS_META) as DisplaySetting[]).forEach((setting) => {
+      const isActive = getSetting(setting);
+      const meta = SETTINGS_META[setting];
+      document.querySelectorAll<HTMLButtonElement>(`[data-global-setting-toggle="${setting}"]`).forEach((button) => {
+        button.setAttribute("aria-pressed", String(isActive));
+        if (button.classList.contains("btn")) {
+          button.textContent = isActive ? meta.onLabel : meta.offLabel;
+        }
+      });
+    });
+
+    const fontScale = clampFontScale(loadPreference("dose-font-scale", 100));
+    const status = document.getElementById("globalFontSizeStatus") as HTMLOutputElement | null;
+    const increase = document.getElementById("globalIncreaseFontButton") as HTMLButtonElement | null;
+    const decrease = document.getElementById("globalDecreaseFontButton") as HTMLButtonElement | null;
+    if (status) {
+      status.value = `${fontScale}%`;
+      status.textContent = `${fontScale}%`;
+    }
+    if (increase) increase.disabled = fontScale === FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1];
+    if (decrease) decrease.disabled = fontScale === FONT_SCALE_STEPS[0];
+  }
+
+  function applyFontScale(value: number) {
+    const fontScale = clampFontScale(value);
+    document.documentElement.style.setProperty("--font-scale", `${fontScale}%`);
+    document.documentElement.style.setProperty("--font-scale-custom", `${fontScale}%`);
+    body.style.setProperty("--font-scale-custom", `${fontScale}%`);
+    document.documentElement.classList.toggle("large-text", fontScale > 100);
+    body.classList.toggle("large-text", fontScale > 100);
+    savePreference("dose-font-scale", fontScale);
+    syncGlobalControls();
+  }
+
+  function createGlobalAccessibilityControls() {
+    if (document.getElementById("accessibilityPanel")) return;
+
+    const liveRegion = document.getElementById("sidebarLiveRegion");
+    const floatingButton = document.createElement("button");
+    floatingButton.id = "floatingA11yButton";
+    floatingButton.className = "floating-a11y-button";
+    floatingButton.type = "button";
+    floatingButton.setAttribute("aria-label", "Mở bảng điều khiển trợ năng");
+    floatingButton.setAttribute("aria-controls", "accessibilityPanel");
+    floatingButton.setAttribute("aria-expanded", "false");
+    floatingButton.innerHTML = '<span aria-hidden="true">Hỗ trợ</span>';
+
+    const panel = document.createElement("aside");
+    panel.id = "accessibilityPanel";
+    panel.className = "accessibility-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "false");
+    panel.setAttribute("aria-labelledby", "accessibilityPanelTitle");
+    panel.setAttribute("aria-describedby", "accessibilityPanelDescription");
+    panel.setAttribute("aria-hidden", "true");
+    panel.innerHTML = `
+      <div class="panel-shell">
+        <div class="panel-head">
+          <div>
+            <p class="panel-label">Điều khiển trợ năng</p>
+            <h2 id="accessibilityPanelTitle">Bảng điều khiển trợ năng</h2>
+            <p id="accessibilityPanelDescription" class="helper-text">
+              Các tùy chọn này hoạt động xuyên toàn bộ website và được lưu trên thiết bị này.
+            </p>
+          </div>
+          <button id="accessibilityPanelClose" class="btn btn-ghost btn-sm" type="button" aria-label="Đóng bảng trợ năng">Đóng</button>
+        </div>
+
+        <div class="panel-section">
+          <div class="setting-row">
+            <div>
+              <h3 class="setting-title">Cỡ chữ</h3>
+              <p class="helper-text">Tăng hoặc giảm cỡ chữ toàn trang.</p>
+            </div>
+            <div class="font-controls" role="group" aria-label="Điều chỉnh cỡ chữ">
+              <button id="globalDecreaseFontButton" class="btn btn-outline btn-sm" type="button" aria-label="Giảm cỡ chữ">A-</button>
+              <output id="globalFontSizeStatus" class="font-status" aria-live="polite">100%</output>
+              <button id="globalIncreaseFontButton" class="btn btn-outline btn-sm" type="button" aria-label="Tăng cỡ chữ">A+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section settings-grid" role="group" aria-label="Tùy chọn hiển thị">
+          <button type="button" class="setting-toggle" data-global-setting-toggle="high-contrast" aria-pressed="false">
+            <span class="setting-copy">
+              <span class="setting-title">Tương phản cao</span>
+              <span class="helper-text">Nền sáng rõ, chữ đen, vùng bấm có viền mạnh.</span>
+            </span>
+            <span class="toggle-indicator" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="setting-toggle" data-global-setting-toggle="reduce-motion" aria-pressed="false">
+            <span class="setting-copy">
+              <span class="setting-title">Giảm chuyển động</span>
+              <span class="helper-text">Hạn chế animation và hiệu ứng chuyển cảnh.</span>
+            </span>
+            <span class="toggle-indicator" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="setting-toggle" data-global-setting-toggle="simple-mode" aria-pressed="false">
+            <span class="setting-copy">
+              <span class="setting-title">Chế độ đơn giản</span>
+              <span class="helper-text">Giảm nhiễu thị giác và giữ bố cục dễ đọc hơn.</span>
+            </span>
+            <span class="toggle-indicator" aria-hidden="true"></span>
+          </button>
+          <button type="button" class="setting-toggle" data-global-setting-toggle="dark-mode" aria-pressed="false">
+            <span class="setting-copy">
+              <span class="setting-title">Chế độ tối</span>
+              <span class="helper-text">Nền tối xanh đậm, chữ sáng đủ tương phản.</span>
+            </span>
+            <span class="toggle-indicator" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    body.append(floatingButton, panel);
+
+    function announceGlobal(message: string) {
+      if (!liveRegion) return;
+      liveRegion.textContent = "";
+      window.setTimeout(() => {
+        liveRegion.textContent = message;
+      }, 30);
+    }
+
+    function openPanel() {
+      panel.classList.add("is-open");
+      panel.setAttribute("aria-hidden", "false");
+      floatingButton.setAttribute("aria-expanded", "true");
+    }
+
+    function closePanel() {
+      panel.classList.remove("is-open");
+      panel.setAttribute("aria-hidden", "true");
+      floatingButton.setAttribute("aria-expanded", "false");
+      floatingButton.focus();
+    }
+
+    floatingButton.addEventListener("click", () => {
+      if (panel.classList.contains("is-open")) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    });
+
+    panel.querySelector<HTMLButtonElement>("#accessibilityPanelClose")?.addEventListener("click", closePanel);
+
+    panel.querySelectorAll<HTMLButtonElement>("[data-global-setting-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const setting = button.dataset.globalSettingToggle as DisplaySetting | undefined;
+        if (!setting || !(setting in SETTINGS_META)) return;
+        const next = !getSetting(setting);
+        setSetting(setting, next);
+        syncGlobalControls();
+        announceGlobal(next ? SETTINGS_META[setting].onMessage : SETTINGS_META[setting].offMessage);
+      });
+    });
+
+    panel.querySelector<HTMLButtonElement>("#globalIncreaseFontButton")?.addEventListener("click", () => {
+      const current = clampFontScale(loadPreference("dose-font-scale", 100));
+      const index = FONT_SCALE_STEPS.indexOf(current);
+      if (index < FONT_SCALE_STEPS.length - 1) {
+        applyFontScale(FONT_SCALE_STEPS[index + 1]);
+        announceGlobal(`Cỡ chữ đã tăng lên ${FONT_SCALE_STEPS[index + 1]} phần trăm.`);
+      }
+    });
+
+    panel.querySelector<HTMLButtonElement>("#globalDecreaseFontButton")?.addEventListener("click", () => {
+      const current = clampFontScale(loadPreference("dose-font-scale", 100));
+      const index = FONT_SCALE_STEPS.indexOf(current);
+      if (index > 0) {
+        applyFontScale(FONT_SCALE_STEPS[index - 1]);
+        announceGlobal(`Cỡ chữ đã giảm còn ${FONT_SCALE_STEPS[index - 1]} phần trăm.`);
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && panel.classList.contains("is-open")) {
+        event.preventDefault();
+        closePanel();
+      }
+    });
+  }
 
   const currentPath = window.location.pathname.split("/").pop() || "home.html";
   const currentPage = currentPath === "" ? "home.html" : currentPath;
@@ -74,6 +332,9 @@ type SidebarGroup = {
       }, 30);
     }
 
+    createGlobalAccessibilityControls();
+    syncGlobalControls();
+
     const groups: SidebarGroup[] = currentPage === "dashboard.html"
       ? [
           {
@@ -87,12 +348,12 @@ type SidebarGroup = {
             ]
           },
           {
-            label: "Modules",
+            label: "C�c ph�n hệ",
             links: [
-              { href: moduleHref("access.html"), label: "Access", match: "access.html", keytip: "A" },
-              { href: moduleHref("education.html"), label: "Education", match: "education.html", keytip: "E" },
-              { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html", keytip: "O" },
-              { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html", keytip: "H" }
+              { href: moduleHref("access.html"), label: "Tiếp cận", match: "access.html", keytip: "A" },
+              { href: moduleHref("education.html"), label: "Giáo dục", match: "education.html", keytip: "E" },
+              { href: moduleHref("opportunity.html"), label: "Cơ hội", match: "opportunity.html", keytip: "O" },
+              { href: moduleHref("humanity.html"), label: "Nh�n văn", match: "humanity.html", keytip: "H" }
             ]
           },
           {
@@ -118,12 +379,12 @@ type SidebarGroup = {
         ]
       : [
           {
-            label: "MODULES",
+            label: "C�c ph�n hệ",
             links: [
-              { href: moduleHref("access.html"), label: "Access", match: "access.html", keytip: "A" },
-              { href: moduleHref("education.html"), label: "Education", match: "education.html", keytip: "E" },
-              { href: moduleHref("opportunity.html"), label: "Opportunity", match: "opportunity.html", keytip: "O" },
-              { href: moduleHref("humanity.html"), label: "Humanity", match: "humanity.html", keytip: "H" }
+              { href: moduleHref("access.html"), label: "Tiếp cận", match: "access.html", keytip: "A" },
+              { href: moduleHref("education.html"), label: "Giáo dục", match: "education.html", keytip: "E" },
+              { href: moduleHref("opportunity.html"), label: "Cơ hội", match: "opportunity.html", keytip: "O" },
+              { href: moduleHref("humanity.html"), label: "Nh�n văn", match: "humanity.html", keytip: "H" }
             ]
           },
           {
@@ -149,7 +410,44 @@ type SidebarGroup = {
         ];
 
     function isCurrent(link: SidebarLink) {
-      return currentPage === link.match;
+      if (currentPage !== link.match) return false;
+      if (currentPage === "dashboard.html" && !link.href.startsWith("#")) return false;
+      if (!link.href.startsWith("#")) return true;
+      return currentHash ? link.href === currentHash : link.href === "#continue-learning";
+    }
+
+    function setCurrentSidebarLink(targetLink: HTMLAnchorElement) {
+      sidebar.querySelectorAll<HTMLAnchorElement>(".sidebar-link[aria-current]").forEach((link) => {
+        link.removeAttribute("aria-current");
+      });
+      targetLink.setAttribute("aria-current", "page");
+    }
+
+    function keepCurrentSidebarItemInView(behavior: ScrollBehavior = "auto") {
+      const currentLink = sidebar.querySelector<HTMLAnchorElement>('.sidebar-link[aria-current="page"]');
+      if (!currentLink) return;
+      window.requestAnimationFrame(() => {
+        currentLink.scrollIntoView({ block: "center", inline: "nearest", behavior });
+      });
+    }
+
+    function getSidebarScrollKey() {
+      return `dose-sidebar-scroll:${currentPage}`;
+    }
+
+    function restoreSidebarScroll() {
+      const saved = loadPreference<number>(getSidebarScrollKey(), -1);
+      if (saved < 0 || !sidebarInner) {
+        keepCurrentSidebarItemInView();
+        return;
+      }
+
+      sidebarInner.scrollTop = saved;
+    }
+
+    function persistSidebarScroll() {
+      if (!sidebarInner) return;
+      savePreference(getSidebarScrollKey(), sidebarInner.scrollTop);
     }
 
     function linkMarkup(link: SidebarLink) {
@@ -181,7 +479,7 @@ type SidebarGroup = {
           <span class="brand-mark" aria-hidden="true">D</span>
           <span class="brand-copy">
             <span class="brand-name">D.O.S.E</span>
-            <span class="brand-tag">Một liều của sự nhân văn</span>
+            <span class="brand-tag">Một liều của sự nh�n văn</span>
           </span>
         </a>
         ${groups
@@ -207,6 +505,14 @@ type SidebarGroup = {
       appShell.prepend(sidebar);
     } else {
       body.prepend(sidebar);
+    }
+
+    const sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
+    restoreSidebarScroll();
+    if (sidebarInner) {
+      sidebarInner.addEventListener("scroll", () => {
+        persistSidebarScroll();
+      });
     }
 
     let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
@@ -380,6 +686,12 @@ type SidebarGroup = {
 
     sidebar.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
       link.addEventListener("click", () => {
+        const href = link.getAttribute("href") || "";
+        if (href.startsWith("#")) {
+          setCurrentSidebarLink(link);
+          keepCurrentSidebarItemInView("smooth");
+        }
+
         if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
           sidebar.classList.remove("is-open");
           if (backdrop) backdrop.hidden = true;

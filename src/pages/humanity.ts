@@ -1,4 +1,9 @@
-import "../styles/humanity.css";
+import "../styles/tailwind.css";
+import { humanityContent } from "../page-content/humanity";
+import { renderPage } from "../page-content/render";
+renderPage(humanityContent);
+void import("./sidebar");
+
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
 function announce(message: string) {

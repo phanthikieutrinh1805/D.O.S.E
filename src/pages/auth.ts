@@ -1,5 +1,9 @@
-import "../styles/styles.css";
-import "../styles/auth.css";
+import "../styles/tailwind.css";
+import { authContent } from "../page-content/auth";
+import { renderPage } from "../page-content/render";
+renderPage(authContent);
+void import("./sidebar");
+
 const views = ["login", "register", "forgot"] as const;
 type AuthView = (typeof views)[number];
 type ViewOptions = { focusField?: boolean; announce?: boolean };
@@ -61,7 +65,7 @@ function showView(view: AuthView, options: ViewOptions = {}): void {
   }
 
   if (options.announce !== false) {
-    announce(`Ðã chuy?n sang bi?u m?u ${view}.`);
+    announce(`ï¿½ï¿½ chuy?n sang bi?u m?u ${view}.`);
   }
 
   showNextStep(false);
@@ -133,25 +137,25 @@ if (loginForm) {
     const password = document.getElementById("loginPassword") as HTMLInputElement | null;
     if (!email || !password) return;
 
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nh?p email h?p l?.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lï¿½ng nh?p email h?p l?.");
     const validPassword = setError(
       password,
-      password.value.trim().length >= 6 ? "" : "M?t kh?u c?n ít nh?t 6 ký t?."
+      password.value.trim().length >= 6 ? "" : "M?t kh?u c?n ï¿½t nh?t 6 kï¿½ t?."
     );
 
     if (!(validEmail && validPassword)) {
-      setStatus("Bi?u m?u dang nh?p còn l?i. Vui lòng ki?m tra l?i.", "error");
+      setStatus("Bi?u m?u dang nh?p cï¿½n l?i. Vui lï¿½ng ki?m tra l?i.", "error");
       showNextStep(false);
       (loginForm.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus();
-      announce("Bi?u m?u dang nh?p có l?i.");
+      announce("Bi?u m?u dang nh?p cï¿½ l?i.");
       return;
     }
 
     setStatus(
-      "Ðang nh?p demo thành công. B?n có th? vào onboarding d? ch?n nhu c?u h? tr? tru?c khi vào ?ng d?ng."
+      "ï¿½ang nh?p demo thï¿½nh cï¿½ng. B?n cï¿½ th? vï¿½o onboarding d? ch?n nhu c?u h? tr? tru?c khi vï¿½o ?ng d?ng."
     );
     showNextStep(true);
-    announce("Ðang nh?p demo thành công.");
+    announce("ï¿½ang nh?p demo thï¿½nh cï¿½ng.");
     loginForm.reset();
   });
 }
@@ -167,30 +171,30 @@ if (registerForm) {
     const confirmPassword = document.getElementById("registerConfirmPassword") as HTMLInputElement | null;
     if (!name || !email || !password || !confirmPassword) return;
 
-    const validName = setError(name, name.value.trim() ? "" : "Vui lòng nh?p h? và tên.");
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nh?p email h?p l?.");
+    const validName = setError(name, name.value.trim() ? "" : "Vui lï¿½ng nh?p h? vï¿½ tï¿½n.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lï¿½ng nh?p email h?p l?.");
     const validPassword = setError(
       password,
-      password.value.trim().length >= 8 ? "" : "M?t kh?u c?n ít nh?t 8 ký t?."
+      password.value.trim().length >= 8 ? "" : "M?t kh?u c?n ï¿½t nh?t 8 kï¿½ t?."
     );
     const validConfirm = setError(
       confirmPassword,
-      confirmPassword.value === password.value ? "" : "Xác nh?n m?t kh?u chua kh?p."
+      confirmPassword.value === password.value ? "" : "Xï¿½c nh?n m?t kh?u chua kh?p."
     );
 
     if (!(validName && validEmail && validPassword && validConfirm)) {
-      setStatus("Bi?u m?u dang ký còn l?i. Vui lòng ki?m tra l?i.", "error");
+      setStatus("Bi?u m?u dang kï¿½ cï¿½n l?i. Vui lï¿½ng ki?m tra l?i.", "error");
       showNextStep(false);
       (registerForm.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus();
-      announce("Bi?u m?u dang ký có l?i.");
+      announce("Bi?u m?u dang kï¿½ cï¿½ l?i.");
       return;
     }
 
     setStatus(
-      "T?o tài kho?n demo thành công. Ti?p theo b?n có th? dang nh?p b?ng flow th?t.",
+      "T?o tï¿½i kho?n demo thï¿½nh cï¿½ng. Ti?p theo b?n cï¿½ th? dang nh?p b?ng flow th?t.",
       "success"
     );
-    announce("T?o tài kho?n demo thành công.");
+    announce("T?o tï¿½i kho?n demo thï¿½nh cï¿½ng.");
     registerForm.reset();
     showView("login");
   });
@@ -204,21 +208,21 @@ if (forgotForm) {
     const email = document.getElementById("forgotEmail") as HTMLInputElement | null;
     if (!email) return;
 
-    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lòng nh?p email h?p l?.");
+    const validEmail = setError(email, isValidEmail(email.value) ? "" : "Vui lï¿½ng nh?p email h?p l?.");
 
     if (!validEmail) {
-      setStatus("Bi?u m?u khôi ph?c còn l?i. Vui lòng ki?m tra l?i.", "error");
+      setStatus("Bi?u m?u khï¿½i ph?c cï¿½n l?i. Vui lï¿½ng ki?m tra l?i.", "error");
       showNextStep(false);
       email.focus();
-      announce("Bi?u m?u khôi ph?c có l?i.");
+      announce("Bi?u m?u khï¿½i ph?c cï¿½ l?i.");
       return;
     }
 
     setStatus(
-      "Ðã g?i hu?ng d?n khôi ph?c d?ng demo. Sau này bu?c này s? g?i API g?i email th?t.",
+      "ï¿½ï¿½ g?i hu?ng d?n khï¿½i ph?c d?ng demo. Sau nï¿½y bu?c nï¿½y s? g?i API g?i email th?t.",
       "success"
     );
-    announce("Ðã g?i hu?ng d?n khôi ph?c d?ng demo.");
+    announce("ï¿½ï¿½ g?i hu?ng d?n khï¿½i ph?c d?ng demo.");
     forgotForm.reset();
     showView("login");
   });

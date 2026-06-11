@@ -1,4 +1,9 @@
-import "../styles/access.css";
+import "../styles/tailwind.css";
+import { accessContent } from "../page-content/access";
+import { renderPage } from "../page-content/render";
+renderPage(accessContent);
+void import("./sidebar");
+
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
 function announce(message: string) {

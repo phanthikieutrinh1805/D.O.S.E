@@ -1,5 +1,9 @@
-import "../styles/styles.css";
-import "../styles/onboarding.css";
+import "../styles/tailwind.css";
+import { onboardingContent } from "../page-content/onboarding";
+import { renderPage } from "../page-content/render";
+renderPage(onboardingContent);
+void import("./sidebar");
+
 type StepName = "welcome" | "support" | "preview";
 
 const liveRegion = document.getElementById("onboardingLiveRegion") as HTMLElement | null;

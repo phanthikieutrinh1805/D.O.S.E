@@ -1,4 +1,23 @@
-import "../styles/disability-profile.css";
+import "../styles/tailwind.css";
+import { disabilityCognitiveContent } from "../page-content/disability-cognitive";
+import { disabilityHearingContent } from "../page-content/disability-hearing";
+import { disabilityMentalContent } from "../page-content/disability-mental";
+import { disabilityMobilityContent } from "../page-content/disability-mobility";
+import { disabilityVisionContent } from "../page-content/disability-vision";
+import { renderPage } from "../page-content/render";
+
+const disabilityContentMap = {
+  "disability-cognitive.html": disabilityCognitiveContent,
+  "disability-hearing.html": disabilityHearingContent,
+  "disability-mental.html": disabilityMentalContent,
+  "disability-mobility.html": disabilityMobilityContent,
+  "disability-vision.html": disabilityVisionContent
+};
+
+const currentPageName = window.location.pathname.split("/").pop() || "disability-vision.html";
+renderPage(disabilityContentMap[currentPageName] || disabilityVisionContent);
+void import("./sidebar");
+
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
 function announce(message: string) {
@@ -64,7 +83,7 @@ const data = {
         "Bản chữ rút gọn hoặc bản chép lời để tìm ý chính nhanh hơn."
       ],
       checklist: [
-        "Kiểm tra có tiêu đề rõ trước khi đọc sâu.",
+        "Kiểm tra c� ti�u đề r� trước khi đọc s�u.",
         "Xem nội dung quan trọng có đang nằm riêng trong ảnh hay không.",
         "Nếu tài liệu khó đọc, xin phiên bản dạng chữ hoặc mô tả thay thế ngay từ đầu."
       ]
@@ -79,13 +98,13 @@ const data = {
     imageAlt: "Ảnh đại diện cho người khiếm thính",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Phụ đề, bản chép lời, sơ đồ trực quan và thông báo bằng chữ."],
-      ["Rào cản phổ biến", "Video không phụ đề, thông báo chỉ có âm báo, lời nói nhanh không có phần tóm tắt."],
+      ["R�o cản phổ biến", "Video kh�ng phụ đề, th�ng b�o chỉ c� �m b�o, lời n�i nhanh kh�ng c� phần t�m tắt."],
       ["Mục tiêu của trang", "Giúp bạn nhận diện nội dung nghe được dưới dạng nhìn thấy được."]
     ],
     sections: {
       characteristics: [
         "Tiếp nhận hiệu quả hơn khi nội dung được trình bày bằng chữ, biểu tượng và sơ đồ trực quan.",
-        "Dễ bỏ lỡ ý quan trọng nếu thông tin chỉ phát bằng giọng nói hoặc âm báo.",
+        "Dễ bỏ lỡ � quan trọng nếu th�ng tin chỉ ph�t bằng giọng n�i hoặc �m b�o.",
         "Cần đồng bộ giữa hình ảnh trên màn hình và phần giải thích đi kèm."
       ],
       solutions: [
@@ -101,7 +120,7 @@ const data = {
       scenarios: [
         "Bài giảng online chỉ nói miệng, không phụ đề, không có slide rõ ràng.",
         "Nhóm học họp nhanh bằng voice nhưng không để lại tóm tắt bằng chữ.",
-        "Thông báo hệ thống chỉ có âm báo làm bạn không biết chuyện gì xảy ra."
+        "Th�ng b�o hệ thống chỉ c� �m b�o l�m bạn kh�ng biết chuyện g� xảy ra."
       ],
       tools: [
         "Phụ đề, bản chép lời và phụ đề tự động được kiểm tra lại độ chính xác.",
@@ -110,7 +129,7 @@ const data = {
       ],
       checklist: [
         "Kiểm tra video có phụ đề hoặc bản chép lời trước khi xem.",
-        "Xin tài liệu chữ nếu nội dung chủ yếu truyền qua âm thanh.",
+        "Xin t�i liệu chữ nếu nội dung chủ yếu truyền qua �m thanh.",
         "Tóm tắt ý chính ngay sau mỗi phần để không bị mất mạch thông tin."
       ]
     }
@@ -154,8 +173,8 @@ const data = {
         "Bản tóm tắt hoặc luồng thao tác ngắn để giảm số bước cần đi qua."
       ],
       checklist: [
-        "Xem trang có hỗ trợ tab hợp lý trước khi thao tác sâu.",
-        "Ưu tiên nút chính và bỏ qua tính năng phụ nếu gây mệt.",
+        "Xem trang c� hỗ trợ tab hợp l� trước khi thao t�c s�u.",
+        "Ưu ti�n n�t ch�nh v� bỏ qua t�nh năng phụ nếu g�y mệt.",
         "Nếu thao tác quá dài, dừng và chia nhỏ thành các lượt ngắn hơn."
       ]
     }
@@ -168,7 +187,7 @@ const data = {
     image: "asset/khokhannhanthuc,hoc tap.png",
     imageAlt: "Ảnh đại diện cho người gặp khó khăn nhận thức và học tập",
     highlights: [
-      ["Bạn nên ưu tiên gì?", "Câu ngắn, danh sách kiểm tra, tóm tắt ý chính và từng bước nhỏ."],
+      ["Bạn n�n ưu ti�n g�?", "C�u ngắn, danh s�ch kiểm tra, t�m tắt � ch�nh v� từng bước nhỏ."],
       ["Rào cản phổ biến", "Quá nhiều chữ, quá nhiều lựa chọn và nhiều việc phải quyết định cùng lúc."],
       ["Mục tiêu của trang", "Giúp bạn giữ được mạch hiểu và giảm áp lực xử lý thông tin."]
     ],
@@ -189,7 +208,7 @@ const data = {
         "Có ví dụ cụ thể hoặc danh sách kiểm tra để mình theo dõi dễ hơn không?"
       ],
       scenarios: [
-        "Trang có nhiều phần cùng lúc và không rõ nên bắt đầu từ đâu.",
+        "Trang c� nhiều phần c�ng l�c v� kh�ng r� n�n bắt đầu từ đ�u.",
         "Tài liệu dài nhưng không có tóm tắt hay đánh dấu ý chính.",
         "Bị ngợp khi phải vừa đọc vừa nhớ vừa quyết định bước tiếp theo."
       ],
@@ -206,15 +225,15 @@ const data = {
     }
   },
   mental: {
-    title: "Không gian riêng cho Khó khăn sức khỏe tâm thần",
+    title: "Kh�ng gian ri�ng cho Kh� khăn sức khỏe t�m thần",
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này ưu tiên cảm giác an toàn, nhịp tiếp cận nhẹ hơn và những điều chỉnh giúp bạn quay lại nội dung số mà không tự tạo thêm áp lực cho mình.",
     image: "asset/khokhansuckhoetamthan.png",
-    imageAlt: "Ảnh đại diện cho người gặp khó khăn sức khỏe tâm thần",
+    imageAlt: "Ảnh đại diện cho người gặp kh� khăn sức khỏe t�m thần",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Nhịp nội dung dịu hơn, ít kích thích, quyền tạm dừng và quay lại dễ dàng."],
-      ["Rào cản phổ biến", "Thông tin dồn dập, cảnh báo mạnh, deadline gây áp lực và giao diện quá kích thích."],
+      ["R�o cản phổ biến", "Th�ng tin dồn dập, cảnh b�o mạnh, deadline g�y �p lực v� giao diện qu� k�ch th�ch."],
       ["Mục tiêu của trang", "Giúp bạn duy trì cảm giác kiểm soát và tiếp cận nội dung theo nhịp riêng."]
     ],
     sections: {
@@ -230,7 +249,7 @@ const data = {
       ],
       requests: [
         "Mình có thể xem bản tóm tắt trước rồi mới quay lại nội dung đầy đủ không?",
-        "Nội dung này có cách trình bày dịu hơn hoặc ít gây áp lực hơn không?",
+        "Nội dung n�y c� c�ch tr�nh b�y dịu hơn hoặc �t g�y �p lực hơn kh�ng?",
         "Mình có thể xin thêm thời gian hoặc chia nhỏ phần này được không?"
       ],
       scenarios: [
@@ -246,7 +265,7 @@ const data = {
       checklist: [
         "Đặt mục tiêu nhỏ và thực tế trước khi bắt đầu.",
         "Nếu thấy quá tải, chuyển sang mục nhẹ hơn hoặc tóm tắt trước.",
-        "Cho phép mình nghỉ và quay lại mà không tự trách bản thân."
+        "Cho ph�p m�nh nghỉ v� quay lại m� kh�ng tự tr�ch bản th�n."
       ]
     }
   }

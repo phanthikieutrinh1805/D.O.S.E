@@ -1,5 +1,9 @@
-import "./styles/styles.css";
-import "./styles/chat.css";
+import "./styles/tailwind.css";
+import { homeContent } from "./page-content/home";
+import { renderPage } from "./page-content/render";
+renderPage(homeContent);
+void import("./pages/sidebar");
+
 declare const marked: { parse(content: string): string } | undefined;
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;

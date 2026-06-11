@@ -1,4 +1,9 @@
-import "../styles/education.css";
+import "../styles/tailwind.css";
+import { educationContent } from "../page-content/education";
+import { renderPage } from "../page-content/render";
+renderPage(educationContent);
+void import("./sidebar");
+
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
 function announce(message: string) {
