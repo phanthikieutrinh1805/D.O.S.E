@@ -16,8 +16,7 @@ const DEFAULT_SETTINGS = {
   fontScale: 100,
   highContrast: false,
   reducedMotion: false,
-  simpleMode: false,
-  darkMode: false
+  simpleMode: false
 };
 
 const SETTINGS_META = {
@@ -45,22 +44,13 @@ const SETTINGS_META = {
     onMessage: "Đã bật simple mode để giảm nhiễu giao diện.",
     offMessage: "Đã tắt simple mode."
   },
-  "dark-mode": {
-    className: "dark",
-    storageKey: "dose-dark-mode",
-    onLabel: "Tắt chế độ tối",
-    offLabel: "Bật chế độ tối",
-    onMessage: "Đã bật chế độ tối.",
-    offMessage: "Đã quay về chế độ sáng."
-  }
 };
 
 const settings = {
   fontScale: loadPreference("dose-font-scale", DEFAULT_SETTINGS.fontScale),
   highContrast: loadPreference(SETTINGS_META["high-contrast"].storageKey, DEFAULT_SETTINGS.highContrast),
   reducedMotion: loadPreference(SETTINGS_META["reduce-motion"].storageKey, DEFAULT_SETTINGS.reducedMotion),
-  simpleMode: loadPreference(SETTINGS_META["simple-mode"].storageKey, DEFAULT_SETTINGS.simpleMode),
-  darkMode: loadPreference(SETTINGS_META["dark-mode"].storageKey, DEFAULT_SETTINGS.darkMode)
+  simpleMode: loadPreference(SETTINGS_META["simple-mode"].storageKey, DEFAULT_SETTINGS.simpleMode)
 };
 
 const panel = $("accessibilityPanel");
@@ -159,8 +149,6 @@ function getSettingState(settingName) {
       return settings.reducedMotion;
     case "simple-mode":
       return settings.simpleMode;
-    case "dark-mode":
-      return settings.darkMode;
     default:
       return false;
   }
@@ -176,9 +164,6 @@ function setSettingState(settingName, next) {
       break;
     case "simple-mode":
       settings.simpleMode = next;
-      break;
-    case "dark-mode":
-      settings.darkMode = next;
       break;
     default:
       break;

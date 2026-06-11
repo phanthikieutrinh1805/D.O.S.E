@@ -12,7 +12,7 @@ type SidebarGroup = {
   links: SidebarLink[];
 };
 
-type DisplaySetting = "high-contrast" | "reduce-motion" | "simple-mode" | "dark-mode";
+type DisplaySetting = "high-contrast" | "reduce-motion" | "simple-mode";
 
 type SettingMeta = {
   className: string;
@@ -48,14 +48,6 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     offLabel: "Chế độ đơn giản",
     onMessage: "Đã bật chế độ đơn giản.",
     offMessage: "Đã tắt chế độ đơn giản."
-  },
-  "dark-mode": {
-    className: "dark",
-    storageKey: "dose-dark-mode",
-    onLabel: "Tắt chế độ tối",
-    offLabel: "Chế độ tối",
-    onMessage: "Đã bật chế độ tối.",
-    offMessage: "Đã quay về chế độ sáng."
   }
 };
 
@@ -89,7 +81,6 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     const highContrast = loadPreference(SETTINGS_META["high-contrast"].storageKey, false);
     const reducedMotion = loadPreference(SETTINGS_META["reduce-motion"].storageKey, false);
     const simpleMode = loadPreference(SETTINGS_META["simple-mode"].storageKey, false);
-    const darkMode = loadPreference(SETTINGS_META["dark-mode"].storageKey, false);
 
     document.documentElement.style.setProperty("--font-scale-custom", `${fontScale}%`);
     document.documentElement.style.setProperty("--font-scale", `${fontScale}%`);
@@ -99,7 +90,6 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     body.classList.toggle("high-contrast", Boolean(highContrast));
     body.classList.toggle("reduce-motion", Boolean(reducedMotion));
     body.classList.toggle("simple-mode", Boolean(simpleMode));
-    body.classList.toggle("dark", Boolean(darkMode));
   }
 
   applyStoredDisplayPreferences();
@@ -216,13 +206,6 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
             <span class="setting-copy">
               <span class="setting-title">Chế độ đơn giản</span>
               <span class="helper-text">Giảm nhiễu thị giác và giữ bố cục dễ đọc hơn.</span>
-            </span>
-            <span class="toggle-indicator" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="setting-toggle" data-global-setting-toggle="dark-mode" aria-pressed="false">
-            <span class="setting-copy">
-              <span class="setting-title">Chế độ tối</span>
-              <span class="helper-text">Nền tối xanh đậm, chữ sáng đủ tương phản.</span>
             </span>
             <span class="toggle-indicator" aria-hidden="true"></span>
           </button>
