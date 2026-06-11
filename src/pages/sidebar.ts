@@ -698,3 +698,163 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     });
   });
 })();
+
+/* ──────────────────────────────────────────────────────────────────
+   GLOBAL CHAT WIDGET
+   Appears on every page. Hidden by default (CSS: display:none).
+   Clicking the chat button toggles the panel open/closed.
+────────────────────────────────────────────────────────────────── */
+(function initChatWidget() {
+  if (document.getElementById("globalChatWidget")) return;
+
+  // ── Button ─────────────────────────────────────────────────────
+  const chatBtn = document.createElement("button");
+  chatBtn.id = "globalChatBtn";
+  chatBtn.className = "chat-fab";
+  chatBtn.type = "button";
+  chatBtn.setAttribute("aria-label", "Mở hộp trò chuyện");
+  chatBtn.setAttribute("aria-expanded", "false");
+  chatBtn.setAttribute("aria-controls", "globalChatPanel");
+  chatBtn.innerHTML = `
+    <span class="chat-fab__icon" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </span>
+    <span class="chat-fab__label">Chat</span>
+  `;
+
+  // ── Panel ───────────────────────────────────────────────────────
+  const chatPanel = document.createElement("aside");
+  chatPanel.id = "globalChatPanel";
+  chatPanel.className = "chat-panel";
+  chatPanel.setAttribute("role", "dialog");
+  chatPanel.setAttribute("aria-modal", "false");
+  chatPanel.setAttribute("aria-label", "Hộp trò chuyện");
+  chatPanel.setAttribute("hidden", "");
+  chatPanel.innerHTML = `
+    <div class="chat-panel__header">
+      <div class="chat-panel__header-brand">
+        <span class="chat-panel__avatar" aria-hidden="true">D</span>
+        <div>
+          <strong class="chat-panel__title">D.O.S.E Hỗ trợ</strong>
+          <span class="chat-panel__status">
+            <span class="chat-panel__dot" aria-hidden="true"></span>Trực tuyến
+          </span>
+        </div>
+      </div>
+      <button id="chatCloseBtn" class="chat-panel__close" type="button" aria-label="Đóng hộp trò chuyện">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="chat-panel__messages" id="chatMessages" role="log" aria-live="polite" aria-label="Tin nhắn">
+      <div class="chat-msg chat-msg--bot">
+        <span class="chat-msg__bubble">
+          Xin chào! Tôi là trợ lý D.O.S.E. Bạn cần hỗ trợ gì về truy cập thông tin, giáo dục hay cơ hội học tập? 😊
+        </span>
+      </div>
+    </div>
+    <form class="chat-panel__input-area" id="chatForm" autocomplete="off" novalidate>
+      <label class="sr-only" for="chatInput">Nhập tin nhắn</label>
+      <input
+        id="chatInput"
+        class="chat-panel__input"
+        type="text"
+        placeholder="Nhập tin nhắn…"
+        maxlength="500"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="chat-panel__send" type="submit" aria-label="Gửi tin nhắn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </form>
+  `;
+
+  // ── Wrapper ─────────────────────────────────────────────────────
+  const widget = document.createElement("div");
+  widget.id = "globalChatWidget";
+  widget.className = "chat-widget";
+  widget.appendChild(chatPanel);
+  widget.appendChild(chatBtn);
+  document.body.appendChild(widget);
+
+  // ── Logic ───────────────────────────────────────────────────────
+  let chatOpen = false;
+
+  function openChat() {
+    chatOpen = true;
+    chatPanel.removeAttribute("hidden");
+    chatBtn.setAttribute("aria-expanded", "true");
+    chatBtn.classList.add("is-active");
+    const input = document.getElementById("chatInput") as HTMLInputElement | null;
+    if (input) setTimeout(() => input.focus(), 60);
+  }
+
+  function closeChat() {
+    chatOpen = false;
+    chatPanel.setAttribute("hidden", "");
+    chatBtn.setAttribute("aria-expanded", "false");
+    chatBtn.classList.remove("is-active");
+    chatBtn.focus();
+  }
+
+  chatBtn.addEventListener("click", () => {
+    chatOpen ? closeChat() : openChat();
+  });
+
+  const closeBtn = document.getElementById("chatCloseBtn");
+  if (closeBtn) closeBtn.addEventListener("click", closeChat);
+
+  // Close on Escape
+  chatPanel.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeChat();
+  });
+
+  // Simple bot reply
+  const chatForm = document.getElementById("chatForm") as HTMLFormElement | null;
+  const messagesEl = document.getElementById("chatMessages");
+  const botReplies = [
+    "Tôi hiểu. Hãy cho tôi biết thêm về nhu cầu của bạn nhé!",
+    "D.O.S.E luôn sẵn sàng hỗ trợ bạn tiếp cận thông tin phù hợp.",
+    "Bạn có thể xem mục 'Tiếp cận' để tìm giải pháp hỗ trợ kỹ thuật.",
+    "Hãy thử khám phá phần 'Hồ sơ người khuyết tật' để có trải nghiệm cá nhân hóa hơn.",
+    "Cảm ơn bạn đã chia sẻ. Chúng tôi sẽ cải thiện D.O.S.E dựa trên phản hồi của bạn!"
+  ];
+  let botReplyIdx = 0;
+
+  function addMessage(text: string, role: "user" | "bot") {
+    if (!messagesEl) return;
+    const div = document.createElement("div");
+    div.className = `chat-msg chat-msg--${role}`;
+    const bubble = document.createElement("span");
+    bubble.className = "chat-msg__bubble";
+    bubble.textContent = text;
+    div.appendChild(bubble);
+    messagesEl.appendChild(div);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  if (chatForm) {
+    chatForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const input = document.getElementById("chatInput") as HTMLInputElement | null;
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+      addMessage(text, "user");
+      input.value = "";
+      // Simulated bot reply after short delay
+      setTimeout(() => {
+        addMessage(botReplies[botReplyIdx % botReplies.length], "bot");
+        botReplyIdx++;
+      }, 600);
+    });
+  }
+})();
+
+// end sidebar.ts
