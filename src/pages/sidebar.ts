@@ -283,9 +283,8 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     });
   }
 
-  const currentPage = window.location.hash.match(/^#\/[^?]+/)?.[0] || "#/home";
-  const currentHash = window.location.hash || "";
-  const isHomePage = currentPage === "#/home";
+  let currentPage = window.location.hash.match(/^#\/[^?]+/)?.[0] || "#/home";
+  let currentHash = window.location.hash || "";
   const homeHref = "#/home";
   const moduleHref = (page: string) => page;
   const shortcutLabel = (() => {
@@ -316,8 +315,9 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
   createGlobalAccessibilityControls();
   syncGlobalControls();
 
-  const groups: SidebarGroup[] = currentPage === "#/dashboard"
-    ? [
+  function createSidebarGroups(): SidebarGroup[] {
+    return currentPage === "#/dashboard"
+      ? [
       {
         label: "Bảng điều khiển",
         links: [
@@ -389,6 +389,9 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
         ]
       }
     ];
+  }
+
+  let groups = createSidebarGroups();
 
   function isCurrent(link: SidebarLink) {
     if (currentPage !== link.match) return false;
@@ -431,6 +434,24 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     savePreference(getSidebarScrollKey(), sidebarInner.scrollTop);
   }
 
+  function refreshCurrentRoute() {
+    currentPage = window.location.hash.match(/^#\/[^?]+/)?.[0] || "#/home";
+    currentHash = window.location.hash || "";
+  }
+
+  function syncCurrentSidebarLink() {
+    sidebar.querySelectorAll<HTMLAnchorElement>(".sidebar-link[aria-current]").forEach((link) => {
+      link.removeAttribute("aria-current");
+    });
+
+    const currentLink = Array.from(sidebar.querySelectorAll<HTMLAnchorElement>(".sidebar-link")).find((link) => {
+      const href = link.getAttribute("href") || "";
+      return groups.some((group) => group.links.some((item) => item.href === href && isCurrent(item)));
+    });
+
+    if (currentLink) currentLink.setAttribute("aria-current", "page");
+  }
+
   function linkMarkup(link: SidebarLink) {
     const currentAttr = isCurrent(link) ? ' aria-current="page"' : "";
     const keytipAttr = link.keytip ? ` data-keytip="${link.keytip}"` : "";
@@ -442,6 +463,38 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
           </a>
         </li>
       `;
+  }
+
+  function getSidebarMarkup() {
+    return `
+      <div class="sidebar-inner">
+        <a
+          class="brand brand-sidebar"
+          href="${homeHref}"
+          aria-label="D.O.S.E trang \u0063h\u1ee7"
+          data-keytip="D"
+          aria-keyshortcuts="Alt+D"
+        >
+          <span class="brand-mark" aria-hidden="true">D</span>
+          <span class="brand-copy">
+            <span class="brand-name">D.O.S.E</span>
+            <span class="brand-tag">M\u1ed9t li\u1ec1u c\u1ee7a s\u1ef1 Nh\u00e2n v\u0103n</span>
+          </span>
+        </a>
+        ${groups
+        .map(
+          (group) => `
+              <nav class="sidebar-nav" aria-label="${group.label}">
+                <p class="sidebar-label">${group.label}</p>
+                <ul class="sidebar-list">
+                  ${group.links.map((link) => linkMarkup(link)).join("")}
+                </ul>
+              </nav>
+            `
+        )
+        .join("")}
+      </div>
+    `;
   }
 
   const sidebar = document.createElement("aside");
@@ -479,37 +532,51 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     `;
 
   let appShell = document.querySelector(".app-shell");
+  let sidebarMode = currentPage === "#/dashboard" ? "dashboard" : "default";
+  let sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
+
+  function bindSidebarScroll() {
+    sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
+    if (!sidebarInner || sidebarInner.dataset.scrollBound === "true") return;
+    sidebarInner.dataset.scrollBound = "true";
+    sidebarInner.addEventListener("scroll", () => {
+      persistSidebarScroll();
+    });
+  }
 
   function mountSidebar() {
+    refreshCurrentRoute();
+    const nextSidebarMode = currentPage === "#/dashboard" ? "dashboard" : "default";
+    if (nextSidebarMode !== sidebarMode) {
+      sidebarMode = nextSidebarMode;
+      groups = createSidebarGroups();
+      sidebar.innerHTML = getSidebarMarkup();
+      bindSidebarScroll();
+    }
+
+    applyStoredDisplayPreferences();
+    syncGlobalControls();
     appShell = document.querySelector(".app-shell");
     const existingSideNav = document.getElementById("sideNav");
     
-    if (existingSideNav) {
+    if (existingSideNav && existingSideNav !== sidebar) {
       existingSideNav.replaceWith(sidebar);
-    } else if (appShell) {
-      appShell.prepend(sidebar);
-    } else {
+    }
+
+    if (sidebar.parentElement !== document.body || document.body.firstElementChild !== sidebar) {
       document.body.prepend(sidebar);
     }
 
-    if (!appShell) {
-      document.body.classList.add("has-global-sidebar");
-    } else {
-      document.body.classList.remove("has-global-sidebar");
-    }
+    document.body.classList.add("has-global-sidebar");
+    syncCurrentSidebarLink();
   }
 
   mountSidebar();
 
   window.addEventListener("route-changed", mountSidebar);
 
-  const sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
+  bindSidebarScroll();
   restoreSidebarScroll();
-  if (sidebarInner) {
-    sidebarInner.addEventListener("scroll", () => {
-      persistSidebarScroll();
-    });
-  }
 
   let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
   if (!backdrop) {
@@ -580,12 +647,15 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
   }
 
   {
-    const keytipTargets = Array.from(sidebar.querySelectorAll<HTMLElement>("[data-keytip]"));
     let keytipModeActive = false;
     let optionKeyDown = false;
 
+    function getKeytipTargets() {
+      return Array.from(sidebar.querySelectorAll<HTMLElement>("[data-keytip]"));
+    }
+
     function hideKeytips() {
-      keytipTargets.forEach((element) => {
+      getKeytipTargets().forEach((element) => {
         const badge = element.querySelector(".keytip-badge");
         if (badge) badge.remove();
       });
@@ -593,7 +663,7 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     }
 
     function showKeytips() {
-      keytipTargets.forEach((element) => {
+      getKeytipTargets().forEach((element) => {
         if (element.querySelector(".keytip-badge")) return;
         const keytip = element.dataset.keytip;
         if (!keytip) return;
@@ -621,7 +691,7 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     }
 
     function activateKeytip(key: string) {
-      const matchedTarget = keytipTargets.find(
+      const matchedTarget = getKeytipTargets().find(
         (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
       );
 
@@ -680,20 +750,21 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     });
   }
 
-  sidebar.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      const href = link.getAttribute("href") || "";
-      if (href.startsWith("#")) {
-        setCurrentSidebarLink(link);
-        keepCurrentSidebarItemInView("smooth");
-      }
+  sidebar.addEventListener("click", (event) => {
+    const link = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>("a");
+    if (!link || !sidebar.contains(link)) return;
 
-      if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
-        sidebar.classList.remove("is-open");
-        if (backdrop) backdrop.hidden = true;
-        if (toggle) toggle.setAttribute("aria-expanded", "false");
-      }
-    });
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("#")) {
+      setCurrentSidebarLink(link);
+      keepCurrentSidebarItemInView("smooth");
+    }
+
+    if (!appShell && window.innerWidth <= 992 && sidebar.classList.contains("is-open")) {
+      sidebar.classList.remove("is-open");
+      if (backdrop) backdrop.hidden = true;
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    }
   });
 })();
 
