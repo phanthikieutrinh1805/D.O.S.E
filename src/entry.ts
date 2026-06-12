@@ -52,6 +52,8 @@ void routeModules[route]();
 
 window.addEventListener("hashchange", () => {
   if (window.location.hash.startsWith("#/")) {
-    window.location.reload();
+    const nextRoute = getRouteKey();
+    normalizeUrl(nextRoute);
+    void routeModules[nextRoute]();
   }
 });

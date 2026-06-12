@@ -20,7 +20,13 @@ export function renderPage(content: PageContent): void {
     document.body.setAttribute(name, value);
   });
 
-  document.body.innerHTML = content.html;
+  const appContainer = document.getElementById("app");
+  if (appContainer) {
+    appContainer.innerHTML = content.html;
+  } else {
+    // fallback if no #app is found
+    document.body.innerHTML = content.html;
+  }
 
   const anchor = new URLSearchParams(window.location.hash.split("?")[1] || "").get("anchor");
   if (anchor) {
