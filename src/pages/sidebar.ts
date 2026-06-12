@@ -483,12 +483,19 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
   function mountSidebar() {
     appShell = document.querySelector(".app-shell");
     const existingSideNav = document.getElementById("sideNav");
+    
     if (existingSideNav) {
       existingSideNav.replaceWith(sidebar);
     } else if (appShell) {
       appShell.prepend(sidebar);
     } else {
-      body.prepend(sidebar);
+      document.body.prepend(sidebar);
+    }
+
+    if (!appShell) {
+      document.body.classList.add("has-global-sidebar");
+    } else {
+      document.body.classList.remove("has-global-sidebar");
     }
   }
 

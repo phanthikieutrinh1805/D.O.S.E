@@ -1,8 +1,9 @@
 import "../styles/tailwind.css";
 import { educationContent } from "../page-content/education";
 import { renderPage } from "../page-content/render";
-renderPage(educationContent);
-void import("./sidebar");
+
+export function mount() {
+  renderPage(educationContent);
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
@@ -61,3 +62,4 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+}

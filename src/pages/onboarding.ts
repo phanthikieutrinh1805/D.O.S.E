@@ -1,8 +1,9 @@
 import "../styles/tailwind.css";
 import { onboardingContent } from "../page-content/onboarding";
 import { renderPage } from "../page-content/render";
-renderPage(onboardingContent);
-void import("./sidebar");
+
+export function mount() {
+  renderPage(onboardingContent);
 
 type StepName = "welcome" | "support" | "preview";
 
@@ -407,3 +408,4 @@ document.addEventListener("click", () => {
   if (!keytipModeActive) return;
   hideKeytips();
 });
+}

@@ -1,8 +1,9 @@
 import "../styles/tailwind.css";
 import { authContent } from "../page-content/auth";
 import { renderPage } from "../page-content/render";
-renderPage(authContent);
-void import("./sidebar");
+
+export function mount() {
+  renderPage(authContent);
 
 const views = ["login", "register", "forgot"] as const;
 type AuthView = (typeof views)[number];
@@ -234,3 +235,4 @@ if (forgotForm) {
 }
 
 showView("login", { announce: false, focusField: false });
+}

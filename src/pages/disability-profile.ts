@@ -19,9 +19,9 @@ const disabilityContentMap = {
   vision: disabilityVisionContent
 };
 
-const currentProfileKey = window.location.hash.match(/^#\/disability-([^?]+)/)?.[1] || "vision";
-renderPage(disabilityContentMap[currentProfileKey] || disabilityVisionContent);
-void import("./sidebar");
+export function mount() {
+  const currentProfileKey = window.location.hash.match(/^#\/disability-([^?]+)/)?.[1] || "vision";
+  renderPage(disabilityContentMap[currentProfileKey as keyof typeof disabilityContentMap] || disabilityVisionContent);
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
@@ -343,3 +343,4 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+}

@@ -1,8 +1,9 @@
 import "../styles/tailwind.css";
 import { opportunityContent } from "../page-content/opportunity";
 import { renderPage } from "../page-content/render";
-renderPage(opportunityContent);
-void import("./sidebar");
+
+export function mount() {
+  renderPage(opportunityContent);
 
 type DisabilityType = "vision" | "hearing" | "mobility" | "cognitive" | "mental" | "none";
 
@@ -853,4 +854,5 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
+}
 

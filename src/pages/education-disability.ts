@@ -1,8 +1,9 @@
 import "../styles/tailwind.css";
 import { educationDisabilityContent } from "../page-content/education-disability";
 import { renderPage } from "../page-content/render";
-renderPage(educationDisabilityContent);
-void import("./sidebar");
+
+export function mount() {
+  renderPage(educationDisabilityContent);
 
 type DisabilityType = "vision" | "hearing" | "mobility" | "cognitive" | "mental";
 type DisabilityProfile = {
@@ -195,3 +196,4 @@ form?.addEventListener("submit", (event) => {
     window.location.href = destination;
   }
 });
+}

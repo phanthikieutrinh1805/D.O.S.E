@@ -1,953 +1,955 @@
 import "./styles/tailwind.css";
 import { homeContent } from "./page-content/home";
 import { renderPage } from "./page-content/render";
-renderPage(homeContent);
-void import("./pages/sidebar");
 
 declare const marked: { parse(content: string): string } | undefined;
 
-const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
+export function mount() {
+  renderPage(homeContent);
+  void import("./pages/sidebar");
 
-const liveRegion = $("liveRegion");
-const body = document.body;
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T | null;
 
-const FONT_SCALE_STEPS = [100, 112.5, 125, 150];
-const DEFAULT_SETTINGS = {
-  fontScale: 100,
-  highContrast: false,
-  reducedMotion: false,
-  simpleMode: false
-};
+  const liveRegion = $("liveRegion");
+  const body = document.body;
 
-const SETTINGS_META = {
-  "high-contrast": {
-    className: "high-contrast",
-    storageKey: "dose-high-contrast",
-    onLabel: "Tắt tương phản cao",
-    offLabel: "Tương phản cao",
-    onMessage: "Đã bật chế độ tương phản cao.",
-    offMessage: "Đã tắt chế độ tương phản cao."
-  },
-  "reduce-motion": {
-    className: "reduce-motion",
-    storageKey: "dose-reduce-motion",
-    onLabel: "Bật chuyển động",
-    offLabel: "Giảm chuyển động",
-    onMessage: "Đã bật chế độ giảm chuyển động.",
-    offMessage: "Đã dùng lại chuyển động mặc định."
-  },
-  "simple-mode": {
-    className: "simple-mode",
-    storageKey: "dose-simple-mode",
-    onLabel: "Tắt chế độ đơn giản",
-    offLabel: "Bật chế độ đơn giản",
-    onMessage: "Đã bật simple mode để giảm nhiễu giao diện.",
-    offMessage: "Đã tắt simple mode."
-  },
-};
+  const FONT_SCALE_STEPS = [100, 112.5, 125, 150];
+  const DEFAULT_SETTINGS = {
+    fontScale: 100,
+    highContrast: false,
+    reducedMotion: false,
+    simpleMode: false
+  };
 
-const settings = {
-  fontScale: loadPreference("dose-font-scale", DEFAULT_SETTINGS.fontScale),
-  highContrast: loadPreference(SETTINGS_META["high-contrast"].storageKey, DEFAULT_SETTINGS.highContrast),
-  reducedMotion: loadPreference(SETTINGS_META["reduce-motion"].storageKey, DEFAULT_SETTINGS.reducedMotion),
-  simpleMode: loadPreference(SETTINGS_META["simple-mode"].storageKey, DEFAULT_SETTINGS.simpleMode)
-};
+  const SETTINGS_META = {
+    "high-contrast": {
+      className: "high-contrast",
+      storageKey: "dose-high-contrast",
+      onLabel: "Tắt tương phản cao",
+      offLabel: "Tương phản cao",
+      onMessage: "Đã bật chế độ tương phản cao.",
+      offMessage: "Đã tắt chế độ tương phản cao."
+    },
+    "reduce-motion": {
+      className: "reduce-motion",
+      storageKey: "dose-reduce-motion",
+      onLabel: "Bật chuyển động",
+      offLabel: "Giảm chuyển động",
+      onMessage: "Đã bật chế độ giảm chuyển động.",
+      offMessage: "Đã dùng lại chuyển động mặc định."
+    },
+    "simple-mode": {
+      className: "simple-mode",
+      storageKey: "dose-simple-mode",
+      onLabel: "Tắt chế độ đơn giản",
+      offLabel: "Bật chế độ đơn giản",
+      onMessage: "Đã bật simple mode để giảm nhiễu giao diện.",
+      offMessage: "Đã tắt simple mode."
+    },
+  };
 
-const panel = $("accessibilityPanel");
-const panelCloseButton = $("accessibilityPanelClose");
-const panelOpenButtons = document.querySelectorAll<HTMLButtonElement>("[data-panel-open]");
-const panelToggles = document.querySelectorAll<HTMLButtonElement>("[data-setting-toggle]");
-const increaseFontButton = $("increaseFontButton") as HTMLButtonElement | null;
-const decreaseFontButton = $("decreaseFontButton") as HTMLButtonElement | null;
-const fontSizeStatus = $("fontSizeStatus") as HTMLOutputElement | null;
-const ttsDemoButton = $("ttsDemoButton") as HTMLButtonElement | null;
-const contactForm = $("contactForm") as HTMLFormElement | null;
-const menuToggle = $("menuToggle") as HTMLButtonElement | null;
-const sideNav = $("sideNav") as HTMLElement | null;
-const mobileNavBackdrop = $("mobileNavBackdrop") as HTMLElement | null;
-const shortcutHint = $("shortcutHint");
-const keyboardHelperHint = $("keyboardHelperHint");
-const keytipHint = $("keytipHint");
-const accessOnboarding = $("accessOnboarding");
-const accessOnboardingOptions = accessOnboarding
-  ? Array.from(accessOnboarding.querySelectorAll<HTMLButtonElement>("[data-access-profile]"))
-  : [];
-const confirmOnboardingButton = $("confirmOnboardingButton") as HTMLButtonElement | null;
-const skipOnboardingButton = $("skipOnboardingButton") as HTMLButtonElement | null;
+  const settings = {
+    fontScale: loadPreference("dose-font-scale", DEFAULT_SETTINGS.fontScale),
+    highContrast: loadPreference(SETTINGS_META["high-contrast"].storageKey, DEFAULT_SETTINGS.highContrast),
+    reducedMotion: loadPreference(SETTINGS_META["reduce-motion"].storageKey, DEFAULT_SETTINGS.reducedMotion),
+    simpleMode: loadPreference(SETTINGS_META["simple-mode"].storageKey, DEFAULT_SETTINGS.simpleMode)
+  };
 
-const ACCESS_PROFILE_STORAGE_KEY = "dose-access-profile";
-const ACCESS_ONBOARDING_SEEN_STORAGE_KEY = "dose-access-onboarding-seen";
+  const panel = $("accessibilityPanel");
+  const panelCloseButton = $("accessibilityPanelClose");
+  const panelOpenButtons = document.querySelectorAll<HTMLButtonElement>("[data-panel-open]");
+  const panelToggles = document.querySelectorAll<HTMLButtonElement>("[data-setting-toggle]");
+  const increaseFontButton = $("increaseFontButton") as HTMLButtonElement | null;
+  const decreaseFontButton = $("decreaseFontButton") as HTMLButtonElement | null;
+  const fontSizeStatus = $("fontSizeStatus") as HTMLOutputElement | null;
+  const ttsDemoButton = $("ttsDemoButton") as HTMLButtonElement | null;
+  const contactForm = $("contactForm") as HTMLFormElement | null;
+  const menuToggle = $("menuToggle") as HTMLButtonElement | null;
+  const sideNav = $("sideNav") as HTMLElement | null;
+  const mobileNavBackdrop = $("mobileNavBackdrop") as HTMLElement | null;
+  const shortcutHint = $("shortcutHint");
+  const keyboardHelperHint = $("keyboardHelperHint");
+  const keytipHint = $("keytipHint");
+  const accessOnboarding = $("accessOnboarding");
+  const accessOnboardingOptions = accessOnboarding
+    ? Array.from(accessOnboarding.querySelectorAll<HTMLButtonElement>("[data-access-profile]"))
+    : [];
+  const confirmOnboardingButton = $("confirmOnboardingButton") as HTMLButtonElement | null;
+  const skipOnboardingButton = $("skipOnboardingButton") as HTMLButtonElement | null;
 
-let lastPanelTrigger: HTMLElement | null = null;
-let currentUtterance: SpeechSynthesisUtterance | null = null;
-let lastMenuTrigger: HTMLElement | null = null;
-let keytipModeActive = false;
-let altKeyDown = false;
-let selectedAccessProfile = "";
-let lastOnboardingTrigger: HTMLElement | null = null;
+  const ACCESS_PROFILE_STORAGE_KEY = "dose-access-profile";
+  const ACCESS_ONBOARDING_SEEN_STORAGE_KEY = "dose-access-onboarding-seen";
 
-const keytipTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
+  let lastPanelTrigger: HTMLElement | null = null;
+  let currentUtterance: SpeechSynthesisUtterance | null = null;
+  let lastMenuTrigger: HTMLElement | null = null;
+  let keytipModeActive = false;
+  let altKeyDown = false;
+  let selectedAccessProfile = "";
+  let lastOnboardingTrigger: HTMLElement | null = null;
 
-function announce(message) {
-  if (!liveRegion) return;
-  liveRegion.textContent = "";
-  window.setTimeout(() => {
-    liveRegion.textContent = message;
-  }, 30);
-}
+  const keytipTargets = Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
 
-function savePreference(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (_error) {
-    // Ignore storage failures so the UI still works.
-  }
-}
-
-function loadPreference(key, fallback) {
-  try {
-    const value = localStorage.getItem(key);
-    return value === null ? fallback : JSON.parse(value);
-  } catch (_error) {
-    return fallback;
-  }
-}
-
-function clampFontScale(value) {
-  if (FONT_SCALE_STEPS.includes(value)) return value;
-  return DEFAULT_SETTINGS.fontScale;
-}
-
-function applyFontScale() {
-  const value = clampFontScale(settings.fontScale);
-  settings.fontScale = value;
-  document.documentElement.style.setProperty("--font-scale", `${value}%`);
-  document.documentElement.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
-  body.style.setProperty("--font-scale-custom", `${value}%`);
-  body.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
-  savePreference("dose-font-scale", value);
-
-  if (fontSizeStatus) {
-    fontSizeStatus.value = `${value}%`;
-    fontSizeStatus.textContent = `${value}%`;
+  function announce(message: string) {
+    if (!liveRegion) return;
+    liveRegion.textContent = "";
+    window.setTimeout(() => {
+      liveRegion.textContent = message;
+    }, 30);
   }
 
-  if (increaseFontButton) {
-    increaseFontButton.disabled = value === FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1];
+  function savePreference(key: string, value: any) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (_error) {
+      // Ignore storage failures so the UI still works.
+    }
   }
 
-  if (decreaseFontButton) {
-    decreaseFontButton.disabled = value === FONT_SCALE_STEPS[0];
+  function loadPreference(key: string, fallback: any) {
+    try {
+      const value = localStorage.getItem(key);
+      return value === null ? fallback : JSON.parse(value);
+    } catch (_error) {
+      return fallback;
+    }
   }
-}
 
-function getSettingState(settingName) {
-  switch (settingName) {
-    case "high-contrast":
-      return settings.highContrast;
-    case "reduce-motion":
-      return settings.reducedMotion;
-    case "simple-mode":
-      return settings.simpleMode;
-    default:
+  function clampFontScale(value: number) {
+    if (FONT_SCALE_STEPS.includes(value)) return value;
+    return DEFAULT_SETTINGS.fontScale;
+  }
+
+  function applyFontScale() {
+    const value = clampFontScale(settings.fontScale);
+    settings.fontScale = value;
+    document.documentElement.style.setProperty("--font-scale", `${value}%`);
+    document.documentElement.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
+    body.style.setProperty("--font-scale-custom", `${value}%`);
+    body.classList.toggle("large-text", value > DEFAULT_SETTINGS.fontScale);
+    savePreference("dose-font-scale", value);
+
+    if (fontSizeStatus) {
+      fontSizeStatus.value = `${value}%`;
+      fontSizeStatus.textContent = `${value}%`;
+    }
+
+    if (increaseFontButton) {
+      increaseFontButton.disabled = value === FONT_SCALE_STEPS[FONT_SCALE_STEPS.length - 1];
+    }
+
+    if (decreaseFontButton) {
+      decreaseFontButton.disabled = value === FONT_SCALE_STEPS[0];
+    }
+  }
+
+  function getSettingState(settingName: string) {
+    switch (settingName) {
+      case "high-contrast":
+        return settings.highContrast;
+      case "reduce-motion":
+        return settings.reducedMotion;
+      case "simple-mode":
+        return settings.simpleMode;
+      default:
+        return false;
+    }
+  }
+
+  function setSettingState(settingName: string, next: boolean) {
+    switch (settingName) {
+      case "high-contrast":
+        settings.highContrast = next;
+        break;
+      case "reduce-motion":
+        settings.reducedMotion = next;
+        break;
+      case "simple-mode":
+        settings.simpleMode = next;
+        break;
+      default:
+        break;
+    }
+  }
+
+  function getToggleLabel(settingName: string, isActive: boolean) {
+    const meta = (SETTINGS_META as any)[settingName];
+    return isActive ? meta.onLabel : meta.offLabel;
+  }
+
+  function applyToggle(settingName: string, shouldAnnounce = false) {
+    const meta = (SETTINGS_META as any)[settingName];
+    const isActive = getSettingState(settingName);
+
+    body.classList.toggle(meta.className, isActive);
+    savePreference(meta.storageKey, isActive);
+
+    panelToggles.forEach((button) => {
+      if (button.dataset.settingToggle !== settingName) return;
+      button.setAttribute("aria-pressed", String(isActive));
+
+      if (button.classList.contains("btn")) {
+        button.textContent = getToggleLabel(settingName, isActive);
+      }
+    });
+
+    if (shouldAnnounce) {
+      announce(isActive ? meta.onMessage : meta.offMessage);
+    }
+  }
+
+  function toggleSetting(settingName: string) {
+    setSettingState(settingName, !getSettingState(settingName));
+    applyToggle(settingName, true);
+  }
+
+  function applyAllSettings() {
+    applyFontScale();
+    Object.keys(SETTINGS_META).forEach((settingName) => applyToggle(settingName, false));
+  }
+
+  function updateShortcutHints() {
+    const isMac =
+      typeof navigator !== "undefined" &&
+      /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+
+    if (shortcutHint) {
+      shortcutHint.innerHTML = isMac
+        ? "<kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>1</kbd> về đầu trang, <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> tới nội dung chính."
+        : "<kbd>Alt</kbd> + <kbd>1</kbd> về đầu trang, <kbd>Alt</kbd> + <kbd>M</kbd> tới nội dung chính.";
+    }
+
+    if (keyboardHelperHint) {
+      keyboardHelperHint.innerHTML = isMac
+        ? "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> để tới nội dung chính."
+        : "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>Alt</kbd> + <kbd>M</kbd> để tới nội dung chính.";
+    }
+
+    if (keytipHint) {
+      keytipHint.innerHTML = isMac
+        ? "Nhấn <kbd>⌥ Option</kbd> để hiện phím truy cập trên thanh điều hướng, rồi bấm chữ tương ứng."
+        : "Nhấn <kbd>Alt</kbd> để hiện phím truy cập trên thanh điều hướng, rồi bấm chữ tương ứng.";
+    }
+  }
+
+  function getKeytipTargets() {
+    return Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
+  }
+
+  function hideKeytips() {
+    getKeytipTargets().forEach((element) => {
+      const badge = element.querySelector(".keytip-badge");
+      if (badge) badge.remove();
+    });
+    keytipModeActive = false;
+  }
+
+  function showKeytips() {
+    getKeytipTargets().forEach((element) => {
+      if (element.querySelector(".keytip-badge")) return;
+      const keytip = element.dataset.keytip;
+      if (!keytip) return;
+
+      const badge = document.createElement("span");
+      badge.className = "keytip-badge";
+      badge.setAttribute("aria-hidden", "true");
+      badge.textContent = keytip;
+      element.appendChild(badge);
+    });
+    keytipModeActive = true;
+    announce("Đã hiện phím truy cập nhanh trên thanh điều hướng.");
+  }
+
+  function toggleKeytips() {
+    if (keytipModeActive) {
+      hideKeytips();
+    } else {
+      showKeytips();
+    }
+  }
+
+  function activateKeytip(key: string) {
+    const matchedTarget = getKeytipTargets().find(
+      (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
+    );
+
+    if (!matchedTarget) return false;
+
+    hideKeytips();
+    matchedTarget.focus();
+
+    const settingName = matchedTarget.dataset.settingToggle;
+    if (settingName) {
+      toggleSetting(settingName);
+      return true;
+    }
+
+    if (matchedTarget.hasAttribute("data-panel-open")) {
+      togglePanel(matchedTarget);
+      return true;
+    }
+
+    matchedTarget.click();
+    announce(`Đã mở mục ${(matchedTarget.textContent || "").trim()}.`);
+    return true;
+  }
+
+  function getKeytipValue(event: KeyboardEvent) {
+    if (event.code && /^Key[A-Z]$/.test(event.code)) {
+      return event.code.slice(3).toLowerCase();
+    }
+
+    if (event.code && /^Digit[0-9]$/.test(event.code)) {
+      return event.code.slice(5);
+    }
+
+    return event.key.toLowerCase();
+  }
+
+  function setHighContrastMode(isEnabled: boolean, shouldAnnounce = false) {
+    setSettingState("high-contrast", isEnabled);
+    applyToggle("high-contrast", shouldAnnounce);
+  }
+
+  function saveAccessProfile(profile: string) {
+    savePreference(ACCESS_PROFILE_STORAGE_KEY, profile);
+  }
+
+  function loadAccessProfile() {
+    return loadPreference(ACCESS_PROFILE_STORAGE_KEY, "");
+  }
+
+  function saveAccessOnboardingSeen(value: boolean) {
+    try {
+      sessionStorage.setItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY, JSON.stringify(value));
+    } catch (_error) {
+      // Ignore storage failures so the UI still works.
+    }
+  }
+
+  function loadAccessOnboardingSeen() {
+    try {
+      const value = sessionStorage.getItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY);
+      return value === null ? false : JSON.parse(value);
+    } catch (_error) {
       return false;
+    }
   }
-}
 
-function setSettingState(settingName, next) {
-  switch (settingName) {
-    case "high-contrast":
-      settings.highContrast = next;
-      break;
-    case "reduce-motion":
-      settings.reducedMotion = next;
-      break;
-    case "simple-mode":
-      settings.simpleMode = next;
-      break;
-    default:
-      break;
+  function setFontScalePreference(value: number) {
+    settings.fontScale = clampFontScale(value);
+    applyFontScale();
   }
-}
 
-function getToggleLabel(settingName, isActive) {
-  const meta = SETTINGS_META[settingName];
-  return isActive ? meta.onLabel : meta.offLabel;
-}
+  function resetAccessProfileSettings() {
+    setFontScalePreference(DEFAULT_SETTINGS.fontScale);
+    setSettingState("high-contrast", false);
+    applyToggle("high-contrast", false);
+    setSettingState("reduce-motion", false);
+    applyToggle("reduce-motion", false);
+    setSettingState("simple-mode", false);
+    applyToggle("simple-mode", false);
+  }
 
-function applyToggle(settingName, shouldAnnounce = false) {
-  const meta = SETTINGS_META[settingName];
-  const isActive = getSettingState(settingName);
+  function previewAccessProfile(profile: string, shouldAnnounce = false) {
+    resetAccessProfileSettings();
 
-  body.classList.toggle(meta.className, isActive);
-  savePreference(meta.storageKey, isActive);
+    if (profile === "vision") {
+      setHighContrastMode(true, shouldAnnounce);
+      setFontScalePreference(150);
+      return;
+    }
 
-  panelToggles.forEach((button) => {
-    if (button.dataset.settingToggle !== settingName) return;
-    button.setAttribute("aria-pressed", String(isActive));
+    if (profile === "motor") {
+      setSettingState("reduce-motion", true);
+      applyToggle("reduce-motion", shouldAnnounce);
+      return;
+    }
 
-    if (button.classList.contains("btn")) {
-      button.textContent = getToggleLabel(settingName, isActive);
+    if (profile === "cognitive") {
+      setSettingState("simple-mode", true);
+      applyToggle("simple-mode", shouldAnnounce);
+      setFontScalePreference(112.5);
+      return;
+    }
+
+    if (profile === "mental") {
+      setSettingState("reduce-motion", true);
+      applyToggle("reduce-motion", false);
+      setSettingState("simple-mode", true);
+      applyToggle("simple-mode", shouldAnnounce);
+      return;
+    }
+
+    if (profile === "hearing") {
+      return;
+    }
+
+    if (profile === "default") return;
+  }
+
+  function applyAccessProfile(profile: string, shouldAnnounce = false) {
+    previewAccessProfile(profile, shouldAnnounce);
+    saveAccessProfile(profile);
+  }
+
+  function setSelectedAccessProfile(profile: string) {
+    selectedAccessProfile = profile;
+
+    accessOnboardingOptions.forEach((option) => {
+      const isSelected = option.dataset.accessProfile === profile;
+      option.setAttribute("aria-pressed", String(isSelected));
+    });
+
+    if (confirmOnboardingButton) {
+      confirmOnboardingButton.disabled = !profile;
+    }
+  }
+
+  function closeAccessOnboarding() {
+    if (!accessOnboarding) return;
+    accessOnboarding.hidden = true;
+    body.classList.remove("has-modal-open");
+
+    if (lastOnboardingTrigger && typeof lastOnboardingTrigger.focus === "function") {
+      lastOnboardingTrigger.focus();
+    }
+  }
+
+  function openAccessOnboarding() {
+    if (!accessOnboarding) return;
+
+    lastOnboardingTrigger = document.activeElement as HTMLElement | null;
+    accessOnboarding.hidden = false;
+    body.classList.add("has-modal-open");
+
+    const savedProfile = loadAccessProfile();
+    setSelectedAccessProfile(savedProfile || "");
+
+    const selectedOption = accessOnboardingOptions.find(
+      (option) => option.dataset.accessProfile === selectedAccessProfile
+    );
+    const firstTarget = selectedOption || accessOnboardingOptions[0] || confirmOnboardingButton;
+
+    if (firstTarget) {
+      window.setTimeout(() => firstTarget.focus(), 30);
+    }
+  }
+
+  function completeAccessOnboarding(profile: string, shouldAnnounce = true) {
+    if (profile) {
+      applyAccessProfile(profile, false);
+      saveAccessProfile(profile);
+    } else {
+      saveAccessProfile("default");
+    }
+
+    saveAccessOnboardingSeen(true);
+    closeAccessOnboarding();
+
+    if (shouldAnnounce) {
+      announce("Đã lưu lựa chọn hỗ trợ truy cập ban đầu. Bạn có thể đổi lại bất cứ lúc nào.");
+    }
+  }
+
+  function initializeAccessOnboarding() {
+    if (!accessOnboarding) return;
+
+    accessOnboardingOptions.forEach((option) => {
+      option.addEventListener("click", () => {
+        const profile = option.dataset.accessProfile || "";
+        setSelectedAccessProfile(profile);
+        if (profile) {
+          applyAccessProfile(profile, true);
+        }
+      });
+    });
+
+    if (confirmOnboardingButton) {
+      confirmOnboardingButton.addEventListener("click", () => {
+        if (!selectedAccessProfile) return;
+        completeAccessOnboarding(selectedAccessProfile);
+      });
+    }
+
+    if (skipOnboardingButton) {
+      skipOnboardingButton.addEventListener("click", () => {
+        completeAccessOnboarding("default");
+      });
+    }
+
+    accessOnboarding.querySelectorAll<HTMLElement>("[data-onboarding-close]").forEach((element) => {
+      element.addEventListener("click", () => {
+        completeAccessOnboarding("default", false);
+      });
+    });
+
+    if (!loadAccessOnboardingSeen()) {
+      openAccessOnboarding();
+    }
+  }
+
+  function getFocusableElements(container: HTMLElement | null): HTMLElement[] {
+    if (!container) return [];
+    return Array.from(
+      container.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    );
+  }
+
+  function openPanel(trigger?: HTMLElement | null) {
+    if (!panel) return;
+    lastPanelTrigger = trigger || (document.activeElement as HTMLElement | null);
+    panel.classList.add("is-open");
+    panel.setAttribute("aria-hidden", "false");
+    panelOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+    const focusables = getFocusableElements(panel);
+    if (focusables[0]) focusables[0].focus();
+    announce("Đã mở bảng điều khiển trợ năng.");
+  }
+
+  function closePanel() {
+    if (!panel) return;
+    panel.classList.remove("is-open");
+    panel.setAttribute("aria-hidden", "true");
+    panelOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+    if (lastPanelTrigger && typeof lastPanelTrigger.focus === "function") {
+      lastPanelTrigger.focus();
+    }
+    announce("Đã đóng bảng điều khiển trợ năng.");
+  }
+
+  function togglePanel(trigger?: HTMLElement | null) {
+    if (!panel) return;
+    const isOpen = panel.classList.contains("is-open");
+    if (isOpen) {
+      closePanel();
+    } else {
+      openPanel(trigger);
+    }
+  }
+
+  function openMobileNav(trigger?: HTMLElement | null) {
+    if (!sideNav || !menuToggle || window.innerWidth > 992) return;
+    lastMenuTrigger = trigger || (document.activeElement as HTMLElement | null);
+    sideNav.classList.add("is-open");
+    menuToggle.setAttribute("aria-expanded", "true");
+    if (mobileNavBackdrop) mobileNavBackdrop.hidden = false;
+    const focusables = getFocusableElements(sideNav);
+    if (focusables[0]) focusables[0].focus();
+    announce("Đã mở sidebar điều hướng.");
+  }
+
+  function closeMobileNav() {
+    if (!sideNav || !menuToggle) return;
+    sideNav.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    if (mobileNavBackdrop) mobileNavBackdrop.hidden = true;
+    if (lastMenuTrigger && typeof lastMenuTrigger.focus === "function") {
+      lastMenuTrigger.focus();
+    }
+    announce("Đã đóng sidebar điều hướng.");
+  }
+
+  function toggleMobileNav(trigger?: HTMLElement | null) {
+    if (!sideNav || !menuToggle || window.innerWidth > 992) return;
+    if (sideNav.classList.contains("is-open")) {
+      closeMobileNav();
+    } else {
+      openMobileNav(trigger);
+    }
+  }
+
+  panelOpenButtons.forEach((button) => {
+    button.addEventListener("click", () => togglePanel(button));
+  });
+
+  if (panelCloseButton) {
+    panelCloseButton.addEventListener("click", closePanel);
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!panel || !panel.classList.contains("is-open")) return;
+    const target = event.target as Node | null;
+    if (!target) return;
+    const clickedInsidePanel = panel.contains(target);
+    const clickedOpenTrigger = Array.from(panelOpenButtons).some((button) => button.contains(target));
+    if (!clickedInsidePanel && !clickedOpenTrigger) {
+      closePanel();
     }
   });
 
-  if (shouldAnnounce) {
-    announce(isActive ? meta.onMessage : meta.offMessage);
-  }
-}
+  if (panel) {
+    panel.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closePanel();
+        return;
+      }
 
-function toggleSetting(settingName) {
-  setSettingState(settingName, !getSettingState(settingName));
-  applyToggle(settingName, true);
-}
+      if (event.key !== "Tab") return;
 
-function applyAllSettings() {
-  applyFontScale();
-  Object.keys(SETTINGS_META).forEach((settingName) => applyToggle(settingName, false));
-}
+      const focusables = getFocusableElements(panel);
+      if (focusables.length === 0) return;
 
-function updateShortcutHints() {
-  const isMac =
-    typeof navigator !== "undefined" &&
-    /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent);
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
 
-  if (shortcutHint) {
-    shortcutHint.innerHTML = isMac
-      ? "<kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>1</kbd> về đầu trang, <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> tới nội dung chính."
-      : "<kbd>Alt</kbd> + <kbd>1</kbd> về đầu trang, <kbd>Alt</kbd> + <kbd>M</kbd> tới nội dung chính.";
-  }
-
-  if (keyboardHelperHint) {
-    keyboardHelperHint.innerHTML = isMac
-      ? "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> để tới nội dung chính."
-      : "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>Alt</kbd> + <kbd>M</kbd> để tới nội dung chính.";
-  }
-
-  if (keytipHint) {
-    keytipHint.innerHTML = isMac
-      ? "Nhấn <kbd>⌥ Option</kbd> để hiện phím truy cập trên thanh điều hướng, rồi bấm chữ tương ứng."
-      : "Nhấn <kbd>Alt</kbd> để hiện phím truy cập trên thanh điều hướng, rồi bấm chữ tương ứng.";
-  }
-}
-
-function getKeytipTargets() {
-  return Array.from(document.querySelectorAll<HTMLElement>("[data-keytip]"));
-}
-
-function hideKeytips() {
-  getKeytipTargets().forEach((element) => {
-    const badge = element.querySelector(".keytip-badge");
-    if (badge) badge.remove();
-  });
-  keytipModeActive = false;
-}
-
-function showKeytips() {
-  getKeytipTargets().forEach((element) => {
-    if (element.querySelector(".keytip-badge")) return;
-    const keytip = element.dataset.keytip;
-    if (!keytip) return;
-
-    const badge = document.createElement("span");
-    badge.className = "keytip-badge";
-    badge.setAttribute("aria-hidden", "true");
-    badge.textContent = keytip;
-    element.appendChild(badge);
-  });
-  keytipModeActive = true;
-  announce("Đã hiện phím truy cập nhanh trên thanh điều hướng.");
-}
-
-function toggleKeytips() {
-  if (keytipModeActive) {
-    hideKeytips();
-  } else {
-    showKeytips();
-  }
-}
-
-function activateKeytip(key) {
-  const matchedTarget = getKeytipTargets().find(
-    (element) => element.dataset.keytip?.toLowerCase() === key.toLowerCase()
-  );
-
-  if (!matchedTarget) return false;
-
-  hideKeytips();
-  matchedTarget.focus();
-
-  const settingName = matchedTarget.dataset.settingToggle;
-  if (settingName) {
-    toggleSetting(settingName);
-    return true;
-  }
-
-  if (matchedTarget.hasAttribute("data-panel-open")) {
-    togglePanel(matchedTarget);
-    return true;
-  }
-
-  matchedTarget.click();
-  announce(`Đã mở mục ${matchedTarget.textContent.trim()}.`);
-  return true;
-}
-
-function getKeytipValue(event) {
-  if (event.code && /^Key[A-Z]$/.test(event.code)) {
-    return event.code.slice(3).toLowerCase();
-  }
-
-  if (event.code && /^Digit[0-9]$/.test(event.code)) {
-    return event.code.slice(5);
-  }
-
-  return event.key.toLowerCase();
-}
-
-function setHighContrastMode(isEnabled, shouldAnnounce = false) {
-  setSettingState("high-contrast", isEnabled);
-  applyToggle("high-contrast", shouldAnnounce);
-}
-
-function saveAccessProfile(profile) {
-  savePreference(ACCESS_PROFILE_STORAGE_KEY, profile);
-}
-
-function loadAccessProfile() {
-  return loadPreference(ACCESS_PROFILE_STORAGE_KEY, "");
-}
-
-function saveAccessOnboardingSeen(value) {
-  try {
-    sessionStorage.setItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY, JSON.stringify(value));
-  } catch (_error) {
-    // Ignore storage failures so the UI still works.
-  }
-}
-
-function loadAccessOnboardingSeen() {
-  try {
-    const value = sessionStorage.getItem(ACCESS_ONBOARDING_SEEN_STORAGE_KEY);
-    return value === null ? false : JSON.parse(value);
-  } catch (_error) {
-    return false;
-  }
-}
-
-function setFontScalePreference(value) {
-  settings.fontScale = clampFontScale(value);
-  applyFontScale();
-}
-
-function resetAccessProfileSettings() {
-  setFontScalePreference(DEFAULT_SETTINGS.fontScale);
-  setSettingState("high-contrast", false);
-  applyToggle("high-contrast", false);
-  setSettingState("reduce-motion", false);
-  applyToggle("reduce-motion", false);
-  setSettingState("simple-mode", false);
-  applyToggle("simple-mode", false);
-}
-
-function previewAccessProfile(profile, shouldAnnounce = false) {
-  resetAccessProfileSettings();
-
-  if (profile === "vision") {
-    setHighContrastMode(true, shouldAnnounce);
-    setFontScalePreference(150);
-    return;
-  }
-
-  if (profile === "motor") {
-    setSettingState("reduce-motion", true);
-    applyToggle("reduce-motion", shouldAnnounce);
-    return;
-  }
-
-  if (profile === "cognitive") {
-    setSettingState("simple-mode", true);
-    applyToggle("simple-mode", shouldAnnounce);
-    setFontScalePreference(112.5);
-    return;
-  }
-
-  if (profile === "mental") {
-    setSettingState("reduce-motion", true);
-    applyToggle("reduce-motion", false);
-    setSettingState("simple-mode", true);
-    applyToggle("simple-mode", shouldAnnounce);
-    return;
-  }
-
-  if (profile === "hearing") {
-    return;
-  }
-
-  if (profile === "default") return;
-}
-
-function applyAccessProfile(profile, shouldAnnounce = false) {
-  previewAccessProfile(profile, shouldAnnounce);
-  saveAccessProfile(profile);
-}
-
-function setSelectedAccessProfile(profile) {
-  selectedAccessProfile = profile;
-
-  accessOnboardingOptions.forEach((option) => {
-    const isSelected = option.dataset.accessProfile === profile;
-    option.setAttribute("aria-pressed", String(isSelected));
-  });
-
-  if (confirmOnboardingButton) {
-    confirmOnboardingButton.disabled = !profile;
-  }
-}
-
-function closeAccessOnboarding() {
-  if (!accessOnboarding) return;
-  accessOnboarding.hidden = true;
-  body.classList.remove("has-modal-open");
-
-  if (lastOnboardingTrigger && typeof lastOnboardingTrigger.focus === "function") {
-    lastOnboardingTrigger.focus();
-  }
-}
-
-function openAccessOnboarding() {
-  if (!accessOnboarding) return;
-
-  lastOnboardingTrigger = document.activeElement as HTMLElement | null;
-  accessOnboarding.hidden = false;
-  body.classList.add("has-modal-open");
-
-  const savedProfile = loadAccessProfile();
-  setSelectedAccessProfile(savedProfile || "");
-
-  const selectedOption = accessOnboardingOptions.find(
-    (option) => option.dataset.accessProfile === selectedAccessProfile
-  );
-  const firstTarget = selectedOption || accessOnboardingOptions[0] || confirmOnboardingButton;
-
-  if (firstTarget) {
-    window.setTimeout(() => firstTarget.focus(), 30);
-  }
-}
-
-function completeAccessOnboarding(profile, shouldAnnounce = true) {
-  if (profile) {
-    applyAccessProfile(profile, false);
-    saveAccessProfile(profile);
-  } else {
-    saveAccessProfile("default");
-  }
-
-  saveAccessOnboardingSeen(true);
-  closeAccessOnboarding();
-
-  if (shouldAnnounce) {
-    announce("Đã lưu lựa chọn hỗ trợ truy cập ban đầu. Bạn có thể đổi lại bất cứ lúc nào.");
-  }
-}
-
-function initializeAccessOnboarding() {
-  if (!accessOnboarding) return;
-
-  accessOnboardingOptions.forEach((option) => {
-    option.addEventListener("click", () => {
-      const profile = option.dataset.accessProfile || "";
-      setSelectedAccessProfile(profile);
-      if (profile) {
-        applyAccessProfile(profile, true);
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     });
-  });
-
-  if (confirmOnboardingButton) {
-    confirmOnboardingButton.addEventListener("click", () => {
-      if (!selectedAccessProfile) return;
-      completeAccessOnboarding(selectedAccessProfile);
-    });
   }
 
-  if (skipOnboardingButton) {
-    skipOnboardingButton.addEventListener("click", () => {
-      completeAccessOnboarding("default");
-    });
-  }
-
-  accessOnboarding.querySelectorAll<HTMLElement>("[data-onboarding-close]").forEach((element) => {
-    element.addEventListener("click", () => {
-      completeAccessOnboarding("default", false);
+  panelToggles.forEach((button) => {
+    button.addEventListener("click", () => {
+      const settingName = button.dataset.settingToggle;
+      if (!settingName) return;
+      toggleSetting(settingName);
     });
   });
 
-  if (!loadAccessOnboardingSeen()) {
-    openAccessOnboarding();
+  if (increaseFontButton) {
+    increaseFontButton.addEventListener("click", () => {
+      const currentIndex = FONT_SCALE_STEPS.indexOf(settings.fontScale);
+      if (currentIndex < FONT_SCALE_STEPS.length - 1) {
+        settings.fontScale = FONT_SCALE_STEPS[currentIndex + 1];
+        applyFontScale();
+        announce(`Cỡ chữ đã tăng lên ${settings.fontScale} phần trăm.`);
+      }
+    });
   }
-}
 
-function getFocusableElements(container: HTMLElement | null): HTMLElement[] {
-  if (!container) return [];
-  return Array.from(
-    container.querySelectorAll<HTMLElement>(
-      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    )
-  );
-}
-
-function openPanel(trigger?: HTMLElement | null) {
-  if (!panel) return;
-  lastPanelTrigger = trigger || (document.activeElement as HTMLElement | null);
-  panel.classList.add("is-open");
-  panel.setAttribute("aria-hidden", "false");
-  panelOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
-  const focusables = getFocusableElements(panel);
-  if (focusables[0]) focusables[0].focus();
-  announce("Đã mở bảng điều khiển trợ năng.");
-}
-
-function closePanel() {
-  if (!panel) return;
-  panel.classList.remove("is-open");
-  panel.setAttribute("aria-hidden", "true");
-  panelOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
-  if (lastPanelTrigger && typeof lastPanelTrigger.focus === "function") {
-    lastPanelTrigger.focus();
+  if (decreaseFontButton) {
+    decreaseFontButton.addEventListener("click", () => {
+      const currentIndex = FONT_SCALE_STEPS.indexOf(settings.fontScale);
+      if (currentIndex > 0) {
+        settings.fontScale = FONT_SCALE_STEPS[currentIndex - 1];
+        applyFontScale();
+        announce(`Cỡ chữ đã giảm còn ${settings.fontScale} phần trăm.`);
+      }
+    });
   }
-  announce("Đã đóng bảng điều khiển trợ năng.");
-}
 
-function togglePanel(trigger?: HTMLElement | null) {
-  if (!panel) return;
-  const isOpen = panel.classList.contains("is-open");
-  if (isOpen) {
-    closePanel();
+  applyAllSettings();
+  updateShortcutHints();
+
+  const savedAccessProfile = loadAccessProfile();
+  if (
+    savedAccessProfile === "vision" ||
+    savedAccessProfile === "hearing" ||
+    savedAccessProfile === "motor" ||
+    savedAccessProfile === "cognitive" ||
+    savedAccessProfile === "mental" ||
+    savedAccessProfile === "default"
+  ) {
+    applyAccessProfile(savedAccessProfile, false);
+  }
+
+  initializeAccessOnboarding();
+
+  if (menuToggle && sideNav) {
+    menuToggle.addEventListener("click", () => toggleMobileNav(menuToggle));
+
+    sideNav.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 992) {
+          closeMobileNav();
+        }
+      });
+    });
+  }
+
+  if (mobileNavBackdrop) {
+    mobileNavBackdrop.addEventListener("click", closeMobileNav);
+  }
+
+  if (sideNav) {
+    sideNav.addEventListener("keydown", (event) => {
+      if (!sideNav.classList.contains("is-open") || event.key !== "Tab") return;
+      const focusables = getFocusableElements(sideNav);
+      if (focusables.length === 0) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+
+  const revealItems = document.querySelectorAll<HTMLElement>(".reveal");
+
+  if (!body.classList.contains("reduce-motion") && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18 });
+
+    revealItems.forEach((item) => observer.observe(item));
   } else {
-    openPanel(trigger);
+    revealItems.forEach((item) => item.classList.add("is-visible"));
   }
-}
 
-function openMobileNav(trigger?: HTMLElement | null) {
-  if (!sideNav || !menuToggle || window.innerWidth > 992) return;
-  lastMenuTrigger = trigger || (document.activeElement as HTMLElement | null);
-  sideNav.classList.add("is-open");
-  menuToggle.setAttribute("aria-expanded", "true");
-  if (mobileNavBackdrop) mobileNavBackdrop.hidden = false;
-  const focusables = getFocusableElements(sideNav);
-  if (focusables[0]) focusables[0].focus();
-  announce("Đã mở sidebar điều hướng.");
-}
+  if (ttsDemoButton) {
+    const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
 
-function closeMobileNav() {
-  if (!sideNav || !menuToggle) return;
-  sideNav.classList.remove("is-open");
-  menuToggle.setAttribute("aria-expanded", "false");
-  if (mobileNavBackdrop) mobileNavBackdrop.hidden = true;
-  if (lastMenuTrigger && typeof lastMenuTrigger.focus === "function") {
-    lastMenuTrigger.focus();
+    if (!canSpeak) {
+      ttsDemoButton.disabled = true;
+      ttsDemoButton.setAttribute("aria-disabled", "true");
+      ttsDemoButton.textContent = "Trình duyệt chưa hỗ trợ đọc nội dung";
+    } else {
+      ttsDemoButton.addEventListener("click", () => {
+        const isSpeaking = ttsDemoButton.getAttribute("aria-pressed") === "true";
+
+        if (isSpeaking) {
+          window.speechSynthesis.cancel();
+          ttsDemoButton.setAttribute("aria-pressed", "false");
+          ttsDemoButton.textContent = "Nghe mô tả D.O.S.E";
+          announce("Đã dừng đọc mô tả.");
+          return;
+        }
+
+        currentUtterance = new SpeechSynthesisUtterance(
+          "D.O.S.E là nền tảng social tech accessibility first giúp người dùng học tập, tiếp cận công nghệ và kết nối cộng đồng bằng sự thấu cảm."
+        );
+        currentUtterance.lang = "vi-VN";
+        currentUtterance.rate = 0.95;
+        currentUtterance.pitch = 1;
+
+        currentUtterance.onend = () => {
+          ttsDemoButton.setAttribute("aria-pressed", "false");
+          ttsDemoButton.textContent = "Nghe mô tả D.O.S.E";
+        };
+
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(currentUtterance);
+        ttsDemoButton.setAttribute("aria-pressed", "true");
+        ttsDemoButton.textContent = "Dừng đọc mô tả";
+        announce("Đang đọc mô tả D.O.S.E.");
+      });
+    }
   }
-  announce("Đã đóng sidebar điều hướng.");
-}
 
-function toggleMobileNav(trigger?: HTMLElement | null) {
-  if (!sideNav || !menuToggle || window.innerWidth > 992) return;
-  if (sideNav.classList.contains("is-open")) {
-    closeMobileNav();
-  } else {
-    openMobileNav(trigger);
+  function setError(input: HTMLInputElement, message: string) {
+    const error = document.getElementById(`${input.id}-error`);
+    if (!error) return true;
+
+    if (message) {
+      error.textContent = message;
+      input.setAttribute("aria-invalid", "true");
+      input.setAttribute("aria-describedby", `${input.id}-error`);
+      return false;
+    }
+
+    error.textContent = "";
+    input.removeAttribute("aria-invalid");
+    input.removeAttribute("aria-describedby");
+    return true;
   }
-}
 
-panelOpenButtons.forEach((button) => {
-  button.addEventListener("click", () => togglePanel(button));
-});
+  if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
 
-if (panelCloseButton) {
-  panelCloseButton.addEventListener("click", closePanel);
-}
+      const name = $("name") as HTMLInputElement | null;
+      const email = $("email") as HTMLInputElement | null;
+      const success = $("contactSuccess");
+      if (!name || !email || !success) return;
 
-document.addEventListener("click", (event) => {
-  if (!panel || !panel.classList.contains("is-open")) return;
-  const target = event.target as Node | null;
-  if (!target) return;
-  const clickedInsidePanel = panel.contains(target);
-  const clickedOpenTrigger = Array.from(panelOpenButtons).some((button) => button.contains(target));
-  if (!clickedInsidePanel && !clickedOpenTrigger) {
-    closePanel();
+      const validName = setError(name, name.value.trim() ? "" : "Vui lòng nhập họ và tên.");
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      const validEmail = setError(email, emailValid ? "" : "Vui lòng nhập email hợp lệ.");
+
+      if (!(validName && validEmail)) {
+        success.textContent = "Biểu mẫu chưa gửi được. Vui lòng kiểm tra các trường đã đánh dấu.";
+        const firstInvalid = contactForm.querySelector<HTMLElement>('[aria-invalid="true"]');
+        if (firstInvalid) firstInvalid.focus();
+        announce("Biểu mẫu có lỗi. Vui lòng kiểm tra các trường bắt buộc.");
+        return;
+      }
+
+      success.textContent = "Đăng ký thành công. Cảm ơn bạn đã đồng hành cùng D.O.S.E.";
+      contactForm.reset();
+      announce("Đăng ký thành công.");
+    });
   }
-});
 
-if (panel) {
-  panel.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
+  document.addEventListener("keydown", (event) => {
+    if (accessOnboarding && !accessOnboarding.hidden) {
+      const optionDigit = Number.parseInt(event.key, 10);
+
+      if (!Number.isNaN(optionDigit) && optionDigit >= 1 && optionDigit <= accessOnboardingOptions.length) {
+        event.preventDefault();
+        const option = accessOnboardingOptions[optionDigit - 1];
+        const profile = option?.dataset.accessProfile || "";
+        if (profile) {
+          setSelectedAccessProfile(profile);
+          option.focus();
+          announce(`Đang xem phương án ${optionDigit}. Nhấn Space để xác nhận hoặc Enter để tiếp tục vào trang.`);
+        }
+        return;
+      }
+
+      if (event.key === "0") {
+        event.preventDefault();
+        completeAccessOnboarding("default", false);
+        return;
+      }
+
+      if (event.key === "Enter" && selectedAccessProfile) {
+        const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
+        const isButton = activeTag === "button";
+        if (!isButton || accessOnboardingOptions.includes(document.activeElement as HTMLButtonElement)) {
+          event.preventDefault();
+          completeAccessOnboarding(selectedAccessProfile);
+          return;
+        }
+      }
+
+      if (event.key === " ") {
+        const focused = document.activeElement as HTMLButtonElement | null;
+        if (focused && accessOnboardingOptions.includes(focused)) {
+          event.preventDefault();
+          focused.click();
+          return;
+        }
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        completeAccessOnboarding("default", false);
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const focusables = getFocusableElements(accessOnboarding);
+        if (focusables.length > 0) {
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+            return;
+          }
+
+          if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+            return;
+          }
+        }
+      }
+    }
+
+    if (event.key === "Alt" && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
+      altKeyDown = true;
+      const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
+      const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
+
+      if (!isTypingTarget && !keytipModeActive) {
+        event.preventDefault();
+        showKeytips();
+      }
+      return;
+    }
+
+    if (
+      keytipModeActive &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
+    ) {
+      event.preventDefault();
+      activateKeytip(getKeytipValue(event));
+      return;
+    }
+
+    const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
+    const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
+
+    if (event.key === "Escape" && keytipModeActive) {
+      event.preventDefault();
+      hideKeytips();
+      announce("Đã ẩn phím truy cập nhanh.");
+      return;
+    }
+
+    if (event.key === "Escape" && panel && panel.classList.contains("is-open")) {
       event.preventDefault();
       closePanel();
       return;
     }
 
-    if (event.key !== "Tab") return;
-
-    const focusables = getFocusableElements(panel);
-    if (focusables.length === 0) return;
-
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
+    if (event.key === "Escape" && sideNav && sideNav.classList.contains("is-open")) {
       event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
-}
-
-panelToggles.forEach((button) => {
-  button.addEventListener("click", () => {
-    const settingName = button.dataset.settingToggle;
-    if (!settingName) return;
-    toggleSetting(settingName);
-  });
-});
-
-if (increaseFontButton) {
-  increaseFontButton.addEventListener("click", () => {
-    const currentIndex = FONT_SCALE_STEPS.indexOf(settings.fontScale);
-    if (currentIndex < FONT_SCALE_STEPS.length - 1) {
-      settings.fontScale = FONT_SCALE_STEPS[currentIndex + 1];
-      applyFontScale();
-      announce(`Cỡ chữ đã tăng lên ${settings.fontScale} phần trăm.`);
-    }
-  });
-}
-
-if (decreaseFontButton) {
-  decreaseFontButton.addEventListener("click", () => {
-    const currentIndex = FONT_SCALE_STEPS.indexOf(settings.fontScale);
-    if (currentIndex > 0) {
-      settings.fontScale = FONT_SCALE_STEPS[currentIndex - 1];
-      applyFontScale();
-      announce(`Cỡ chữ đã giảm còn ${settings.fontScale} phần trăm.`);
-    }
-  });
-}
-
-applyAllSettings();
-updateShortcutHints();
-
-const savedAccessProfile = loadAccessProfile();
-if (
-  savedAccessProfile === "vision" ||
-  savedAccessProfile === "hearing" ||
-  savedAccessProfile === "motor" ||
-  savedAccessProfile === "cognitive" ||
-  savedAccessProfile === "mental" ||
-  savedAccessProfile === "default"
-) {
-  applyAccessProfile(savedAccessProfile, false);
-}
-
-initializeAccessOnboarding();
-
-if (menuToggle && sideNav) {
-  menuToggle.addEventListener("click", () => toggleMobileNav(menuToggle));
-
-  sideNav.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      if (window.innerWidth <= 992) {
-        closeMobileNav();
-      }
-    });
-  });
-}
-
-if (mobileNavBackdrop) {
-  mobileNavBackdrop.addEventListener("click", closeMobileNav);
-}
-
-if (sideNav) {
-  sideNav.addEventListener("keydown", (event) => {
-    if (!sideNav.classList.contains("is-open") || event.key !== "Tab") return;
-    const focusables = getFocusableElements(sideNav);
-    if (focusables.length === 0) return;
-
-    const first = focusables[0];
-    const last = focusables[focusables.length - 1];
-
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
-}
-
-const revealItems = document.querySelectorAll<HTMLElement>(".reveal");
-
-if (!body.classList.contains("reduce-motion") && "IntersectionObserver" in window) {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.18 });
-
-  revealItems.forEach((item) => observer.observe(item));
-} else {
-  revealItems.forEach((item) => item.classList.add("is-visible"));
-}
-
-if (ttsDemoButton) {
-  const canSpeak = "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
-
-  if (!canSpeak) {
-    ttsDemoButton.disabled = true;
-    ttsDemoButton.setAttribute("aria-disabled", "true");
-    ttsDemoButton.textContent = "Trình duyệt chưa hỗ trợ đọc nội dung";
-  } else {
-    ttsDemoButton.addEventListener("click", () => {
-      const isSpeaking = ttsDemoButton.getAttribute("aria-pressed") === "true";
-
-      if (isSpeaking) {
-        window.speechSynthesis.cancel();
-        ttsDemoButton.setAttribute("aria-pressed", "false");
-        ttsDemoButton.textContent = "Nghe mô tả D.O.S.E";
-        announce("Đã dừng đọc mô tả.");
-        return;
-      }
-
-      currentUtterance = new SpeechSynthesisUtterance(
-        "D.O.S.E là nền tảng social tech accessibility first giúp người dùng học tập, tiếp cận công nghệ và kết nối cộng đồng bằng sự thấu cảm."
-      );
-      currentUtterance.lang = "vi-VN";
-      currentUtterance.rate = 0.95;
-      currentUtterance.pitch = 1;
-
-      currentUtterance.onend = () => {
-        ttsDemoButton.setAttribute("aria-pressed", "false");
-        ttsDemoButton.textContent = "Nghe mô tả D.O.S.E";
-      };
-
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(currentUtterance);
-      ttsDemoButton.setAttribute("aria-pressed", "true");
-      ttsDemoButton.textContent = "Dừng đọc mô tả";
-      announce("Đang đọc mô tả D.O.S.E.");
-    });
-  }
-}
-
-function setError(input, message) {
-  const error = document.getElementById(`${input.id}-error`);
-  if (!error) return true;
-
-  if (message) {
-    error.textContent = message;
-    input.setAttribute("aria-invalid", "true");
-    input.setAttribute("aria-describedby", `${input.id}-error`);
-    return false;
-  }
-
-  error.textContent = "";
-  input.removeAttribute("aria-invalid");
-  input.removeAttribute("aria-describedby");
-  return true;
-}
-
-if (contactForm) {
-  contactForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const name = $("name") as HTMLInputElement | null;
-    const email = $("email") as HTMLInputElement | null;
-    const success = $("contactSuccess");
-    if (!name || !email || !success) return;
-
-    const validName = setError(name, name.value.trim() ? "" : "Vui lòng nhập họ và tên.");
-    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-    const validEmail = setError(email, emailValid ? "" : "Vui lòng nhập email hợp lệ.");
-
-    if (!(validName && validEmail)) {
-      success.textContent = "Biểu mẫu chưa gửi được. Vui lòng kiểm tra các trường đã đánh dấu.";
-      const firstInvalid = contactForm.querySelector<HTMLElement>('[aria-invalid="true"]');
-      if (firstInvalid) firstInvalid.focus();
-      announce("Biểu mẫu có lỗi. Vui lòng kiểm tra các trường bắt buộc.");
+      closeMobileNav();
       return;
     }
 
-    success.textContent = "Đăng ký thành công. Cảm ơn bạn đã đồng hành cùng D.O.S.E.";
-    contactForm.reset();
-    announce("Đăng ký thành công.");
-  });
-}
+    if (isTypingTarget) return;
 
-document.addEventListener("keydown", (event) => {
-  if (accessOnboarding && !accessOnboarding.hidden) {
-    const optionDigit = Number.parseInt(event.key, 10);
+    const key = event.key.toLowerCase();
+    const usesShortcut = event.altKey || event.metaKey;
 
-    if (!Number.isNaN(optionDigit) && optionDigit >= 1 && optionDigit <= accessOnboardingOptions.length) {
+    if (!usesShortcut) return;
+
+    if (key === "1") {
       event.preventDefault();
-      const option = accessOnboardingOptions[optionDigit - 1];
-      const profile = option?.dataset.accessProfile || "";
-      if (profile) {
-        setSelectedAccessProfile(profile);
-        option.focus();
-        announce(`Đang xem phương án ${optionDigit}. Nhấn Space để xác nhận hoặc Enter để tiếp tục vào trang.`);
-      }
+      window.scrollTo({ top: 0, behavior: body.classList.contains("reduce-motion") ? "auto" : "smooth" });
+      announce("Đã chuyển về đầu trang.");
       return;
     }
 
-    if (event.key === "0") {
+    if (key === "m") {
       event.preventDefault();
-      completeAccessOnboarding("default", false);
-      return;
-    }
-
-    if (event.key === "Enter" && selectedAccessProfile) {
-      const activeTag = document.activeElement?.tagName?.toLowerCase();
-      const isButton = activeTag === "button";
-      if (!isButton || accessOnboardingOptions.includes(document.activeElement as HTMLButtonElement)) {
-        event.preventDefault();
-        completeAccessOnboarding(selectedAccessProfile);
-        return;
-      }
-    }
-
-    if (event.key === " ") {
-      const focused = document.activeElement as HTMLButtonElement | null;
-      if (focused && accessOnboardingOptions.includes(focused)) {
-        event.preventDefault();
-        focused.click();
-        return;
-      }
-    }
-
-    if (event.key === "Escape") {
-      event.preventDefault();
-      completeAccessOnboarding("default", false);
-      return;
-    }
-
-    if (event.key === "Tab") {
-      const focusables = getFocusableElements(accessOnboarding);
-      if (focusables.length > 0) {
-        const first = focusables[0];
-        const last = focusables[focusables.length - 1];
-
-        if (event.shiftKey && document.activeElement === first) {
-          event.preventDefault();
-          last.focus();
-          return;
+        const main = $("main-content") as HTMLElement | null;
+        if (main) {
+          main.focus();
+          announce("Đã chuyển tới vùng nội dung chính.");
         }
-
-        if (!event.shiftKey && document.activeElement === last) {
-          event.preventDefault();
-          first.focus();
-          return;
-        }
-      }
+        return;
     }
-  }
 
-  if (event.key === "Alt" && !event.metaKey && !event.ctrlKey && !event.shiftKey) {
-    altKeyDown = true;
-    const activeTag = document.activeElement?.tagName?.toLowerCase();
-    const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
-
-    if (!isTypingTarget && !keytipModeActive) {
+    if (key === "a") {
       event.preventDefault();
-      showKeytips();
+      togglePanel(document.activeElement as HTMLElement | null);
     }
-    return;
-  }
+  });
 
-  if (
-    keytipModeActive &&
-    !event.metaKey &&
-    !event.ctrlKey &&
-    !event.shiftKey &&
-    (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
-  ) {
-    event.preventDefault();
-    activateKeytip(getKeytipValue(event));
-    return;
-  }
+  document.addEventListener("keyup", (event) => {
+    if (event.key !== "Alt") return;
+    if (!altKeyDown) return;
 
-  const activeTag = document.activeElement?.tagName?.toLowerCase();
-  const isTypingTarget = activeTag === "input" || activeTag === "textarea" || activeTag === "select";
+    altKeyDown = false;
+  });
 
-  if (event.key === "Escape" && keytipModeActive) {
-    event.preventDefault();
+  document.addEventListener("click", () => {
+    if (!keytipModeActive) return;
     hideKeytips();
-    announce("Đã ẩn phím truy cập nhanh.");
-    return;
-  }
+  });
 
-  if (event.key === "Escape" && panel && panel.classList.contains("is-open")) {
-    event.preventDefault();
-    closePanel();
-    return;
-  }
-
-  if (event.key === "Escape" && sideNav && sideNav.classList.contains("is-open")) {
-    event.preventDefault();
-    closeMobileNav();
-    return;
-  }
-
-  if (isTypingTarget) return;
-
-  const key = event.key.toLowerCase();
-  const usesShortcut = event.altKey || event.metaKey;
-
-  if (!usesShortcut) return;
-
-  if (key === "1") {
-    event.preventDefault();
-    window.scrollTo({ top: 0, behavior: body.classList.contains("reduce-motion") ? "auto" : "smooth" });
-    announce("Đã chuyển về đầu trang.");
-    return;
-  }
-
-  if (key === "m") {
-    event.preventDefault();
-      const main = $("main-content") as HTMLElement | null;
-      if (main) {
-        main.focus();
-        announce("Đã chuyển tới vùng nội dung chính.");
-      }
-      return;
-  }
-
-  if (key === "a") {
-    event.preventDefault();
-    togglePanel(document.activeElement as HTMLElement | null);
-  }
-});
-
-document.addEventListener("keyup", (event) => {
-  if (event.key !== "Alt") return;
-  if (!altKeyDown) return;
-
-  altKeyDown = false;
-});
-
-document.addEventListener("click", () => {
-  if (!keytipModeActive) return;
-  hideKeytips();
-});
-
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 992 && sideNav && sideNav.classList.contains("is-open")) {
-    sideNav.classList.remove("is-open");
-    if (mobileNavBackdrop) mobileNavBackdrop.hidden = true;
-    if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
-  }
-});
-
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 992 && sideNav && sideNav.classList.contains("is-open")) {
+      sideNav.classList.remove("is-open");
+      if (mobileNavBackdrop) mobileNavBackdrop.hidden = true;
+      if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+    }
+  });
+}

@@ -48,12 +48,23 @@ function normalizeUrl(route: RouteKey) {
 
 const route = getRouteKey();
 normalizeUrl(route);
-void routeModules[route]();
+
+import("./pages/sidebar");
+
+routeModules[route]().then((module: any) => {
+  if (module && typeof module.mount === "function") {
+    module.mount();
+  }
+});
 
 window.addEventListener("hashchange", () => {
   if (window.location.hash.startsWith("#/")) {
     const nextRoute = getRouteKey();
     normalizeUrl(nextRoute);
-    void routeModules[nextRoute]();
+    routeModules[nextRoute]().then((module: any) => {
+      if (module && typeof module.mount === "function") {
+        module.mount();
+      }
+    });
   }
 });

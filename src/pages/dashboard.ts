@@ -7,8 +7,8 @@ import imgMobility from "../../pages/asset/khokhanvandong.webp";
 import imgCognitive from "../../pages/asset/khokhannhanthuc,hoc tap.webp";
 import imgMental from "../../pages/asset/khokhansuckhoetamthan.webp";
 
-renderPage(dashboardContent);
-void import("./sidebar");
+export function mount() {
+  renderPage(dashboardContent);
 
 const liveRegion = document.getElementById("dashboardLiveRegion");
 const menuToggle = document.getElementById("menuToggle");
@@ -764,5 +764,6 @@ if (mentorSuggestionButton && mentorFeedback) {
     mentorFeedback.textContent = "Gợi ý tiếp theo: Thị lực yếu trong môi trường số, vì bạn đang tiến tốt ở nhóm bài học trợ năng cơ bản.";
     announce("Đã hiển thị gợi ý bài học tiếp theo.");
   });
+}
 }
 
