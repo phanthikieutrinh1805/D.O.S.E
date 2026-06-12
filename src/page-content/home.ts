@@ -1,9 +1,9 @@
 import type { PageContent } from "./render";
-import imgVision from "../../pages/asset/khiemthi.png";
-import imgHearing from "../../pages/asset/khiemthinh.png";
-import imgMobility from "../../pages/asset/khokhanvandong.png";
-import imgCognitive from "../../pages/asset/khokhannhanthuc,hoc tap.png";
-import imgMental from "../../pages/asset/khokhansuckhoetamthan.png";
+import imgVision from "../../pages/asset/khiemthi.webp";
+import imgHearing from "../../pages/asset/khiemthinh.webp";
+import imgMobility from "../../pages/asset/khokhanvandong.webp";
+import imgCognitive from "../../pages/asset/khokhannhanthuc,hoc tap.webp";
+import imgMental from "../../pages/asset/khokhansuckhoetamthan.webp";
 
 
 export const homeContent: PageContent = {
