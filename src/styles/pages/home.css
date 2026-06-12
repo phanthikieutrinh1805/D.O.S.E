@@ -5,15 +5,17 @@
      LANDING HERO
   ------------------------------------------------------- */
   .landing-hero__grid {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     gap: var(--space-8);
+    max-width: 64rem;
+    margin: 0 auto;
   }
 
-  @media (min-width: 1024px) {
-    .landing-hero__grid {
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-    }
+  .landing-hero__actions {
+    justify-content: center;
   }
 
   .landing-hero__actions {
