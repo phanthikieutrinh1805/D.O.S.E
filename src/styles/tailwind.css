@@ -4,6 +4,7 @@
 @import './pages/inner.css';
 @import './pages/auth.css';
 @import './pages/community.css';
+@import './pages/home.css';
 
 @tailwind base;
 @tailwind components;
