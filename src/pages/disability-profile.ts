@@ -5,6 +5,11 @@ import { disabilityMentalContent } from "../page-content/disability-mental";
 import { disabilityMobilityContent } from "../page-content/disability-mobility";
 import { disabilityVisionContent } from "../page-content/disability-vision";
 import { renderPage } from "../page-content/render";
+import imgVision from "../../pages/asset/khiemthi.png";
+import imgHearing from "../../pages/asset/khiemthinh.png";
+import imgMobility from "../../pages/asset/khokhanvandong.png";
+import imgCognitive from "../../pages/asset/khokhannhanthuc,hoc tap.png";
+import imgMental from "../../pages/asset/khokhansuckhoetamthan.png";
 
 const disabilityContentMap = {
   cognitive: disabilityCognitiveContent,
@@ -49,7 +54,7 @@ const data = {
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này tổng hợp kiến thức phổ thông, tình huống thường gặp và các giải pháp thực tế giúp bạn tiếp cận nội dung số rõ ràng hơn khi có nhu cầu hỗ trợ về thị giác.",
-    image: "asset/khiemthi.png",
+    image: imgVision,
     imageAlt: "Ảnh đại diện cho người khiếm thị",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Heading rõ, mô tả ảnh đầy đủ, tương phản đủ mạnh và bố cục đọc tuần tự."],
@@ -94,7 +99,7 @@ const data = {
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này tập trung vào cách tiếp cận thông tin bằng chữ và hình, cùng các giải pháp giúp bạn không bỏ lỡ ý chính trong video, lớp học hay tài liệu số.",
-    image: "asset/khiemthinh.png",
+    image: imgHearing,
     imageAlt: "Ảnh đại diện cho người khiếm thính",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Phụ đề, bản chép lời, sơ đồ trực quan và thông báo bằng chữ."],
@@ -139,7 +144,7 @@ const data = {
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này tổng hợp các giải pháp giúp bạn dùng nội dung số với ít thao tác hơn, ít mệt hơn và ít phụ thuộc hơn vào các cử động chính xác.",
-    image: "asset/khokhanvandong.png",
+    image: imgMobility,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn vận động",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Vùng bấm lớn, điều hướng bàn phím, thao tác ngắn và ít trường nhập."],
@@ -184,7 +189,7 @@ const data = {
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này tập trung vào cách làm nội dung gọn hơn, rõ hơn và dễ theo dõi hơn để giảm cảm giác quá tải khi tiếp cận thông tin số.",
-    image: "asset/khokhannhanthuc,hoc tap.png",
+    image: imgCognitive,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn nhận thức và học tập",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Câu ngắn, danh sách kiểm tra, tóm tắt ý chính và từng bước nhỏ."],
@@ -229,7 +234,7 @@ const data = {
     eyebrow: "Thông tin và giải pháp ưu tiên",
     intro:
       "Trang này ưu tiên cảm giác an toàn, nhịp tiếp cận nhẹ hơn và những điều chỉnh giúp bạn quay lại nội dung số mà không tự tạo thêm áp lực cho mình.",
-    image: "asset/khokhansuckhoetamthan.png",
+    image: imgMental,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn sức khỏe tâm thần",
     highlights: [
       ["Bạn nên ưu tiên gì?", "Nhịp nội dung dịu hơn, ít kích thích, quyền tạm dừng và quay lại dễ dàng."],

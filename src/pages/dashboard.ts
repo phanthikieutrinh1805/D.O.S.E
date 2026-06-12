@@ -1,6 +1,12 @@
 import "../styles/tailwind.css";
 import { dashboardContent } from "../page-content/dashboard";
 import { renderPage } from "../page-content/render";
+import imgVision from "../../pages/asset/khiemthi.png";
+import imgHearing from "../../pages/asset/khiemthinh.png";
+import imgMobility from "../../pages/asset/khokhanvandong.png";
+import imgCognitive from "../../pages/asset/khokhannhanthuc,hoc tap.png";
+import imgMental from "../../pages/asset/khokhansuckhoetamthan.png";
+
 renderPage(dashboardContent);
 void import("./sidebar");
 
@@ -144,7 +150,7 @@ const profileCopyMap = {
       "Bảng điều khiển này ưu tiên trình đọc màn hình, cấu trúc rõ ràng, điều hướng tuần tự và nội dung có mô tả thay thế.",
     glyph: "A",
     artCaption: "Biểu tượng chữ nổi bật đại diện cho không gian ưu tiên đọc, nghe nội dung bằng công cụ hỗ trợ và định hướng rõ ràng.",
-    imageSrc: "asset/khiemthi.png",
+    imageSrc: imgVision,
     imageAlt: "Ảnh đại diện cho người khiếm thị",
     accentSoft: "#d8f5e2",
     accentStrong: "#5f9f7a",
@@ -220,7 +226,7 @@ const profileCopyMap = {
       "Bảng điều khiển này ưu tiên phụ đề, bản chép lời và các tín hiệu hiển thị rõ ràng thay vì phụ thuộc vào âm thanh.",
     glyph: "CC",
     artCaption: "Biểu tượng phụ đề đại diện cho không gian học tập ưu tiên chữ viết, tín hiệu hình ảnh và nội dung dễ quan sát.",
-    imageSrc: "asset/khiemthinh.png",
+    imageSrc: imgHearing,
     imageAlt: "Ảnh đại diện cho người khiếm thính",
     accentSoft: "#e3f4ff",
     accentStrong: "#6ca7d4",
@@ -296,7 +302,7 @@ const profileCopyMap = {
       "Bảng điều khiển này ưu tiên vùng bấm lớn, ít bước thao tác và điều hướng bàn phím rõ ràng.",
     glyph: "+",
     artCaption: "Biểu tượng vùng bấm lớn đại diện cho không gian học tập giảm thao tác lặp và rút ngắn đường đi.",
-    imageSrc: "asset/khokhanvandong.png",
+    imageSrc: imgMobility,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn vận động",
     accentSoft: "#e0f6ef",
     accentStrong: "#78ab9a",
@@ -372,7 +378,7 @@ const profileCopyMap = {
       "Bảng điều khiển này ưu tiên câu ngắn, từng bước nhỏ, nhịp tiếp nhận nhẹ hơn và ít nhiễu thị giác.",
     glyph: "IQ",
     artCaption: "Biểu tượng nhịp học chậm rãi đại diện cho không gian học tập ít nhiễu, hướng dẫn ngắn và từng bước rõ ràng.",
-    imageSrc: "asset/khokhannhanthuc,hoc tap.png",
+    imageSrc: imgCognitive,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn nhận thức và học tập",
     accentSoft: "#f2f3ff",
     accentStrong: "#9aa3dd",
@@ -448,7 +454,7 @@ const profileCopyMap = {
       "Bảng điều khiển này ưu tiên giảm áp lực, giảm nhiễu và giữ nhịp học linh hoạt hơn.",
     glyph: "EQ",
     artCaption: "Biểu tượng cân bằng cảm xúc đại diện cho không gian học tập dịu hơn, ít kích thích và cho phép bạn quay lại theo nhịp riêng.",
-    imageSrc: "asset/khokhansuckhoetamthan.png",
+    imageSrc: imgMental,
     imageAlt: "Ảnh đại diện cho người gặp khó khăn sức khỏe tâm thần",
     accentSoft: "#f8ecd9",
     accentStrong: "#d7a168",
