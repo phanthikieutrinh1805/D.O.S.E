@@ -478,15 +478,21 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
       </div>
     `;
 
-  const appShell = document.querySelector(".app-shell");
-  const existingSideNav = document.getElementById("sideNav");
-  if (existingSideNav) {
-    existingSideNav.replaceWith(sidebar);
-  } else if (appShell) {
-    appShell.prepend(sidebar);
-  } else {
-    body.prepend(sidebar);
+  function mountSidebar() {
+    const appShell = document.querySelector(".app-shell");
+    const existingSideNav = document.getElementById("sideNav");
+    if (existingSideNav) {
+      existingSideNav.replaceWith(sidebar);
+    } else if (appShell) {
+      appShell.prepend(sidebar);
+    } else {
+      body.prepend(sidebar);
+    }
   }
+
+  mountSidebar();
+
+  window.addEventListener("route-changed", mountSidebar);
 
   const sidebarInner = sidebar.querySelector<HTMLElement>(".sidebar-inner");
   restoreSidebarScroll();

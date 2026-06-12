@@ -32,4 +32,6 @@ export function renderPage(content: PageContent): void {
   if (anchor) {
     window.requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView());
   }
+
+  window.dispatchEvent(new Event("route-changed"));
 }
