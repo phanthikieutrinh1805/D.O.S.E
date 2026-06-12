@@ -478,8 +478,10 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
       </div>
     `;
 
+  let appShell = document.querySelector(".app-shell");
+
   function mountSidebar() {
-    const appShell = document.querySelector(".app-shell");
+    appShell = document.querySelector(".app-shell");
     const existingSideNav = document.getElementById("sideNav");
     if (existingSideNav) {
       existingSideNav.replaceWith(sidebar);
