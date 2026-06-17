@@ -653,21 +653,8 @@ export function mount() {
 
   initializeAccessOnboarding();
 
-  if (menuToggle && sideNav) {
-    menuToggle.addEventListener("click", () => toggleMobileNav(menuToggle));
-
-    sideNav.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        if (window.innerWidth <= 992) {
-          closeMobileNav();
-        }
-      });
-    });
-  }
-
-  if (mobileNavBackdrop) {
-    mobileNavBackdrop.addEventListener("click", closeMobileNav);
-  }
+  // Mobile navigation click listeners have been consolidated into sidebar.ts
+  // Focus trapping for sideNav is kept below.
 
   if (sideNav) {
     sideNav.addEventListener("keydown", (event) => {

@@ -513,7 +513,7 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
           <span class="brand-mark" aria-hidden="true">D</span>
           <span class="brand-copy">
             <span class="brand-name">D.O.S.E</span>
-            <span class="brand-tag">Một liều của sự Nhân văn</span>
+            <span class="brand-tag">Một liều thuốc của sự Nhân văn</span>
           </span>
         </a>
         ${groups
@@ -577,7 +577,6 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
 
   bindSidebarScroll();
   restoreSidebarScroll();
-
   let backdrop = document.getElementById("mobileNavBackdrop") as HTMLElement | null;
   if (!backdrop) {
     backdrop = document.createElement("div");
@@ -587,11 +586,11 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     body.prepend(backdrop);
   }
 
-  let toggle = document.getElementById("menuToggle") as HTMLButtonElement | null;
+  let toggle = document.getElementById("globalMenuToggle") as HTMLButtonElement | null;
   if (!toggle && !appShell) {
     toggle = document.createElement("button");
     toggle.type = "button";
-    toggle.id = "menuToggle";
+    toggle.id = "globalMenuToggle";
     toggle.className = "global-sidebar-toggle";
     toggle.setAttribute("aria-expanded", "false");
     toggle.setAttribute("aria-controls", "sideNav");
@@ -600,37 +599,49 @@ const SETTINGS_META: Record<DisplaySetting, SettingMeta> = {
     body.prepend(toggle);
   }
 
-  if (!appShell && toggle) {
-    function openSidebar() {
-      sidebar.classList.add("is-open");
-      toggle.setAttribute("aria-expanded", "true");
-      backdrop.hidden = false;
-    }
+  function openSidebar() {
+    sidebar.classList.add("is-open");
+    document.querySelectorAll("#menuToggle, .menu-toggle, #globalMenuToggle").forEach(t => t.setAttribute("aria-expanded", "true"));
+    if (backdrop) backdrop.hidden = false;
+  }
 
-    function closeSidebar() {
-      sidebar.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-      backdrop.hidden = true;
-    }
+  function closeSidebar() {
+    sidebar.classList.remove("is-open");
+    document.querySelectorAll("#menuToggle, .menu-toggle, #globalMenuToggle").forEach(t => t.setAttribute("aria-expanded", "false"));
+    if (backdrop) backdrop.hidden = true;
+  }
 
-    if (!toggle.dataset.sidebarBound) {
-      toggle.dataset.sidebarBound = "true";
-      toggle.addEventListener("click", () => {
+  // Use event delegation on document for all toggle buttons and backdrop
+  if (!body.dataset.sidebarEventsBound) {
+    body.dataset.sidebarEventsBound = "true";
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      
+      // Handle toggle click
+      const clickedToggle = target.closest("#menuToggle, .menu-toggle, #globalMenuToggle");
+      if (clickedToggle) {
         if (sidebar.classList.contains("is-open")) {
           closeSidebar();
         } else {
           openSidebar();
         }
-      });
-    }
+        return;
+      }
 
-    if (!backdrop.dataset.sidebarBound) {
-      backdrop.dataset.sidebarBound = "true";
-      backdrop.addEventListener("click", closeSidebar);
-    }
+      // Handle backdrop click
+      if (target.closest("#mobileNavBackdrop")) {
+        closeSidebar();
+        return;
+      }
+
+      // Handle sidebar link click on mobile
+      if (window.innerWidth <= 992 && target.closest(".sidebar-link")) {
+        closeSidebar();
+      }
+    });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 992) {
+      if (window.innerWidth > 992 && sidebar.classList.contains("is-open")) {
         closeSidebar();
       }
     });
