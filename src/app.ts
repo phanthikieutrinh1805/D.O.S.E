@@ -215,14 +215,14 @@ export function mount() {
 
     if (shortcutHint) {
       shortcutHint.innerHTML = isMac
-        ? "<kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>1</kbd> về đầu trang, <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> tới nội dung chính."
-        : "<kbd>Alt</kbd> + <kbd>1</kbd> về đầu trang, <kbd>Alt</kbd> + <kbd>M</kbd> tới nội dung chính.";
+        ? "<kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>1</kbd> về đầu trang, phím <kbd>↑</kbd> <kbd>↓</kbd> để cuộn trang."
+        : "<kbd>Alt</kbd> + <kbd>1</kbd> về đầu trang, phím <kbd>↑</kbd> <kbd>↓</kbd> để cuộn trang.";
     }
 
     if (keyboardHelperHint) {
       keyboardHelperHint.innerHTML = isMac
-        ? "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>⌥</kbd>/<kbd>⌘</kbd> + <kbd>M</kbd> để tới nội dung chính."
-        : "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>Alt</kbd> + <kbd>M</kbd> để tới nội dung chính.";
+        ? "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>↑</kbd> <kbd>↓</kbd> để cuộn trang."
+        : "Thử dùng phím <kbd>Tab</kbd> để di chuyển và <kbd>↑</kbd> <kbd>↓</kbd> để cuộn trang.";
     }
 
     if (keytipHint) {
@@ -863,9 +863,11 @@ export function mount() {
       !event.shiftKey &&
       (/^[a-z0-9]$/i.test(event.key) || /^Key[A-Z]$/.test(event.code) || /^Digit[0-9]$/.test(event.code))
     ) {
-      event.preventDefault();
-      activateKeytip(getKeytipValue(event));
-      return;
+      const handled = activateKeytip(getKeytipValue(event));
+      if (handled) {
+        event.preventDefault();
+        return;
+      }
     }
 
     const activeTag = (document.activeElement as HTMLElement)?.tagName?.toLowerCase();
@@ -892,19 +894,18 @@ export function mount() {
 
     if (isTypingTarget) return;
 
-    const key = event.key.toLowerCase();
     const usesShortcut = event.altKey || event.metaKey;
 
     if (!usesShortcut) return;
 
-    if (key === "1") {
+    if (event.code === "Digit1") {
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: body.classList.contains("reduce-motion") ? "auto" : "smooth" });
       announce("Đã chuyển về đầu trang.");
       return;
     }
 
-    if (key === "m") {
+    if (event.code === "KeyM") {
       event.preventDefault();
         const main = $("main-content") as HTMLElement | null;
         if (main) {
@@ -914,7 +915,7 @@ export function mount() {
         return;
     }
 
-    if (key === "a") {
+    if (event.code === "KeyA") {
       event.preventDefault();
       togglePanel(document.activeElement as HTMLElement | null);
     }
